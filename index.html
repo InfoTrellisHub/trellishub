@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trellis | Modern Websites for Small Businesses — Trellishub</title>
+  <meta name="description" content="Trellis builds fast, modern, conversion-focused websites for small businesses, startups, and entrepreneurs. Get a free quote or book a consultation today." />
+  <meta name="theme-color" content="#1B7A4D" />
+
+  <meta property="og:title" content="Trellis — Modern Websites for Small Businesses" />
+  <meta property="og:description" content="Fast, modern, conversion-focused websites for small businesses and startups. Get a free quote today." />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href="/" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/sections.css" />
+  <link rel="stylesheet" href="/assets/css/auth-modal.css" />
+  <link rel="stylesheet" href="/assets/css/chatbot.css" />
+  <link rel="stylesheet" href="/assets/css/animations.css" />
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to main content</a>
+
+  <!-- ===== Nav ===== -->
+  <header class="site-nav">
+    <div class="container">
+      <a href="/" class="nav-logo" aria-label="Trellis home">
+        <svg width="32" height="32" viewBox="0 0 40 40" aria-hidden="true">
+          <rect x="2" y="2" width="36" height="36" rx="10" fill="none" stroke="#1E5BB8" stroke-width="2.5"/>
+          <g stroke="#1B7A4D" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="8" x2="12" y2="32"/>
+            <line x1="20" y1="8" x2="20" y2="32"/>
+            <line x1="28" y1="8" x2="28" y2="32"/>
+            <line x1="8" y1="12" x2="32" y2="12"/>
+            <line x1="8" y1="20" x2="32" y2="20"/>
+            <line x1="8" y1="28" x2="32" y2="28"/>
+          </g>
+          <circle cx="20" cy="20" r="2.5" fill="#1B7A4D"/>
+        </svg>
+        Trellis
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#why-us">Why Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <div id="navAuthSlot">
+          <a href="#" class="btn-ghost" id="navLoginLink">Log In</a>
+        </div>
+        <a href="#booking" class="btn btn-primary btn-sm">Get a Quote</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-copy" data-reveal>
+          <span class="eyebrow">Web Design &amp; Development Studio</span>
+          <h1>Websites that turn visitors into customers</h1>
+          <p>Trellis builds fast, modern websites for small businesses and startups — designed to win trust and bring in leads, not just look good.</p>
+          <div class="hero-cta">
+            <a href="#booking" class="btn btn-primary">Get a Free Quote</a>
+            <a href="#services" class="btn btn-secondary">See Our Services</a>
+          </div>
+          <div class="trust-strip">
+            <span>🇿🇦 South Africa-based</span>
+            <span>Direct access to your developers</span>
+            <span>Fast turnaround</span>
+          </div>
+        </div>
+        <div class="hero-graphic" data-reveal>
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <rect x="10" y="10" width="180" height="180" rx="28" fill="#E3F3EA"/>
+            <g stroke="#1B7A4D" stroke-width="3" stroke-linecap="round">
+              <line x1="55" y1="30" x2="55" y2="170"/>
+              <line x1="100" y1="30" x2="100" y2="170"/>
+              <line x1="145" y1="30" x2="145" y2="170"/>
+              <line x1="30" y1="55" x2="170" y2="55"/>
+              <line x1="30" y1="100" x2="170" y2="100"/>
+              <line x1="30" y1="145" x2="170" y2="145"/>
+            </g>
+            <circle cx="100" cy="100" r="9" fill="#1E5BB8"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Services ===== -->
+    <section id="services">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">What We Do</span>
+          <h2>Everything your business needs to win online</h2>
+          <p>From your first website to ongoing upkeep, we handle the technical side so you can focus on running your business.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card card-hover service-card" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+            <h3>Business Websites</h3>
+            <p>A custom-designed, mobile-friendly website built to represent your brand and turn visitors into enquiries.</p>
+          </div>
+
+          <div class="card card-hover service-card" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.4 12.2a1.8 1.8 0 0 0 1.8 1.5h7.7a1.8 1.8 0 0 0 1.8-1.4L21 8H6"/></svg></div>
+            <h3>E-Commerce Websites</h3>
+            <p>Sell online with a fast, secure store that makes it easy for customers to browse, choose, and buy.</p>
+          </div>
+
+          <div class="card card-hover service-card" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 4v4h-4"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 20v-4h4"/></svg></div>
+            <h3>Website Redesigns</h3>
+            <p>Already have a site? We'll modernize the design, speed, and structure without losing what already works.</p>
+          </div>
+
+          <div class="card card-hover service-card" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.1-3.1a5 5 0 0 1-6.7 6.7l-6.7 6.7a2 2 0 0 1-2.8-2.8l6.7-6.7a5 5 0 0 1 6.7-6.7Z"/></svg></div>
+            <h3>Website Maintenance</h3>
+            <p>Ongoing updates, backups, and technical support so your site stays fast, secure, and online.</p>
+          </div>
+
+          <div class="card card-hover service-card" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="6.5"/><line x1="19" y1="19" x2="14.8" y2="14.8"/></svg></div>
+            <h3>SEO Optimization</h3>
+            <p>Structured, fast-loading pages built to help your business get found on Google by the right customers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Portfolio ===== -->
+    <section id="portfolio" class="section-alt">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Our Work</span>
+          <h2>Founding client projects — coming soon</h2>
+          <p>We're actively building our showcase. Want to see what a Trellis website could look like for your industry? Just ask — we'll walk you through examples on a quick call.</p>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="card portfolio-card" data-reveal>
+            <div class="portfolio-thumb"><span class="portfolio-ribbon">Coming Soon</span></div>
+            <h3>Local Service Business</h3>
+            <p>Booking-focused site for trades &amp; local services.</p>
+          </div>
+          <div class="card portfolio-card" data-reveal>
+            <div class="portfolio-thumb"><span class="portfolio-ribbon">Coming Soon</span></div>
+            <h3>Retail &amp; E-Commerce</h3>
+            <p>Online store built for browsing and fast checkout.</p>
+          </div>
+          <div class="card portfolio-card" data-reveal>
+            <div class="portfolio-thumb"><span class="portfolio-ribbon">Coming Soon</span></div>
+            <h3>Professional Services</h3>
+            <p>Trust-building site for consultants &amp; firms.</p>
+          </div>
+        </div>
+
+        <div class="flex" style="justify-content:center; margin-top: var(--space-5);" data-reveal>
+          <a href="#contact" class="btn btn-secondary">Ask About Examples In Your Industry</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== About ===== -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Who You'll Work With</span>
+          <h2>Meet the two people behind every Trellis website</h2>
+          <p>No account managers, no outsourcing, no call center. You work directly with the developers building your site — from the first conversation to launch day and beyond.</p>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="card about-card" data-reveal>
+            <div class="about-avatar">D1</div>
+            <h3>[Developer Name]</h3>
+            <p class="about-role">Co-Founder &amp; Web Developer</p>
+            <p>Passionate about building websites that are fast, reliable, and genuinely help small businesses grow — with clear communication every step of the way.</p>
+          </div>
+          <div class="card about-card" data-reveal>
+            <div class="about-avatar">D2</div>
+            <h3>[Developer Name]</h3>
+            <p class="about-role">Co-Founder &amp; Web Developer</p>
+            <p>Focused on solving real problems for real businesses, with a sharp eye for detail and a commitment to getting it right the first time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pricing ===== -->
+    <section id="pricing" class="section-alt">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Simple, Transparent Pricing</span>
+          <h2>Two ways to get started</h2>
+          <p>Founding Client Pricing — these introductory rates won't last as our portfolio fills up.</p>
+        </div>
+
+        <div class="currency-switcher" id="currencySwitcher" role="group" aria-label="Choose currency">
+          <button class="currency-pill" data-currency="ZAR">ZAR</button>
+          <button class="currency-pill" data-currency="USD">USD</button>
+          <button class="currency-pill" data-currency="AUD">AUD</button>
+          <button class="currency-pill" data-currency="EUR">EUR</button>
+        </div>
+        <p class="currency-note" id="currencyDetectNote">Detecting your region for local pricing…</p>
+
+        <div class="pricing-grid">
+          <div class="card pricing-card" data-reveal>
+            <div class="pricing-card-head">
+              <h3>Essential Website</h3>
+              <span class="badge badge-founding">Founding Client Pricing</span>
+            </div>
+            <p>A complete, custom-built website ready to represent your business online.</p>
+            <div class="price-row">
+              <span class="price-current" data-price="essential-current">R3,999</span>
+              <span class="price-period">once-off</span>
+            </div>
+            <ul class="feature-list">
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom responsive design</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mobile &amp; tablet optimized</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contact form included</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Launch support</li>
+            </ul>
+            <button class="btn btn-secondary btn-block" data-booking-cta data-booking-type="quote">Get Started</button>
+          </div>
+
+          <div class="card pricing-card is-featured" data-reveal>
+            <div class="pricing-card-head">
+              <h3>Essential Website + Care Plan</h3>
+              <span class="badge badge-founding">Founding Client Pricing</span>
+            </div>
+            <span class="badge badge-promo">Bundle &amp; Save 20%</span>
+            <p style="margin-top: var(--space-2);">Your website, plus ongoing care so it keeps performing long after launch.</p>
+            <div class="price-row">
+              <span class="price-original" data-price="bundled-original">R3,999</span>
+              <span class="price-current" data-price="bundled-current">R3,199</span>
+              <span class="price-period">once-off</span>
+            </div>
+            <p class="price-save" data-price="bundled-save">Save R800 (20%) on your website build</p>
+            <div class="price-row">
+              <span class="price-current" data-price="careplan-current" style="font-size: var(--text-xl);">R399</span>
+              <span class="price-period">/month — Care Plan</span>
+            </div>
+            <ul class="feature-list">
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Essential Website</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly analytics reports</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Hosting included</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Maintenance &amp; upkeep</li>
+              <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Regular updates</li>
+            </ul>
+            <button class="btn btn-primary btn-block" data-booking-cta data-booking-type="care_plan">Get Started</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Booking ===== -->
+    <section id="booking">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Let's Talk About Your Project</span>
+          <h2>Book a free consultation</h2>
+          <p>Tell us what you need — we'll get back to you with next steps. No obligation, just a conversation. Quick 10-second sign-up, then we're set.</p>
+        </div>
+
+        <div class="card booking-card" data-reveal>
+          <div class="booking-toggle" id="bookingToggle">
+            <button type="button" class="is-active" data-booking-type="quote">Request a Quote</button>
+            <button type="button" data-booking-type="care_plan">Care Plan Inquiry</button>
+          </div>
+
+          <form id="bookingForm" novalidate>
+            <input type="text" name="company_website" class="honeypot-field" tabindex="-1" autocomplete="off" />
+            <div class="form-row-2">
+              <div class="field">
+                <label for="bookingName">Name</label>
+                <input type="text" id="bookingName" name="name" required />
+                <p class="field-error">Please enter your name.</p>
+              </div>
+              <div class="field">
+                <label for="bookingEmail">Email</label>
+                <input type="email" id="bookingEmail" name="email" required />
+                <p class="field-error">Please enter a valid email.</p>
+              </div>
+            </div>
+            <div class="form-row-2">
+              <div class="field">
+                <label for="bookingPhone">Phone (optional)</label>
+                <input type="tel" id="bookingPhone" name="phone" />
+              </div>
+              <div class="field">
+                <label for="bookingDate">Preferred date</label>
+                <input type="date" id="bookingDate" name="preferred_date" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="bookingTime">Preferred time</label>
+              <input type="time" id="bookingTime" name="preferred_time" />
+            </div>
+            <div class="field">
+              <label for="bookingNotes">Tell us about your project</label>
+              <textarea id="bookingNotes" name="notes" rows="4"></textarea>
+            </div>
+            <input type="hidden" name="booking_type" id="bookingTypeInput" value="quote" />
+            <button type="submit" class="btn btn-primary btn-block">Book My Consultation</button>
+            <p class="privacy-note" style="margin-top: var(--space-2);">We'll ask you to quickly sign up or log in before this is sent — see our <a href="/privacy-policy">Privacy Policy</a>.</p>
+            <div class="form-status" id="bookingStatus" role="status"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Why Choose Us ===== -->
+    <section id="why-us" class="section-alt">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Why Trellis</span>
+          <h2>Built for small businesses who want it done right</h2>
+        </div>
+
+        <div class="grid grid-4">
+          <div class="why-us-item" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22l-9-9 8.6-8.6a2 2 0 0 1 1.4-.6H20a2 2 0 0 1 2 2v6.6a2 2 0 0 1-.6 1.4Z"/><circle cx="15.5" cy="8.5" r="1.5"/></svg></div>
+            <h3>Transparent, fixed pricing</h3>
+            <p>No hidden fees or surprise invoices — you'll know exactly what you're paying for before we start.</p>
+          </div>
+          <div class="why-us-item" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+            <h3>Direct access to your developers</h3>
+            <p>Speak directly with the people building your site — not a sales rep or a support queue.</p>
+          </div>
+          <div class="why-us-item" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+            <h3>Fast turnaround</h3>
+            <p>We move quickly without cutting corners, so you're not waiting months for a working website.</p>
+          </div>
+          <div class="why-us-item" data-reveal>
+            <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.6-9.5 9-9.5 9Z"/></svg></div>
+            <h3>We don't disappear after launch</h3>
+            <p>Our Care Plan keeps your site updated, monitored, and running smoothly long after launch day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <span class="eyebrow">Get In Touch</span>
+          <h2>Ready to get started?</h2>
+          <p>Send us a message or reach out directly — we typically respond within 24 hours.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="card" data-reveal>
+            <form id="contactForm" novalidate>
+              <input type="text" name="company_website" class="honeypot-field" tabindex="-1" autocomplete="off" />
+              <div class="field">
+                <label for="contactName">Name</label>
+                <input type="text" id="contactName" name="name" required />
+                <p class="field-error">Please enter your name.</p>
+              </div>
+              <div class="field">
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" name="email" required />
+                <p class="field-error">Please enter a valid email.</p>
+              </div>
+              <div class="form-row-2">
+                <div class="field">
+                  <label for="contactPhone">Phone (optional)</label>
+                  <input type="tel" id="contactPhone" name="phone" />
+                </div>
+                <div class="field">
+                  <label for="contactCompany">Company (optional)</label>
+                  <input type="text" id="contactCompany" name="company" />
+                </div>
+              </div>
+              <div class="field">
+                <label for="contactMessage">Message</label>
+                <textarea id="contactMessage" name="message" rows="4" required></textarea>
+                <p class="field-error">Please enter a message.</p>
+              </div>
+              <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+              <div class="form-status" id="contactStatus" role="status"></div>
+            </form>
+          </div>
+
+          <div data-reveal>
+            <div class="contact-info-item">
+              <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg></div>
+              <div><strong>Email</strong><br><a href="mailto:info.trellishub@gmail.com">info.trellishub@gmail.com</a></div>
+            </div>
+            <div class="contact-info-item">
+              <div class="service-icon"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.2-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z"/></svg></div>
+              <div><strong>Phone</strong><br><a href="tel:+27726738838">+27 72 673 8838</a> &middot; <a href="tel:+27636809823">+27 63 680 9823</a></div>
+            </div>
+            <p style="margin-top: var(--space-4);">Prefer to talk it through first? <a href="#booking">Book a free consultation instead</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <svg width="28" height="28" viewBox="0 0 40 40" aria-hidden="true">
+              <rect x="2" y="2" width="36" height="36" rx="10" fill="none" stroke="#1E5BB8" stroke-width="2.5"/>
+              <g stroke="#1B7A4D" stroke-width="2" stroke-linecap="round">
+                <line x1="12" y1="8" x2="12" y2="32"/><line x1="20" y1="8" x2="20" y2="32"/><line x1="28" y1="8" x2="28" y2="32"/>
+                <line x1="8" y1="12" x2="32" y2="12"/><line x1="8" y1="20" x2="32" y2="20"/><line x1="8" y1="28" x2="32" y2="28"/>
+              </g>
+              <circle cx="20" cy="20" r="2.5" fill="#1B7A4D"/>
+            </svg>
+            Trellis
+          </div>
+          <p>Modern, conversion-focused websites for small businesses and startups.</p>
+        </div>
+        <div>
+          <h4 style="color:#fff;">Explore</h4>
+          <ul class="footer-nav">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#booking">Booking</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color:#fff;">Contact</h4>
+          <ul class="footer-nav">
+            <li><a href="mailto:info.trellishub@gmail.com">info.trellishub@gmail.com</a></li>
+            <li><a href="tel:+27726738838">+27 72 673 8838</a></li>
+            <li><a href="tel:+27636809823">+27 63 680 9823</a></li>
+            <li><a href="/privacy-policy">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="footerYear">2026</span> Trellishub. All rights reserved.</span>
+        <span>Built by Trellis.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Auth Modal ===== -->
+  <div class="modal-overlay" id="authModalOverlay">
+    <div class="modal-panel auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+      <button class="modal-close" id="authModalClose" aria-label="Close">&times;</button>
+      <h2 id="authModalTitle">Sign in to continue</h2>
+      <p class="auth-subtext">Quick sign-up so we can keep track of your request and follow up with you directly.</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab is-active" data-auth-tab="login">Log In</button>
+        <button class="auth-tab" data-auth-tab="signup">Sign Up</button>
+      </div>
+
+      <div class="auth-panel is-active" data-auth-panel="login">
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" name="email" required />
+          </div>
+          <div class="field">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="password" required />
+          </div>
+          <p class="auth-forgot"><a href="#" id="forgotPasswordLink">Forgot password?</a></p>
+          <button type="submit" class="btn btn-primary btn-block">Log In</button>
+          <div class="form-status" id="loginStatus" role="status"></div>
+        </form>
+        <div class="auth-divider">or</div>
+        <div class="google-btn-slot" id="googleBtnLogin"></div>
+      </div>
+
+      <div class="auth-panel" data-auth-panel="signup">
+        <form id="signupForm" novalidate>
+          <div class="field">
+            <label for="signupName">Name</label>
+            <input type="text" id="signupName" name="name" required />
+          </div>
+          <div class="field">
+            <label for="signupEmail">Email</label>
+            <input type="email" id="signupEmail" name="email" required />
+          </div>
+          <div class="field">
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" name="password" minlength="8" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+          <div class="form-status" id="signupStatus" role="status"></div>
+        </form>
+        <div class="auth-divider">or</div>
+        <div class="google-btn-slot" id="googleBtnSignup"></div>
+      </div>
+
+      <div class="auth-panel" data-auth-panel="forgot">
+        <p class="auth-subtext">Enter your email and we'll send you a reset link.</p>
+        <form id="forgotForm" novalidate>
+          <div class="field">
+            <label for="forgotEmail">Email</label>
+            <input type="email" id="forgotEmail" name="email" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+          <div class="form-status" id="forgotStatus" role="status"></div>
+        </form>
+      </div>
+
+      <div class="auth-panel" data-auth-panel="reset">
+        <p class="auth-subtext">Choose a new password for your account.</p>
+        <form id="resetForm" novalidate>
+          <div class="field">
+            <label for="resetPassword">New password</label>
+            <input type="password" id="resetPassword" name="password" minlength="8" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Set New Password</button>
+          <div class="form-status" id="resetStatus" role="status"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="/assets/js/utils.js" defer></script>
+  <script src="/assets/js/auth.js" defer></script>
+  <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/pricing.js" defer></script>
+  <script src="/assets/js/forms.js" defer></script>
+  <script src="/assets/js/chatbot/chatbot-data.js" defer></script>
+  <script src="/assets/js/chatbot/chatbot-engine.js" defer></script>
+  <script src="/assets/js/chatbot/chatbot-widget.js" defer></script>
+</body>
+</html>

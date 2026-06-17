@@ -1,0 +1,120 @@
+.admin-login-body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+  margin: 0;
+}
+
+.admin-login-card {
+  width: 100%;
+  max-width: 380px;
+  padding: var(--space-5);
+}
+
+.admin-header {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) 0;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin: var(--space-4) 0;
+  flex-wrap: wrap;
+}
+
+.admin-tab {
+  border: 1px solid var(--color-border);
+  background: var(--color-white);
+  padding: 0.55rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--color-muted);
+}
+
+.admin-tab.is-active {
+  background: var(--color-green-600);
+  color: var(--color-white);
+  border-color: var(--color-green-600);
+}
+
+.admin-panel {
+  display: none;
+}
+
+.admin-panel.is-active {
+  display: block;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-sm);
+}
+
+.admin-table th,
+.admin-table td {
+  text-align: left;
+  padding: 0.65rem 0.85rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.admin-table th {
+  background: var(--color-bg);
+  font-weight: 700;
+}
+
+.admin-table tr.is-escalated {
+  background: #FBEFE0;
+}
+
+.admin-row-action {
+  background: none;
+  border: 1px solid var(--color-blue-600);
+  color: var(--color-blue-600);
+  border-radius: var(--radius-sm);
+  padding: 0.3rem 0.7rem;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.transcript-view {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  margin-top: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.transcript-line {
+  margin-bottom: 0.5rem;
+  font-size: var(--text-sm);
+}
+
+.transcript-line.bot strong { color: var(--color-green-700); }
+.transcript-line.visitor strong { color: var(--color-blue-700); }
+
+.care-plan-edit-row {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.care-plan-edit-row select,
+.care-plan-edit-row input {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+}

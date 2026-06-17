@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Trellis Admin</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body>
+  <header class="admin-header">
+    <div class="container flex-between">
+      <div class="nav-logo">
+        <svg width="28" height="28" viewBox="0 0 40 40" aria-hidden="true">
+          <rect x="2" y="2" width="36" height="36" rx="10" fill="none" stroke="#1E5BB8" stroke-width="2.5"/>
+          <g stroke="#1B7A4D" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="8" x2="12" y2="32"/><line x1="20" y1="8" x2="20" y2="32"/><line x1="28" y1="8" x2="28" y2="32"/>
+            <line x1="8" y1="12" x2="32" y2="12"/><line x1="8" y1="20" x2="32" y2="20"/><line x1="8" y1="28" x2="32" y2="28"/>
+          </g>
+          <circle cx="20" cy="20" r="2.5" fill="#1B7A4D"/>
+        </svg>
+        Trellis Admin
+      </div>
+      <div class="flex gap-3">
+        <span id="adminWelcome" style="font-size: var(--text-sm); color: var(--color-muted);"></span>
+        <button class="btn btn-secondary btn-sm" id="adminLogoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: var(--space-5) 0;">
+    <div class="admin-tabs" id="adminTabs">
+      <button class="admin-tab is-active" data-admin-tab="leads">Leads</button>
+      <button class="admin-tab" data-admin-tab="bookings">Bookings</button>
+      <button class="admin-tab" data-admin-tab="conversations">Chat Conversations</button>
+      <button class="admin-tab" data-admin-tab="customers">Customers</button>
+    </div>
+
+    <section class="admin-panel is-active" data-admin-panel="leads">
+      <h2 style="font-size: var(--text-xl);">Leads</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Company</th><th>Message</th><th>Status</th></tr></thead>
+          <tbody id="leadsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-panel" data-admin-panel="bookings">
+      <h2 style="font-size: var(--text-xl);">Bookings</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>Date Submitted</th><th>Type</th><th>Name</th><th>Email</th><th>Phone</th><th>Preferred</th><th>Notes</th><th>Status</th></tr></thead>
+          <tbody id="bookingsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="admin-panel" data-admin-panel="conversations">
+      <h2 style="font-size: var(--text-xl);">Chat Conversations</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>Started</th><th>Name</th><th>Email</th><th>Phone</th><th>Escalations</th><th>Last Node</th><th></th></tr></thead>
+          <tbody id="conversationsTableBody"></tbody>
+        </table>
+      </div>
+      <div id="transcriptView" class="transcript-view" style="display:none;"></div>
+    </section>
+
+    <section class="admin-panel" data-admin-panel="customers">
+      <h2 style="font-size: var(--text-xl);">Customers</h2>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th>Joined</th><th>Name</th><th>Email</th><th>Care Plan</th><th>Renewal</th><th>Manage</th></tr></thead>
+          <tbody id="customersTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/js/utils.js" defer></script>
+  <script src="/admin/admin-dashboard.js" defer></script>
+</body>
+</html>

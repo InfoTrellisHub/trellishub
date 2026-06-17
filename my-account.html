@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | Trellis</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/layout.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/sections.css" />
+</head>
+<body>
+  <header class="site-nav">
+    <div class="container">
+      <a href="/" class="nav-logo">
+        <svg width="32" height="32" viewBox="0 0 40 40" aria-hidden="true">
+          <rect x="2" y="2" width="36" height="36" rx="10" fill="none" stroke="#1E5BB8" stroke-width="2.5"/>
+          <g stroke="#1B7A4D" stroke-width="2" stroke-linecap="round">
+            <line x1="12" y1="8" x2="12" y2="32"/><line x1="20" y1="8" x2="20" y2="32"/><line x1="28" y1="8" x2="28" y2="32"/>
+            <line x1="8" y1="12" x2="32" y2="12"/><line x1="8" y1="20" x2="32" y2="20"/><line x1="8" y1="28" x2="32" y2="28"/>
+          </g>
+          <circle cx="20" cy="20" r="2.5" fill="#1B7A4D"/>
+        </svg>
+        Trellis
+      </a>
+      <div class="nav-actions">
+        <a href="/" class="btn-ghost">&larr; Back to home</a>
+        <button class="btn btn-secondary btn-sm" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: var(--space-7) 0;">
+    <div id="accountLoading">
+      <p>Loading your account…</p>
+    </div>
+
+    <div id="accountContent" style="display:none;">
+      <div class="section-head" style="text-align:left; margin: 0 0 var(--space-5);">
+        <span class="eyebrow">My Account</span>
+        <h1 style="font-size: var(--text-3xl);">Welcome back, <span id="accountName">there</span></h1>
+        <p id="accountEmail"></p>
+      </div>
+
+      <div class="account-grid">
+        <div class="card" data-reveal>
+          <h3>Care Plan</h3>
+          <p>Status: <span class="care-plan-status" id="carePlanStatus">Inactive</span></p>
+          <p id="carePlanRenewal"></p>
+          <button class="btn btn-secondary btn-block" id="cancelPlanBtn" style="display:none;">Cancel Plan</button>
+          <div class="form-status" id="cancelPlanStatus" role="status"></div>
+          <p style="font-size: var(--text-xs); margin-top: var(--space-3);">Don't have a Care Plan yet? <a href="/#pricing">See pricing</a>.</p>
+        </div>
+
+        <div class="card" data-reveal>
+          <h3>Your Bookings</h3>
+          <div id="bookingsEmpty" style="display:none;">
+            <p>No bookings yet. <a href="/#booking">Book a free consultation</a>.</p>
+          </div>
+          <table class="bookings-table" id="bookingsTable" style="display:none;">
+            <thead>
+              <tr><th>Type</th><th>Date</th><th>Status</th></tr>
+            </thead>
+            <tbody id="bookingsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div id="accountUnauthenticated" style="display:none; text-align:center; padding: var(--space-7) 0;">
+      <h2>Please log in to view your account</h2>
+      <p>You'll be redirected to the home page to sign in.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <span>&copy; 2026 Trellishub. All rights reserved.</span>
+      <a href="/">Home</a>
+    </div>
+  </footer>
+
+  <script src="/assets/js/utils.js" defer></script>
+  <script src="/assets/js/my-account.js" defer></script>
+</body>
+</html>

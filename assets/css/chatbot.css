@@ -1,0 +1,164 @@
+.trellis-chat-launcher {
+  position: fixed;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--color-green-600);
+  border: none;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 90;
+}
+
+.trellis-chat-launcher svg {
+  width: 28px;
+  height: 28px;
+  color: var(--color-white);
+}
+
+.trellis-chat-panel {
+  position: fixed;
+  bottom: calc(var(--space-4) + 72px);
+  right: var(--space-4);
+  width: 380px;
+  max-height: 70vh;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 95;
+  opacity: 0;
+  transform: scale(0.96) translateY(8px);
+  pointer-events: none;
+  transition: opacity var(--transition-base), transform var(--transition-base);
+}
+
+.trellis-chat-panel.is-open {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  pointer-events: auto;
+}
+
+.trellis-chat-header {
+  background: var(--color-green-600);
+  color: var(--color-white);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.trellis-chat-header strong {
+  font-family: var(--font-heading);
+}
+
+.trellis-chat-close {
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: var(--text-xl);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.trellis-chat-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.trellis-chat-msg {
+  max-width: 85%;
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.trellis-chat-msg.bot {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  align-self: flex-start;
+}
+
+.trellis-chat-msg.visitor {
+  background: var(--color-blue-600);
+  color: var(--color-white);
+  align-self: flex-end;
+}
+
+.trellis-chat-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.trellis-chat-option {
+  text-align: left;
+  background: var(--color-white);
+  border: 1px solid var(--color-blue-600);
+  color: var(--color-blue-600);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.trellis-chat-option:hover,
+.trellis-chat-option:disabled {
+  background: var(--color-blue-100);
+}
+
+.trellis-chat-option.is-escalate {
+  border-color: var(--color-border);
+  color: var(--color-muted);
+}
+
+.trellis-chat-capture {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.25rem;
+}
+
+.trellis-chat-capture input {
+  flex: 1;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+
+.trellis-chat-capture button {
+  background: var(--color-green-600);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 0 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .trellis-chat-panel {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    bottom: 0;
+    right: 0;
+    border-radius: 0;
+  }
+}

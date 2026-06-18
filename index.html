@@ -500,19 +500,94 @@
       </div>
       <button id="accountPanelClose" class="account-panel-close" aria-label="Close panel">&times;</button>
     </div>
-    <div class="account-panel-body">
+    <!-- Main view -->
+    <div id="accountPanelMain" class="account-panel-body">
       <div id="accountPanelAvatar" class="account-panel-avatar">?</div>
       <p id="accountPanelName" class="account-panel-name"></p>
       <p id="accountPanelEmail" class="account-panel-email"></p>
       <div class="account-panel-divider"></div>
-      <div class="account-panel-options" id="accountPanelOptions">
-        <!-- Options added in next update -->
+      <div class="account-panel-options">
+        <button class="account-panel-option" data-panel-view="profile">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Profile Info
+        </button>
+        <button class="account-panel-option" data-panel-view="billing">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Billing
+        </button>
+        <button class="account-panel-option" data-panel-view="careplan">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/><polyline points="9 12 11 14 15 10"/></svg>
+          Care Plan Status
+        </button>
+        <button class="account-panel-option" data-panel-view="settings">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </button>
       </div>
       <div class="account-panel-divider"></div>
       <button id="accountPanelLogout" class="account-panel-option is-danger">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
         Log Out
       </button>
+    </div>
+
+    <!-- Sub-view: Profile Info -->
+    <div id="panelViewProfile" class="account-panel-body account-panel-subview" hidden>
+      <button class="panel-back-btn">&#8592; Back</button>
+      <h4 class="panel-subview-title">Profile Info</h4>
+      <div class="account-panel-avatar" id="profileAvatarDisplay">?</div>
+      <p class="panel-avatar-note">Profile photo — coming soon</p>
+      <div class="panel-field">
+        <label class="panel-field-label">Name</label>
+        <input type="text" id="profileNameInput" autocomplete="name" />
+      </div>
+      <div class="panel-field">
+        <label class="panel-field-label">Email</label>
+        <input type="email" id="profileEmailDisplay" disabled />
+      </div>
+      <button class="btn btn-primary btn-block" id="saveProfileBtn">Save Changes</button>
+      <div class="form-status" id="profileStatus" role="status"></div>
+    </div>
+
+    <!-- Sub-view: Billing -->
+    <div id="panelViewBilling" class="account-panel-body account-panel-subview" hidden>
+      <button class="panel-back-btn">&#8592; Back</button>
+      <h4 class="panel-subview-title">Billing</h4>
+      <div id="billingContent" class="panel-info-block">
+        <p class="panel-loading">Loading&hellip;</p>
+      </div>
+    </div>
+
+    <!-- Sub-view: Care Plan Status -->
+    <div id="panelViewCareplan" class="account-panel-body account-panel-subview" hidden>
+      <button class="panel-back-btn">&#8592; Back</button>
+      <h4 class="panel-subview-title">Care Plan Status</h4>
+      <div id="carePlanPanelContent" class="panel-info-block">
+        <p class="panel-loading">Loading&hellip;</p>
+      </div>
+    </div>
+
+    <!-- Sub-view: Settings -->
+    <div id="panelViewSettings" class="account-panel-body account-panel-subview" hidden>
+      <button class="panel-back-btn">&#8592; Back</button>
+      <h4 class="panel-subview-title">Settings</h4>
+      <p class="panel-section-label">Change Password</p>
+      <div class="panel-field">
+        <input type="password" id="settingsNewPassword" placeholder="New password (min. 8 chars)" autocomplete="new-password" />
+      </div>
+      <button class="btn btn-secondary btn-block" id="changePasswordBtn">Update Password</button>
+      <div class="form-status" id="passwordStatus" role="status"></div>
+      <div class="account-panel-divider"></div>
+      <p class="panel-section-label">Update Email</p>
+      <div class="panel-field">
+        <input type="email" id="settingsNewEmail" placeholder="New email address" autocomplete="email" />
+      </div>
+      <button class="btn btn-secondary btn-block" id="changeEmailBtn">Update Email</button>
+      <div class="form-status" id="emailStatus" role="status"></div>
+      <div class="account-panel-divider"></div>
+      <p class="panel-section-label">Notifications</p>
+      <label class="panel-toggle-label"><input type="checkbox" id="notifBookings" checked /> Booking confirmations</label>
+      <label class="panel-toggle-label"><input type="checkbox" id="notifUpdates" checked /> Product updates</label>
     </div>
   </div>
 

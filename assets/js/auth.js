@@ -279,5 +279,17 @@ window.TrellisAuth = (function () {
     init();
   }
 
-  return { openModal, closeModal, isAuthenticated, getCustomer, checkSession, logout };
+  async function updatePassword(newPassword) {
+    if (!supabase) throw new Error('Auth not initialised.');
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) throw new Error(error.message);
+  }
+
+  async function updateEmail(newEmail) {
+    if (!supabase) throw new Error('Auth not initialised.');
+    const { error } = await supabase.auth.updateUser({ email: newEmail });
+    if (error) throw new Error(error.message);
+  }
+
+  return { openModal, closeModal, isAuthenticated, getCustomer, checkSession, logout, updatePassword, updateEmail };
 })();

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BrightSmile Dental — Demo by Trellis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #0284c7;
+      --blue-dark: #0369a1;
+      --blue-tint: #e0f2fe;
+      --teal: #0d9488;
+      --teal-tint: #f0fdfa;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --white: #ffffff;
+      --bg: #f8fafc;
+    }
+
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    /* Demo banner */
+    .demo-banner {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 0.6rem 1rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+    .demo-banner a { color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--blue); }
+    .nav-logo span { color: var(--ink); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--blue-dark); }
+
+    /* Hero */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+      padding: 5rem 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--blue-tint); color: var(--blue);
+      padding: 0.35rem 0.9rem; border-radius: 999px;
+      font-size: 0.78rem; font-weight: 600; margin-bottom: 1.2rem;
+    }
+    .hero h1 { font-size: 2.6rem; line-height: 1.2; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--blue); }
+    .hero p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--blue); color: white; padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--blue-dark); }
+    .btn-outline { border: 2px solid var(--blue); color: var(--blue); padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; display: inline-block; }
+    .btn-outline:hover { background: var(--blue-tint); }
+    .hero-trust { display: flex; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+    .hero-trust span { font-size: 0.82rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
+    .hero-trust span::before { content: '✓'; color: var(--teal); font-weight: 700; }
+
+    .hero-visual {
+      background: linear-gradient(135deg, #e0f2fe, #bae6fd, #e0f9f0);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(2,132,199,0.12);
+    }
+    .booking-widget {
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .booking-widget h4 { font-size: 1rem; margin-bottom: 1rem; color: var(--ink); }
+    .bw-field { margin-bottom: 0.9rem; }
+    .bw-field label { font-size: 0.78rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+    .bw-field input, .bw-field select {
+      width: 100%; padding: 0.6rem 0.9rem;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 0.88rem; font-family: 'Inter', sans-serif; color: var(--ink);
+      background: var(--bg);
+    }
+    .bw-submit { width: 100%; background: var(--blue); color: white; border: none; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-top: 0.5rem; }
+
+    /* Services */
+    .section { padding: 5rem 2rem; }
+    .section.bg-tint { background: var(--teal-tint); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+    .section-head h2 { font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    .section-head p { color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .service-card {
+      background: white; border-radius: 14px; padding: 1.8rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .service-card:hover { box-shadow: 0 8px 24px rgba(2,132,199,0.1); transform: translateY(-2px); }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: var(--blue-tint); display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem; font-size: 1.4rem;
+    }
+    .service-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+
+    /* Testimonials */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .testimonial-card {
+      background: white; border-radius: 14px; padding: 1.8rem;
+      border: 1px solid var(--border);
+    }
+    .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 0.75rem; }
+    .testimonial-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+    .reviewer { display: flex; align-items: center; gap: 0.75rem; }
+    .reviewer-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--blue-tint); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; color: var(--blue);
+    }
+    .reviewer-name { font-weight: 600; font-size: 0.88rem; }
+    .reviewer-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--blue), var(--teal));
+      padding: 5rem 2rem; text-align: center; color: white;
+    }
+    .cta-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .cta-section p { opacity: 0.85; max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; }
+    .btn-white { background: white; color: var(--blue); padding: 0.9rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
+    .btn-white:hover { opacity: 0.9; }
+
+    /* Footer */
+    footer { background: var(--ink); color: #94a3b8; padding: 2rem; text-align: center; font-size: 0.85rem; }
+    footer a { color: #38bdf8; text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    This is a <strong>demo website</strong> built by <a href="/">Trellis</a> to showcase what we'd create for a dental practice. &nbsp;|&nbsp; <a href="/#contact">Get one for your business →</a>
+  </div>
+
+  <nav>
+    <div class="nav-logo">Bright<span>Smile</span> Dental</div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#booking">Contact</a></li>
+    </ul>
+    <button class="nav-cta">Book Appointment</button>
+  </nav>
+
+  <section style="background: var(--white);">
+    <div class="hero">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Gentle, Trusted Dental Care
+        </div>
+        <h1>Your <span>healthiest smile</span> starts here.</h1>
+        <p>BrightSmile Dental offers comprehensive dental care in a calm, modern environment. From routine check-ups to cosmetic treatments — we make every visit comfortable.</p>
+        <div class="hero-btns">
+          <a href="#booking" class="btn-primary">Book an Appointment</a>
+          <a href="#services" class="btn-outline">Our Services</a>
+        </div>
+        <div class="hero-trust">
+          <span>Accepting new patients</span>
+          <span>Same-week appointments</span>
+          <span>Family-friendly</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="booking-widget">
+          <h4>📅 Book Your Appointment</h4>
+          <div class="bw-field">
+            <label>Full Name</label>
+            <input type="text" placeholder="Jane Smith" />
+          </div>
+          <div class="bw-field">
+            <label>Service</label>
+            <select>
+              <option>General Check-Up</option>
+              <option>Teeth Whitening</option>
+              <option>Orthodontics Consult</option>
+              <option>Emergency Dental</option>
+            </select>
+          </div>
+          <div class="bw-field">
+            <label>Preferred Date</label>
+            <input type="date" />
+          </div>
+          <button class="bw-submit">Request Appointment</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-tint" id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What We Offer</span>
+        <h2>Comprehensive dental services</h2>
+        <p>From preventive care to cosmetic dentistry, we have everything you need under one roof.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🦷</div>
+          <h3>General Dentistry</h3>
+          <p>Regular check-ups, cleanings, fillings, and preventive care to keep your smile healthy.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">✨</div>
+          <h3>Teeth Whitening</h3>
+          <p>Professional in-chair whitening treatments for a noticeably brighter smile in one visit.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">😁</div>
+          <h3>Orthodontics</h3>
+          <p>Clear aligners and traditional braces tailored for teens and adults seeking a straighter smile.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔬</div>
+          <h3>Dental Implants</h3>
+          <p>Permanent tooth replacement that looks, feels, and functions just like natural teeth.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">👶</div>
+          <h3>Paediatric Dentistry</h3>
+          <p>Gentle, fun dental care for children in an environment designed to ease anxiety.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚨</div>
+          <h3>Emergency Dental</h3>
+          <p>Same-day emergency appointments for toothaches, broken teeth, and urgent dental pain.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="testimonials">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Patient Reviews</span>
+        <h2>What our patients say</h2>
+        <p>Hundreds of happy smiles and counting.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The team at BrightSmile made my dentist anxiety disappear completely. Best dental experience I've ever had!"</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">SM</div>
+            <div><div class="reviewer-name">Sarah M.</div><div class="reviewer-role">Patient since 2022</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Booked online in under 2 minutes and was seen the very next morning. The facility is spotless and modern."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">TK</div>
+            <div><div class="reviewer-name">Thabo K.</div><div class="reviewer-role">Patient since 2023</div></div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"My kids actually look forward to their dental visits now. The friendly staff and welcoming environment make all the difference."</p>
+          <div class="reviewer">
+            <div class="reviewer-avatar">NP</div>
+            <div><div class="reviewer-name">Nomsa P.</div><div class="reviewer-role">Patient since 2021</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-section" id="booking">
+    <h2>Ready for your healthiest smile?</h2>
+    <p>New patients welcome. Book online in under 2 minutes — no phone call needed.</p>
+    <a href="#" class="btn-white">Book Your Appointment →</a>
+  </div>
+
+  <footer>
+    <p>BrightSmile Dental &copy; 2025 &nbsp;|&nbsp; Demo website built by <a href="/">Trellis</a> — <a href="/#contact">Get this for your practice</a></p>
+  </footer>
+
+</body>
+</html>

@@ -115,6 +115,123 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Portfolio — dynamic cards */
+.portfolio-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-top: 4px solid var(--color-green-600);
+}
+
+.portfolio-card--medical { border-top-color: #0ea5e9; }
+.portfolio-card--service { border-top-color: #1B7A4D; }
+.portfolio-card--sales   { border-top-color: #f97316; }
+
+.portfolio-thumb-new {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+
+.portfolio-card--medical .portfolio-thumb-new {
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #e0f9f0 100%);
+}
+.portfolio-card--service .portfolio-thumb-new {
+  background: linear-gradient(135deg, #e3f3ea 0%, #d1fae5 50%, #f0fdf4 100%);
+}
+.portfolio-card--sales .portfolio-thumb-new {
+  background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 50%, #fef3c7 100%);
+}
+
+.portfolio-thumb-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.75);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.portfolio-card--medical .portfolio-thumb-icon svg { color: #0284c7; }
+.portfolio-card--service .portfolio-thumb-icon svg { color: #1B7A4D; }
+.portfolio-card--sales   .portfolio-thumb-icon svg { color: #ea580c; }
+
+.portfolio-value-badge {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  background: var(--color-white);
+  border-radius: var(--radius-full);
+  padding: 0.25rem 0.75rem;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sm);
+}
+
+.portfolio-card-body {
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.portfolio-industry-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.portfolio-card--medical .portfolio-industry-tag { color: #0284c7; }
+.portfolio-card--service .portfolio-industry-tag { color: #1B7A4D; }
+.portfolio-card--sales   .portfolio-industry-tag { color: #ea580c; }
+
+.portfolio-card-title {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.portfolio-card-desc {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.portfolio-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+}
+
+.portfolio-feature {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  color: var(--color-muted);
+  border: 1px solid var(--color-border);
+}
+
+.portfolio-view-btn {
+  margin-top: auto;
+  text-align: center;
+  text-decoration: none;
+}
+
 /* About */
 .about-card {
   text-align: center;

@@ -31,23 +31,39 @@
   });
 
   // Scroll-reveal via IntersectionObserver
+  let revealObserver = null;
+
+  function observeRevealTargets() {
+    const targets = qsa('[data-reveal]:not(.is-visible)');
+    if (!targets.length) return;
+    if ('IntersectionObserver' in window) {
+      if (!revealObserver) {
+        revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+      }
+      targets.forEach((el, i) => {
+        el.style.transitionDelay = prefersReducedMotion() ? '0ms' : `${Math.min(i % 4, 3) * 80}ms`;
+        revealObserver.observe(el);
+      });
+    } else {
+      targets.forEach((el) => el.classList.add('is-visible'));
+    }
+  }
+
+  window.TrellisReveal = observeRevealTargets;
+
   const revealTargets = qsa('[data-reveal]');
   if ('IntersectionObserver' in window && revealTargets.length) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    revealTargets.forEach((el, i) => {
-      el.style.transitionDelay = prefersReducedMotion() ? '0ms' : `${Math.min(i % 4, 3) * 80}ms`;
-      observer.observe(el);
-    });
+    observeRevealTargets();
   } else {
     revealTargets.forEach((el) => el.classList.add('is-visible'));
   }

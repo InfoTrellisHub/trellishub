@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UrbanEdge Clothing — Demo by Trellis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --orange-tint: #fff7ed;
+      --dark: #0c0a09;
+      --ink: #1c1917;
+      --muted: #78716c;
+      --border: #e7e5e4;
+      --white: #ffffff;
+      --bg: #fafaf9;
+    }
+
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    .demo-banner {
+      background: #0c0a09; color: #a8a29e;
+      text-align: center; padding: 0.6rem 1rem;
+      font-size: 0.75rem; letter-spacing: 0.04em;
+    }
+    .demo-banner a { color: #fb923c; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--dark);
+      padding: 1.1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.3rem; color: white; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: #a8a29e; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: white; }
+    .nav-actions { display: flex; align-items: center; gap: 1rem; }
+    .nav-cart { color: white; background: none; border: none; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
+    .nav-cta { background: var(--orange); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 700; font-size: 0.88rem; cursor: pointer; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--orange-dark); }
+
+    /* Hero */
+    .hero {
+      background: var(--dark);
+      min-height: 90vh; display: flex; align-items: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 50%, rgba(249,115,22,0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(249,115,22,0.08) 0%, transparent 50%);
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .hero-tag {
+      display: inline-block;
+      background: rgba(249,115,22,0.15); color: var(--orange);
+      padding: 0.3rem 0.9rem; border-radius: 4px;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1.5rem; border: 1px solid rgba(249,115,22,0.3);
+    }
+    .hero h1 { font-size: 3.2rem; line-height: 1.05; color: white; margin-bottom: 1.2rem; letter-spacing: -0.03em; }
+    .hero h1 span { color: var(--orange); }
+    .hero p { font-size: 1.05rem; color: #a8a29e; line-height: 1.7; margin-bottom: 2.5rem; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-orange { background: var(--orange); color: white; padding: 1rem 2.2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; transition: background 0.2s; display: inline-block; }
+    .btn-orange:hover { background: var(--orange-dark); }
+    .btn-light { border: 1.5px solid rgba(255,255,255,0.2); color: white; padding: 1rem 2.2rem; border-radius: 8px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: all 0.2s; display: inline-block; }
+    .btn-light:hover { background: rgba(255,255,255,0.06); }
+    .hero-offer { margin-top: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .hero-offer span { font-size: 0.82rem; color: #a8a29e; display: flex; align-items: center; gap: 0.4rem; }
+    .hero-offer span::before { content: '→'; color: var(--orange); }
+
+    .hero-product-stack { display: flex; flex-direction: column; gap: 1rem; }
+    .product-preview {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 1.2rem;
+      display: flex; align-items: center; gap: 1rem;
+      backdrop-filter: blur(10px);
+    }
+    .product-img {
+      width: 60px; height: 60px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; flex-shrink: 0;
+    }
+    .product-img.a { background: linear-gradient(135deg, #fed7aa, #fdba74); }
+    .product-img.b { background: linear-gradient(135deg, #e2e8f0, #cbd5e1); }
+    .product-img.c { background: linear-gradient(135deg, #0c0a09, #292524); }
+    .product-info { flex: 1; }
+    .product-name { font-weight: 600; font-size: 0.9rem; color: white; margin-bottom: 0.2rem; }
+    .product-price { font-size: 0.82rem; color: #a8a29e; }
+    .product-price strong { color: var(--orange); }
+    .add-btn { background: var(--orange); color: white; border: none; padding: 0.45rem 0.9rem; border-radius: 6px; font-size: 0.8rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
+    /* Collections */
+    .section { padding: 5rem 2rem; }
+    .section.bg-dark { background: var(--dark); }
+    .section.bg-light { background: var(--bg); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); }
+    .section-head h2 { font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    .section-head p { color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    .collections-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .collection-card {
+      border-radius: 16px; overflow: hidden;
+      position: relative; cursor: pointer;
+      transition: transform 0.25s;
+    }
+    .collection-card:hover { transform: scale(1.02); }
+    .collection-card:hover .collection-overlay { opacity: 1; }
+    .collection-thumb {
+      aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative;
+    }
+    .collection-thumb.essentials { background: linear-gradient(160deg, #fed7aa 0%, #fdba74 50%, #fb923c 100%); }
+    .collection-thumb.street { background: linear-gradient(160deg, #1c1917 0%, #292524 50%, #44403c 100%); }
+    .collection-thumb.luxe { background: linear-gradient(160deg, #d1d5db 0%, #9ca3af 50%, #6b7280 100%); }
+    .collection-overlay {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex; align-items: flex-end; padding: 1.5rem;
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .collection-info { color: white; }
+    .collection-info h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .collection-info p { font-size: 0.85rem; opacity: 0.8; }
+    .collection-label {
+      position: absolute; top: 1rem; left: 1rem;
+      background: white; color: var(--ink);
+      padding: 0.3rem 0.8rem; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .collection-label.hot { background: var(--orange); color: white; }
+
+    /* Products */
+    .products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .product-card {
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    .product-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .product-card-thumb {
+      aspect-ratio: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem; background: var(--bg);
+    }
+    .product-card-body { padding: 1rem; }
+    .product-card-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.4rem; }
+    .product-card-price { color: var(--orange); font-weight: 700; font-size: 0.95rem; }
+    .product-card-old { text-decoration: line-through; color: var(--muted); font-size: 0.82rem; margin-left: 0.4rem; }
+    .product-card-cta { width: 100%; background: var(--ink); color: white; border: none; padding: 0.65rem; font-weight: 600; font-size: 0.88rem; cursor: pointer; margin-top: 0.75rem; border-radius: 6px; transition: background 0.2s; }
+    .product-card-cta:hover { background: var(--orange); }
+
+    /* Newsletter */
+    .newsletter-section {
+      background: var(--ink); padding: 5rem 2rem; text-align: center; color: white;
+    }
+    .newsletter-section h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+    .newsletter-section p { color: #a8a29e; margin-bottom: 2rem; }
+    .nl-form { display: flex; gap: 0.75rem; max-width: 460px; margin: 0 auto; }
+    .nl-form input {
+      flex: 1; padding: 0.85rem 1.2rem; border-radius: 8px;
+      border: none; font-size: 0.95rem; font-family: 'Inter', sans-serif; background: rgba(255,255,255,0.1);
+      color: white; outline: none;
+    }
+    .nl-form input::placeholder { color: #78716c; }
+    .nl-form button { background: var(--orange); color: white; border: none; padding: 0.85rem 1.5rem; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .nl-form button:hover { background: var(--orange-dark); }
+
+    footer { background: var(--dark); color: #57534e; padding: 2rem; text-align: center; font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: #fb923c; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .collections-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nl-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    This is a <strong>demo website</strong> built by <a href="/">Trellis</a> to showcase what we'd create for a clothing brand. &nbsp;|&nbsp; <a href="/#contact">Get one for your business →</a>
+  </div>
+
+  <nav>
+    <div class="nav-logo">Urban<span>Edge</span></div>
+    <ul class="nav-links">
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#products">New Arrivals</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#newsletter">Join the List</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-cart">🛒 Cart (0)</button>
+      <button class="nav-cta">Shop Now</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-tag">New Drop — Summer 2025</div>
+        <h1>Wear the <span>edge</span> of culture.</h1>
+        <p>UrbanEdge is where street culture meets elevated style. Bold cuts, premium fabrics, limited drops — built for those who lead.</p>
+        <div class="hero-btns">
+          <a href="#products" class="btn-orange">Shop New Arrivals</a>
+          <a href="#collections" class="btn-light">View Collections</a>
+        </div>
+        <div class="hero-offer">
+          <span>Free shipping over R800</span>
+          <span>Easy 30-day returns</span>
+          <span>Limited drops — don't sleep</span>
+        </div>
+      </div>
+      <div class="hero-product-stack">
+        <div class="product-preview">
+          <div class="product-img a">👕</div>
+          <div class="product-info">
+            <div class="product-name">Oversized Street Tee</div>
+            <div class="product-price"><strong>R 449</strong> &nbsp;<span style="text-decoration:line-through;color:#57534e">R 599</span></div>
+          </div>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-preview">
+          <div class="product-img b">👖</div>
+          <div class="product-info">
+            <div class="product-name">Cargo Utility Pants</div>
+            <div class="product-price"><strong>R 799</strong></div>
+          </div>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+        <div class="product-preview">
+          <div class="product-img c">🧥</div>
+          <div class="product-info">
+            <div class="product-name">Midnight Bomber Jacket</div>
+            <div class="product-price"><strong>R 1,299</strong> &nbsp;<span style="text-decoration:line-through;color:#57534e">R 1,699</span></div>
+          </div>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="collections">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Shop by Collection</span>
+        <h2>Find your aesthetic</h2>
+        <p>Three distinct styles, one brand. From everyday essentials to statement pieces.</p>
+      </div>
+      <div class="collections-grid">
+        <div class="collection-card">
+          <div class="collection-thumb essentials">
+            <span class="collection-label hot">🔥 Hot</span>
+            👕
+          </div>
+          <div class="collection-overlay">
+            <div class="collection-info">
+              <h3>Essentials</h3>
+              <p>Clean, versatile everyday wear</p>
+            </div>
+          </div>
+        </div>
+        <div class="collection-card">
+          <div class="collection-thumb street">
+            <span class="collection-label">NEW</span>
+            🧥
+          </div>
+          <div class="collection-overlay">
+            <div class="collection-info">
+              <h3>Street Culture</h3>
+              <p>Bold cuts and oversized fits</p>
+            </div>
+          </div>
+        </div>
+        <div class="collection-card">
+          <div class="collection-thumb luxe">
+            <span class="collection-label">LIMITED</span>
+            💎
+          </div>
+          <div class="collection-overlay">
+            <div class="collection-info">
+              <h3>Luxe Edit</h3>
+              <p>Premium fabrics, limited runs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-light" id="products">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">New Arrivals</span>
+        <h2>Fresh drops this week</h2>
+        <p>Limited stock. First come, first served.</p>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-card-thumb" style="background: linear-gradient(135deg,#fff7ed,#fed7aa)">👕</div>
+          <div class="product-card-body">
+            <div class="product-card-name">Oversize Drop-Shoulder Tee</div>
+            <div><span class="product-card-price">R 449</span><span class="product-card-old">R 599</span></div>
+            <button class="product-card-cta">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-thumb" style="background: linear-gradient(135deg,#f0fdf4,#d1fae5)">🧣</div>
+          <div class="product-card-body">
+            <div class="product-card-name">Utility Cargo Shorts</div>
+            <div><span class="product-card-price">R 599</span></div>
+            <button class="product-card-cta">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-thumb" style="background: linear-gradient(135deg,#1c1917,#292524); color:#f5f5f4">🧥</div>
+          <div class="product-card-body">
+            <div class="product-card-name">Midnight Bomber Jacket</div>
+            <div><span class="product-card-price">R 1,299</span><span class="product-card-old">R 1,699</span></div>
+            <button class="product-card-cta">Add to Cart</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-thumb" style="background: linear-gradient(135deg,#e2e8f0,#cbd5e1)">👟</div>
+          <div class="product-card-body">
+            <div class="product-card-name">Low-Pro Canvas Sneaker</div>
+            <div><span class="product-card-price">R 899</span></div>
+            <button class="product-card-cta">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-section" id="newsletter">
+    <h2>First access to every drop.</h2>
+    <p>Join 12,000+ subscribers. No spam — just early access, exclusive discounts, and new arrivals.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com" />
+      <button>Join the List →</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>UrbanEdge Clothing &copy; 2025 &nbsp;|&nbsp; Demo website built by <a href="/">Trellis</a> — <a href="/#contact">Get this for your brand</a></p>
+  </footer>
+
+</body>
+</html>

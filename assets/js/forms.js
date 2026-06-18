@@ -21,6 +21,40 @@
     });
   }
 
+  // ---- Outer contact tab switching ----
+  const contactTabToggle = qs('#contactTabToggle');
+  const tabPanelMessage = qs('#tabPanelMessage');
+  const tabPanelBooking = qs('#tabPanelBooking');
+
+  function switchContactTab(tab) {
+    if (!contactTabToggle) return;
+    qsa('[data-tab]', contactTabToggle).forEach((btn) => {
+      const active = btn.dataset.tab === tab;
+      btn.classList.toggle('is-active', active);
+      btn.setAttribute('aria-selected', active);
+    });
+    if (tabPanelMessage) tabPanelMessage.hidden = tab !== 'message';
+    if (tabPanelBooking) tabPanelBooking.hidden = tab !== 'booking';
+  }
+
+  if (contactTabToggle) {
+    qsa('[data-tab]', contactTabToggle).forEach((btn) => {
+      btn.addEventListener('click', () => switchContactTab(btn.dataset.tab));
+    });
+  }
+
+  const switchToBookingBtn = qs('#switchToBookingBtn');
+  if (switchToBookingBtn) {
+    switchToBookingBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchContactTab('booking');
+      const section = qs('#contact');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  if (window.location.hash === '#booking') switchContactTab('booking');
+
   // ---- Booking form ----
   const bookingForm = qs('#bookingForm');
   const bookingToggle = qs('#bookingToggle');
@@ -86,6 +120,7 @@
 
   window.TrellisBooking = {
     startBooking(type, prefill) {
+      switchContactTab('booking');
       setBookingType(type || 'quote');
       prefillBookingForm(prefill);
       window.TrellisNav.scrollToBooking(type);

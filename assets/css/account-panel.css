@@ -1,0 +1,196 @@
+/* Account panel — draggable left-side panel shown when logged in */
+
+.account-panel-tab {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--color-green-600);
+  color: #fff;
+  border: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-3) var(--space-2);
+  cursor: pointer;
+  z-index: 799;
+  writing-mode: vertical-rl;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background var(--transition-base);
+  display: none;
+}
+
+.account-panel-tab:hover {
+  background: var(--color-green-hover);
+}
+
+.account-panel {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 272px;
+  background: var(--color-white);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  box-shadow: var(--shadow-lg);
+  z-index: 800;
+  border-left: 3px solid var(--color-green-600);
+  user-select: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.account-panel.is-hidden {
+  transform: translateX(-105%) translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.account-panel.is-dragged {
+  transform: none;
+  transition: opacity 0.25s ease;
+}
+
+.account-panel.is-dragged.is-hidden {
+  transform: translateX(-105%);
+}
+
+.account-panel-drag {
+  padding: var(--space-2) var(--space-3);
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-green-tint);
+  border-radius: 0 var(--radius-lg) 0 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.account-panel-drag:active {
+  cursor: grabbing;
+}
+
+.account-panel-drag-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.account-panel-drag-dots span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-green-600);
+  border-radius: 2px;
+}
+
+.account-panel-close {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-muted);
+  padding: 0 0 0 var(--space-3);
+  transition: color var(--transition-base);
+}
+
+.account-panel-close:hover {
+  color: var(--color-ink);
+}
+
+.account-panel-body {
+  padding: var(--space-4);
+}
+
+.account-panel-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--color-green-600);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0 auto var(--space-3);
+}
+
+.account-panel-name {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: var(--color-ink);
+  text-align: center;
+  margin: 0 0 0.2rem;
+}
+
+.account-panel-email {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-align: center;
+  margin: 0 0 var(--space-3);
+  word-break: break-all;
+}
+
+.account-panel-divider {
+  height: 1px;
+  background: var(--color-border);
+  margin: var(--space-3) 0;
+}
+
+.account-panel-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.account-panel-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.account-panel-option:hover {
+  background: var(--color-green-tint);
+  color: var(--color-green-600);
+}
+
+.account-panel-option svg {
+  flex-shrink: 0;
+  color: var(--color-muted);
+  transition: color var(--transition-base);
+}
+
+.account-panel-option:hover svg {
+  color: var(--color-green-600);
+}
+
+.account-panel-option.is-danger:hover {
+  background: #fef2f2;
+  color: var(--color-error);
+}
+
+.account-panel-option.is-danger:hover svg {
+  color: var(--color-error);
+}
+
+@media (max-width: 480px) {
+  .account-panel {
+    width: 240px;
+  }
+}

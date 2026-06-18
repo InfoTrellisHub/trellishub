@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="/assets/css/components.css" />
   <link rel="stylesheet" href="/assets/css/sections.css" />
   <link rel="stylesheet" href="/assets/css/auth-modal.css" />
+  <link rel="stylesheet" href="/assets/css/account-panel.css" />
   <link rel="stylesheet" href="/assets/css/chatbot.css" />
   <link rel="stylesheet" href="/assets/css/animations.css" />
 </head>
@@ -490,6 +491,31 @@
     </div>
   </footer>
 
+  <!-- ===== Account Panel ===== -->
+  <button id="accountPanelTab" class="account-panel-tab" aria-label="Open account panel">Account</button>
+  <div id="accountPanel" class="account-panel is-hidden" role="complementary" aria-label="Account panel">
+    <div id="accountPanelDrag" class="account-panel-drag">
+      <div class="account-panel-drag-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <button id="accountPanelClose" class="account-panel-close" aria-label="Close panel">&times;</button>
+    </div>
+    <div class="account-panel-body">
+      <div id="accountPanelAvatar" class="account-panel-avatar">?</div>
+      <p id="accountPanelName" class="account-panel-name"></p>
+      <p id="accountPanelEmail" class="account-panel-email"></p>
+      <div class="account-panel-divider"></div>
+      <div class="account-panel-options" id="accountPanelOptions">
+        <!-- Options added in next update -->
+      </div>
+      <div class="account-panel-divider"></div>
+      <button id="accountPanelLogout" class="account-panel-option is-danger">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log Out
+      </button>
+    </div>
+  </div>
+
   <!-- ===== Auth Modal ===== -->
   <div class="modal-overlay" id="authModalOverlay">
     <div class="modal-panel auth-modal" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
@@ -506,39 +532,35 @@
         <form id="loginForm" novalidate>
           <div class="field">
             <label for="loginEmail">Email</label>
-            <input type="email" id="loginEmail" name="email" required />
+            <input type="email" id="loginEmail" name="email" required autocomplete="email" />
           </div>
           <div class="field">
             <label for="loginPassword">Password</label>
-            <input type="password" id="loginPassword" name="password" required />
+            <input type="password" id="loginPassword" name="password" required autocomplete="current-password" />
           </div>
           <p class="auth-forgot"><a href="#" id="forgotPasswordLink">Forgot password?</a></p>
           <button type="submit" class="btn btn-primary btn-block">Log In</button>
           <div class="form-status" id="loginStatus" role="status"></div>
         </form>
-        <div class="auth-divider">or</div>
-        <div class="google-btn-slot" id="googleBtnLogin"></div>
       </div>
 
       <div class="auth-panel" data-auth-panel="signup">
         <form id="signupForm" novalidate>
           <div class="field">
             <label for="signupName">Name</label>
-            <input type="text" id="signupName" name="name" required />
+            <input type="text" id="signupName" name="name" required autocomplete="name" />
           </div>
           <div class="field">
             <label for="signupEmail">Email</label>
-            <input type="email" id="signupEmail" name="email" required />
+            <input type="email" id="signupEmail" name="email" required autocomplete="email" />
           </div>
           <div class="field">
             <label for="signupPassword">Password</label>
-            <input type="password" id="signupPassword" name="password" minlength="8" required />
+            <input type="password" id="signupPassword" name="password" minlength="8" required autocomplete="new-password" />
           </div>
           <button type="submit" class="btn btn-primary btn-block">Create Account</button>
           <div class="form-status" id="signupStatus" role="status"></div>
         </form>
-        <div class="auth-divider">or</div>
-        <div class="google-btn-slot" id="googleBtnSignup"></div>
       </div>
 
       <div class="auth-panel" data-auth-panel="forgot">
@@ -567,8 +589,9 @@
     </div>
   </div>
 
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="/assets/js/utils.js" defer></script>
+  <script src="/assets/js/account-panel.js" defer></script>
   <script src="/assets/js/auth.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
   <script src="/assets/js/pricing.js" defer></script>

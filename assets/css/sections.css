@@ -492,22 +492,26 @@
   flex-shrink: 0;
 }
 
-.contact-wa-link {
+.contact-phone-row {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.18s;
 }
-.contact-wa-link:hover {
-  color: #25d366;
+.contact-wa-icon-link {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  opacity: 0.85;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.contact-wa-icon-link:hover {
+  opacity: 1;
+  transform: scale(1.12);
 }
 .contact-wa-icon {
   width: 18px;
   height: 18px;
-  color: #25d366;
-  flex-shrink: 0;
+  display: block;
 }
 .contact-divider {
   margin: 0 6px;

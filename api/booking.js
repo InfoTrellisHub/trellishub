@@ -1,8 +1,17 @@
+const { Resend } = require('resend');
 const { getSupabase } = require('../lib/supabase');
-const { sendMail, sendTeamNotification } = require('../lib/mailer');
 const { validateBooking, isHoneypotTripped } = require('../lib/validate');
 const { isRateLimited } = require('../lib/rateLimit');
 const { getCustomerSession } = require('../lib/auth');
+
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error('RESEND_API_KEY is not set');
+  return new Resend(key);
+}
+
+const TEAM_EMAIL = process.env.TEAM_EMAIL || 'info.trellishub@gmail.com';
+const FROM_EMAIL = process.env.FROM_EMAIL  || 'Trellis <noreply@trellishub.co.za>';
 
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -38,31 +47,37 @@ module.exports = async function handler(req, res) {
 
     if (error) throw error;
 
-    const typeLabel = data.booking_type === 'care_plan' ? 'Care Plan Inquiry' : 'Website Quote Request';
-    const whenLine = data.preferred_date ? `${data.preferred_date} ${data.preferred_time || ''}`.trim() : 'No preferred time given';
-
     let confirmationSent = false;
     let notificationSent = false;
 
     try {
-      await sendMail({
-        to: data.email,
-        subject: 'Your Trellis consultation request',
-        text: `Hi ${data.name},\n\nWe've received your booking request (${typeLabel}) for ${whenLine}. We'll confirm shortly — no need to do anything else for now.\n\n— The Trellis team`
-      });
-      confirmationSent = true;
-    } catch (e) {
-      console.warn('Booking confirmation email failed:', e.message);
-    }
+      const resend = getResend();
 
-    try {
-      await sendTeamNotification(
-        `New booking — ${typeLabel} — ${data.name}`,
-        `Type: ${typeLabel}\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || '—'}\nPreferred: ${whenLine}\n\nNotes:\n${data.notes || '—'}`
-      );
-      notificationSent = true;
+      try {
+        await resend.emails.send({
+          from: FROM_EMAIL,
+          to: data.email,
+          subject: 'Booking Confirmation - TrellisHub',
+          text: 'Thank you for your booking. We\'ve received your request and will follow up shortly.',
+        });
+        confirmationSent = true;
+      } catch (e) {
+        console.error('Booking confirmation email failed:', e.message, e);
+      }
+
+      try {
+        await resend.emails.send({
+          from: FROM_EMAIL,
+          to: TEAM_EMAIL,
+          subject: 'New Booking Received',
+          text: 'A new booking has been submitted. Please check the Supabase `bookings` table for details.',
+        });
+        notificationSent = true;
+      } catch (e) {
+        console.error('Booking team notification email failed:', e.message, e);
+      }
     } catch (e) {
-      console.warn('Booking team notification email failed:', e.message);
+      console.error('Resend initialisation failed:', e.message, e);
     }
 
     await supabase

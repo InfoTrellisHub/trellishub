@@ -1,5 +1,31 @@
+# ============================================================
+# robots.txt — TrellisHub (https://www.trellishub.co.za)
+# ============================================================
+# Controls which pages search engine crawlers may access.
+# Reference: https://developers.google.com/search/docs/crawling-indexing/robots/intro
+
+
+# ------------------------------------------------------------
+# All crawlers — default rules
+# ------------------------------------------------------------
+# Allow full access to the public-facing site.
+
 User-agent: *
-Disallow: /admin
 Allow: /
+
+# Block the password-gated admin dashboard.
+Disallow: /admin/
+
+# Block the auth-gated client account page (no SEO value).
+Disallow: /my-account/
+
+# Block the internal handover document form (not a public page).
+Disallow: /handover/template/
+
+
+# ------------------------------------------------------------
+# Sitemap location
+# ------------------------------------------------------------
+# Tells crawlers where to find the full list of public URLs.
 
 Sitemap: https://www.trellishub.co.za/sitemap.xml

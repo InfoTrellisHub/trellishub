@@ -1,13 +1,18 @@
 // Draggable left-side account panel. Shown when a customer is logged in.
+// Close by clicking outside (backdrop) or dragging the handle left past the dismiss threshold.
 // window.TrellisAccountPanel: { show, hide, openPanel, closePanel }
 window.TrellisAccountPanel = (function () {
   const { qs, api, setStatus } = window.TrellisUtils;
 
-  let panel, tab;
+  let panel, tab, backdrop;
   let isDragging = false;
+  let dragStartX = 0;
   let dragStartY = 0;
   let panelStartTop = 0;
+  let lastDeltaX = 0;
   let currentCustomer = null;
+
+  const DISMISS_THRESHOLD = -80; // px dragged left to dismiss
 
   function getInitials(name) {
     if (!name) return '?';
@@ -23,12 +28,20 @@ window.TrellisAccountPanel = (function () {
     if (!panel) return;
     panel.classList.remove('is-hidden');
     if (tab) tab.style.display = 'none';
+    if (backdrop) backdrop.classList.add('is-visible');
+    document.body.classList.add('panel-open');
   }
 
   function closePanel() {
     if (!panel) return;
+    // Reset any inline drag styles so CSS transition takes over cleanly
+    panel.style.transform = '';
+    panel.style.top = '';
+    panel.classList.remove('is-dragged');
     panel.classList.add('is-hidden');
     if (tab) tab.style.display = 'block';
+    if (backdrop) backdrop.classList.remove('is-visible');
+    document.body.classList.remove('panel-open');
   }
 
   function show(customer) {
@@ -45,6 +58,8 @@ window.TrellisAccountPanel = (function () {
     if (!panel) return;
     panel.classList.add('is-hidden');
     if (tab) tab.style.display = 'none';
+    if (backdrop) backdrop.classList.remove('is-visible');
+    document.body.classList.remove('panel-open');
   }
 
   // ── Sub-view navigation ───────────────────────────────────────────────────
@@ -204,25 +219,46 @@ window.TrellisAccountPanel = (function () {
     }
   }
 
-  // ── Drag ──────────────────────────────────────────────────────────────────
+  // ── Drag (vertical reposition + horizontal dismiss) ───────────────────────
 
   function onDrag(e) {
     if (!isDragging) return;
+    const deltaX = e.clientX - dragStartX;
     const deltaY = e.clientY - dragStartY;
+    lastDeltaX = deltaX;
+
+    // Vertical repositioning
     const newTop = panelStartTop + deltaY;
     const maxTop = window.innerHeight - panel.offsetHeight;
     panel.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
+
+    // Horizontal feedback — only allow dragging left
+    if (deltaX < 0) {
+      panel.style.transform = `translateX(${deltaX}px)`;
+    } else {
+      panel.style.transform = 'none';
+    }
   }
 
   function onDragEnd() {
     isDragging = false;
     document.removeEventListener('mousemove', onDrag);
     document.removeEventListener('mouseup', onDragEnd);
+
+    if (lastDeltaX <= DISMISS_THRESHOLD) {
+      // Dragged far enough left — dismiss the panel
+      closePanel();
+    } else {
+      // Snap back horizontal position
+      panel.style.transform = 'none';
+    }
   }
 
   function initDrag(dragHandle) {
     dragHandle.addEventListener('mousedown', (e) => {
       isDragging = true;
+      lastDeltaX = 0;
+      dragStartX = e.clientX;
       dragStartY = e.clientY;
       panelStartTop = panel.getBoundingClientRect().top;
       panel.classList.add('is-dragged');
@@ -239,6 +275,13 @@ window.TrellisAccountPanel = (function () {
     panel = qs('#accountPanel');
     tab = qs('#accountPanelTab');
     if (!panel) return;
+
+    // Create backdrop dynamically
+    backdrop = document.createElement('div');
+    backdrop.className = 'panel-backdrop';
+    backdrop.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(backdrop);
+    backdrop.addEventListener('click', closePanel);
 
     const dragHandle = panel.querySelector('#accountPanelDrag');
     const closeBtn = panel.querySelector('#accountPanelClose');
@@ -272,6 +315,11 @@ window.TrellisAccountPanel = (function () {
     // Back buttons
     panel.querySelectorAll('.panel-back-btn').forEach((btn) => {
       btn.addEventListener('click', backToMain);
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !panel.classList.contains('is-hidden')) closePanel();
     });
 
     wireSettings();

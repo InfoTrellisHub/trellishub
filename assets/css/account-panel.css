@@ -25,12 +25,34 @@
   background: var(--color-green-hover);
 }
 
+/* Backdrop — shown behind panel when open */
+.panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 799;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.panel-backdrop.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Lock background scroll when panel is open */
+body.panel-open {
+  overflow: hidden;
+}
+
 .account-panel {
   position: fixed;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
   width: 272px;
+  max-height: min(600px, 90vh);
   background: var(--color-white);
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   box-shadow: var(--shadow-lg);
@@ -38,6 +60,8 @@
   border-left: 3px solid var(--color-green-600);
   user-select: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .account-panel.is-hidden {
@@ -64,6 +88,7 @@
   background: var(--color-green-tint);
   border-radius: 0 var(--radius-lg) 0 0;
   border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 
 .account-panel-drag:active {
@@ -101,6 +126,9 @@
 
 .account-panel-body {
   padding: var(--space-4);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1;
 }
 
 .account-panel-avatar {
@@ -194,6 +222,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1;
+  padding: var(--space-4);
 }
 
 .panel-back-btn {

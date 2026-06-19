@@ -1,5 +1,4 @@
-// Draggable left-side account panel. Shown when a customer is logged in.
-// Close by clicking outside (backdrop) or dragging the handle left past the dismiss threshold.
+// Draggable left-side account panel with accordion sections.
 // window.TrellisAccountPanel: { show, hide, openPanel, closePanel }
 window.TrellisAccountPanel = (function () {
   const { qs, api, setStatus } = window.TrellisUtils;
@@ -12,7 +11,7 @@ window.TrellisAccountPanel = (function () {
   let lastDeltaX = 0;
   let currentCustomer = null;
 
-  const DISMISS_THRESHOLD = -80; // px dragged left to dismiss
+  const DISMISS_THRESHOLD = -80;
 
   function getInitials(name) {
     if (!name) return '?';
@@ -22,7 +21,7 @@ window.TrellisAccountPanel = (function () {
       : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   }
 
-  // ── Panel open/close ──────────────────────────────────────────────────────
+  // ── Panel open / close ────────────────────────────────────────────────────
 
   function openPanel() {
     if (!panel) return;
@@ -34,7 +33,6 @@ window.TrellisAccountPanel = (function () {
 
   function closePanel() {
     if (!panel) return;
-    // Reset any inline drag styles so CSS transition takes over cleanly
     panel.style.transform = '';
     panel.style.top = '';
     panel.classList.remove('is-dragged');
@@ -48,8 +46,9 @@ window.TrellisAccountPanel = (function () {
     if (!panel) return;
     currentCustomer = customer;
     qs('#accountPanelAvatar').textContent = getInitials(customer.name);
-    qs('#accountPanelName').textContent = customer.name || '';
+    qs('#accountPanelName').textContent  = customer.name  || '';
     qs('#accountPanelEmail').textContent = customer.email || '';
+    populateProfile();
     if (tab) tab.style.display = 'block';
     openPanel();
   }
@@ -62,43 +61,60 @@ window.TrellisAccountPanel = (function () {
     document.body.classList.remove('panel-open');
   }
 
-  // ── Sub-view navigation ───────────────────────────────────────────────────
+  // ── Accordion ─────────────────────────────────────────────────────────────
 
-  function showView(viewId) {
-    const main = qs('#accountPanelMain');
-    const views = panel.querySelectorAll('.account-panel-subview');
-    if (main) main.hidden = viewId !== 'main';
-    views.forEach((v) => { v.hidden = v.id !== viewId; });
+  let openSectionId = null;
+
+  function toggleSection(sectionEl, sectionId) {
+    const isAlreadyOpen = sectionEl.classList.contains('is-open');
+
+    // Close all
+    panel.querySelectorAll('.ap-section').forEach((s) => {
+      s.classList.remove('is-open');
+      const h = s.querySelector('.ap-section-header');
+      if (h) h.setAttribute('aria-expanded', 'false');
+    });
+    openSectionId = null;
+
+    if (!isAlreadyOpen) {
+      sectionEl.classList.add('is-open');
+      const h = sectionEl.querySelector('.ap-section-header');
+      if (h) h.setAttribute('aria-expanded', 'true');
+      openSectionId = sectionId;
+
+      // Lazy-load data sections
+      if (sectionId === 'billing')       loadBilling();
+      if (sectionId === 'notifications') loadNotifications();
+      if (sectionId === 'projects')      loadProjects();
+    }
   }
 
-  function backToMain() {
-    showView('main');
-  }
+  // ── Profile section ───────────────────────────────────────────────────────
 
-  // ── Profile sub-view ──────────────────────────────────────────────────────
-
-  function loadProfile() {
-    if (!currentCustomer) return;
-    const nameInput = qs('#profileNameInput');
-    const emailInput = qs('#profileEmailDisplay');
-    const avatarEl = qs('#profileAvatarDisplay');
-    if (nameInput) nameInput.value = currentCustomer.name || '';
-    if (emailInput) emailInput.value = currentCustomer.email || '';
-    if (avatarEl) avatarEl.textContent = getInitials(currentCustomer.name);
+  function populateProfile() {
+    const nameInput    = qs('#profileNameInput');
+    const emailInput   = qs('#profileEmailDisplay');
+    const companyInput = qs('#profileCompanyInput');
+    if (nameInput)    nameInput.value    = (currentCustomer && currentCustomer.name)    || '';
+    if (emailInput)   emailInput.value   = (currentCustomer && currentCustomer.email)   || '';
+    if (companyInput) companyInput.value = (currentCustomer && currentCustomer.company) || '';
     const statusEl = qs('#profileStatus');
     if (statusEl) { statusEl.textContent = ''; statusEl.className = 'form-status'; }
   }
 
   async function saveProfile() {
-    const nameInput = qs('#profileNameInput');
-    const statusEl = qs('#profileStatus');
+    const nameInput    = qs('#profileNameInput');
+    const companyInput = qs('#profileCompanyInput');
+    const statusEl     = qs('#profileStatus');
     const name = nameInput ? nameInput.value.trim() : '';
     if (!name) { setStatus(statusEl, 'Name cannot be empty.', 'error'); return; }
     setStatus(statusEl, 'Saving…', '');
     try {
-      const result = await api('/api/account/profile', { method: 'POST', body: { name } });
+      const body = { name };
+      if (companyInput) body.company = companyInput.value.trim();
+      const result = await api('/api/account/profile', { method: 'POST', body });
       currentCustomer = { ...currentCustomer, name: result.name || name };
-      qs('#accountPanelName').textContent = currentCustomer.name;
+      qs('#accountPanelName').textContent   = currentCustomer.name;
       qs('#accountPanelAvatar').textContent = getInitials(currentCustomer.name);
       setStatus(statusEl, 'Profile updated!', 'success');
     } catch (err) {
@@ -106,23 +122,73 @@ window.TrellisAccountPanel = (function () {
     }
   }
 
-  // ── Billing sub-view ──────────────────────────────────────────────────────
+  function wirePasswordToggle() {
+    const toggleBtn  = qs('#changePasswordBtn');
+    const form       = qs('#changePasswordForm');
+    const submitBtn  = qs('#changePasswordSubmit');
+    const statusEl   = qs('#passwordStatus');
+
+    if (toggleBtn && form) {
+      toggleBtn.addEventListener('click', () => {
+        const hidden = form.hasAttribute('hidden');
+        if (hidden) {
+          form.removeAttribute('hidden');
+          toggleBtn.textContent = 'Cancel';
+        } else {
+          form.setAttribute('hidden', '');
+          toggleBtn.textContent = 'Change';
+          const input = qs('#settingsNewPassword');
+          if (input) input.value = '';
+          if (statusEl) { statusEl.textContent = ''; statusEl.className = 'form-status'; }
+        }
+      });
+    }
+
+    if (submitBtn) {
+      submitBtn.addEventListener('click', async () => {
+        const input    = qs('#settingsNewPassword');
+        const password = input ? input.value : '';
+        if (password.length < 8) {
+          setStatus(statusEl, 'Password must be at least 8 characters.', 'error');
+          return;
+        }
+        setStatus(statusEl, 'Updating…', '');
+        try {
+          await window.TrellisAuth.updatePassword(password);
+          if (input) input.value = '';
+          const form = qs('#changePasswordForm');
+          if (form) form.setAttribute('hidden', '');
+          const btn = qs('#changePasswordBtn');
+          if (btn) btn.textContent = 'Change';
+          setStatus(statusEl, 'Password updated!', 'success');
+        } catch (err) {
+          setStatus(statusEl, err.message || 'Failed to update password.', 'error');
+        }
+      });
+    }
+  }
+
+  // ── Billing section ───────────────────────────────────────────────────────
 
   async function loadBilling() {
-    const container = qs('#billingContent');
+    const container = qs('#apBillingContent');
     if (!container) return;
-    container.innerHTML = '<p class="panel-loading">Loading&hellip;</p>';
+    container.innerHTML = '<p class="panel-loading" style="margin:0">Loading&hellip;</p>';
     try {
       const data = await api('/api/account/billing');
       if (!data || (!data.plan && (!data.invoices || !data.invoices.length))) {
-        container.innerHTML = '<p class="panel-loading">No billing records yet.</p>';
+        container.innerHTML = '<p class="panel-loading" style="margin:0">No billing records yet.</p>';
         return;
       }
       let html = '';
       if (data.plan) {
         html += `<div class="panel-info-row"><span>Plan</span><span>${data.plan}</span></div>`;
         if (data.monthly_price) html += `<div class="panel-info-row"><span>Monthly</span><span>${data.monthly_price}</span></div>`;
-        if (data.renewal_date) html += `<div class="panel-info-row"><span>Renewal</span><span>${data.renewal_date}</span></div>`;
+        if (data.renewal_date)  html += `<div class="panel-info-row"><span>Renewal</span><span>${data.renewal_date}</span></div>`;
+        const status      = data.status || 'inactive';
+        const badgeClass  = status === 'active' ? 'is-active' : status === 'cancellation_requested' ? 'is-pending' : 'is-inactive';
+        const badgeLabel  = status === 'active' ? 'Active'    : status === 'cancellation_requested' ? 'Cancellation Requested' : status === 'cancelled' ? 'Cancelled' : 'Not Subscribed';
+        html += `<div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge ${badgeClass}">${badgeLabel}</span></span></div>`;
         html += '<div class="account-panel-divider"></div>';
       }
       if (data.invoices && data.invoices.length) {
@@ -133,93 +199,82 @@ window.TrellisAccountPanel = (function () {
       } else {
         html += '<p class="panel-loading" style="margin-top:0">No payment history yet.</p>';
       }
+      if (!data.plan || data.status === 'inactive' || data.status === 'cancelled') {
+        html += `<a href="#pricing" class="btn btn-primary btn-block" style="text-align:center;text-decoration:none;margin-top:var(--space-3)" onclick="window.TrellisAccountPanel.closePanel()">View Plans</a>`;
+      }
       container.innerHTML = html;
     } catch {
-      container.innerHTML = '<p class="panel-loading">Could not load billing info.</p>';
+      container.innerHTML = '<p class="panel-loading" style="margin:0">Could not load billing info.</p>';
     }
   }
 
-  // ── Care Plan sub-view ────────────────────────────────────────────────────
+  // ── Notifications section ─────────────────────────────────────────────────
 
-  async function loadCarePlan() {
-    const container = qs('#carePlanPanelContent');
+  function loadNotifications() {
+    const container = qs('#apNotificationsContent');
     if (!container) return;
-    container.innerHTML = '<p class="panel-loading">Loading&hellip;</p>';
-    try {
-      const data = await api('/api/account/care-plan');
-      const status = (data && data.status) || 'inactive';
-      const badgeClass = status === 'active' ? 'is-active'
-        : status === 'cancellation_requested' ? 'is-pending' : 'is-inactive';
-      const badgeLabel = status === 'active' ? 'Active'
-        : status === 'cancellation_requested' ? 'Cancellation Requested'
-        : status === 'cancelled' ? 'Cancelled' : 'Not Subscribed';
-      let html = `<div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge ${badgeClass}">${badgeLabel}</span></span></div>`;
-      if (data && data.renewal_date) {
-        html += `<div class="panel-info-row"><span>Renewal</span><span>${data.renewal_date}</span></div>`;
-      }
-      if (data && data.start_date) {
-        html += `<div class="panel-info-row"><span>Started</span><span>${data.start_date}</span></div>`;
-      }
-      if (data && data.monthly_price && data.currency) {
-        html += `<div class="panel-info-row"><span>Monthly</span><span>${data.currency} ${data.monthly_price}</span></div>`;
-      }
-      if (status === 'inactive' || status === 'cancelled') {
-        html += `<div class="account-panel-divider"></div><a href="#pricing" class="btn btn-primary btn-block" style="text-align:center;text-decoration:none;" onclick="window.TrellisAccountPanel.closePanel()">View Plans</a>`;
-      }
-      container.innerHTML = html;
-    } catch {
-      container.innerHTML = '<p class="panel-loading">Could not load care plan info.</p>';
+    // Placeholder notifications — replace with real API data when available
+    const items = [
+      { icon: '🔔', text: 'Welcome to Trellis! Your account is all set.', time: 'Just now' },
+    ];
+    if (!items.length) {
+      container.innerHTML = '<p class="panel-loading" style="margin:0">No notifications yet.</p>';
+      return;
     }
+    container.innerHTML = items.map((n) => `
+      <div class="ap-notif-item">
+        <span>${n.icon}</span>
+        <span class="ap-notif-text">${n.text}</span>
+        <span class="ap-notif-time">${n.time}</span>
+      </div>
+    `).join('');
   }
 
-  // ── Settings sub-view ─────────────────────────────────────────────────────
+  // ── Projects section ──────────────────────────────────────────────────────
 
-  function wireSettings() {
-    const changePasswordBtn = qs('#changePasswordBtn');
-    const changeEmailBtn = qs('#changeEmailBtn');
+  function loadProjects() {
+    const container = qs('#apProjectsContent');
+    if (!container) return;
+    // Placeholder — replace with real API data when projects table exists
+    container.innerHTML = '<p class="panel-loading" style="margin:0">No active projects yet.</p>';
+  }
 
-    if (changePasswordBtn) {
-      changePasswordBtn.addEventListener('click', async () => {
-        const input = qs('#settingsNewPassword');
-        const statusEl = qs('#passwordStatus');
-        const password = input ? input.value : '';
-        if (password.length < 8) {
-          setStatus(statusEl, 'Password must be at least 8 characters.', 'error');
-          return;
+  // ── Logout ────────────────────────────────────────────────────────────────
+
+  function wireLogout() {
+    const logoutBtn  = qs('#accountPanelLogout');
+    const confirmBox = qs('#apLogoutConfirm');
+    const yesBtn     = qs('#apLogoutYes');
+    const noBtn      = qs('#apLogoutNo');
+
+    if (!logoutBtn) return;
+
+    logoutBtn.addEventListener('click', () => {
+      if (confirmBox) {
+        const isShown = !confirmBox.hasAttribute('hidden');
+        if (isShown) {
+          confirmBox.setAttribute('hidden', '');
+        } else {
+          confirmBox.removeAttribute('hidden');
         }
-        setStatus(statusEl, 'Updating…', '');
-        try {
-          await window.TrellisAuth.updatePassword(password);
-          if (input) input.value = '';
-          setStatus(statusEl, 'Password updated!', 'success');
-        } catch (err) {
-          setStatus(statusEl, err.message || 'Failed to update password.', 'error');
-        }
+      }
+    });
+
+    if (yesBtn) {
+      yesBtn.addEventListener('click', () => {
+        if (window.TrellisAuth) window.TrellisAuth.logout();
+        hide();
       });
     }
 
-    if (changeEmailBtn) {
-      changeEmailBtn.addEventListener('click', async () => {
-        const input = qs('#settingsNewEmail');
-        const statusEl = qs('#emailStatus');
-        const email = input ? input.value.trim() : '';
-        if (!email || !email.includes('@')) {
-          setStatus(statusEl, 'Please enter a valid email address.', 'error');
-          return;
-        }
-        setStatus(statusEl, 'Sending confirmation…', '');
-        try {
-          await window.TrellisAuth.updateEmail(email);
-          if (input) input.value = '';
-          setStatus(statusEl, 'Confirmation sent — check your inbox.', 'success');
-        } catch (err) {
-          setStatus(statusEl, err.message || 'Failed to update email.', 'error');
-        }
+    if (noBtn) {
+      noBtn.addEventListener('click', () => {
+        if (confirmBox) confirmBox.setAttribute('hidden', '');
       });
     }
   }
 
-  // ── Drag (vertical reposition + horizontal dismiss) ───────────────────────
+  // ── Drag ─────────────────────────────────────────────────────────────────
 
   function onDrag(e) {
     if (!isDragging) return;
@@ -227,12 +282,10 @@ window.TrellisAccountPanel = (function () {
     const deltaY = e.clientY - dragStartY;
     lastDeltaX = deltaX;
 
-    // Vertical repositioning
     const newTop = panelStartTop + deltaY;
     const maxTop = window.innerHeight - panel.offsetHeight;
     panel.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
 
-    // Horizontal feedback — only allow dragging left
     if (deltaX < 0) {
       panel.style.transform = `translateX(${deltaX}px)`;
     } else {
@@ -246,10 +299,8 @@ window.TrellisAccountPanel = (function () {
     document.removeEventListener('mouseup', onDragEnd);
 
     if (lastDeltaX <= DISMISS_THRESHOLD) {
-      // Dragged far enough left — dismiss the panel
       closePanel();
     } else {
-      // Snap back horizontal position
       panel.style.transform = 'none';
     }
   }
@@ -269,14 +320,13 @@ window.TrellisAccountPanel = (function () {
     });
   }
 
-  // ── Wiring ────────────────────────────────────────────────────────────────
+  // ── Build ─────────────────────────────────────────────────────────────────
 
   function build() {
     panel = qs('#accountPanel');
-    tab = qs('#accountPanelTab');
+    tab   = qs('#accountPanelTab');
     if (!panel) return;
 
-    // Create backdrop dynamically
     backdrop = document.createElement('div');
     backdrop.className = 'panel-backdrop';
     backdrop.setAttribute('aria-hidden', 'true');
@@ -284,45 +334,39 @@ window.TrellisAccountPanel = (function () {
     backdrop.addEventListener('click', closePanel);
 
     const dragHandle = panel.querySelector('#accountPanelDrag');
-    const closeBtn = panel.querySelector('#accountPanelClose');
-    const logoutBtn = panel.querySelector('#accountPanelLogout');
-    const saveProfileBtn = qs('#saveProfileBtn');
+    const closeBtn   = panel.querySelector('#accountPanelClose');
 
     if (dragHandle) initDrag(dragHandle);
-    if (closeBtn) closeBtn.addEventListener('click', closePanel);
-    if (tab) tab.addEventListener('click', openPanel);
+    if (closeBtn)   closeBtn.addEventListener('click', closePanel);
+    if (tab)        tab.addEventListener('click', openPanel);
 
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', () => {
-        if (window.TrellisAuth) window.TrellisAuth.logout();
-        hide();
-      });
-    }
+    // Accordion section headers
+    const sections = [
+      { id: 'apSectionProfile',       key: 'profile' },
+      { id: 'apSectionProjects',      key: 'projects' },
+      { id: 'apSectionNotifications', key: 'notifications' },
+      { id: 'apSectionBilling',       key: 'billing' },
+    ];
 
-    if (saveProfileBtn) saveProfileBtn.addEventListener('click', saveProfile);
-
-    // Nav buttons
-    panel.querySelectorAll('[data-panel-view]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const view = btn.dataset.panelView;
-        showView('panelView' + view.charAt(0).toUpperCase() + view.slice(1));
-        if (view === 'profile') loadProfile();
-        if (view === 'billing') loadBilling();
-        if (view === 'careplan') loadCarePlan();
-      });
+    sections.forEach(({ id, key }) => {
+      const sectionEl = qs('#' + id);
+      if (!sectionEl) return;
+      const header = sectionEl.querySelector('.ap-section-header');
+      if (header) {
+        header.addEventListener('click', () => toggleSection(sectionEl, key));
+      }
     });
 
-    // Back buttons
-    panel.querySelectorAll('.panel-back-btn').forEach((btn) => {
-      btn.addEventListener('click', backToMain);
-    });
+    // Profile save
+    const saveBtn = qs('#saveProfileBtn');
+    if (saveBtn) saveBtn.addEventListener('click', saveProfile);
 
-    // Close on Escape key
+    wirePasswordToggle();
+    wireLogout();
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && !panel.classList.contains('is-hidden')) closePanel();
     });
-
-    wireSettings();
   }
 
   if (document.readyState === 'loading') {

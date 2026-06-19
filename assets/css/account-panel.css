@@ -25,7 +25,7 @@
   background: var(--color-green-hover);
 }
 
-/* Backdrop — shown behind panel when open */
+/* Backdrop */
 .panel-backdrop {
   position: fixed;
   inset: 0;
@@ -41,18 +41,18 @@
   pointer-events: auto;
 }
 
-/* Lock background scroll when panel is open */
 body.panel-open {
   overflow: hidden;
 }
 
+/* Panel shell */
 .account-panel {
   position: fixed;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 272px;
-  max-height: min(600px, 90vh);
+  width: 288px;
+  max-height: min(640px, 92vh);
   background: var(--color-white);
   border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
   box-shadow: var(--shadow-lg);
@@ -79,6 +79,7 @@ body.panel-open {
   transform: translateX(-105%);
 }
 
+/* Drag handle */
 .account-panel-drag {
   padding: var(--space-2) var(--space-3);
   cursor: grab;
@@ -91,9 +92,7 @@ body.panel-open {
   flex-shrink: 0;
 }
 
-.account-panel-drag:active {
-  cursor: grabbing;
-}
+.account-panel-drag:active { cursor: grabbing; }
 
 .account-panel-drag-dots {
   display: flex;
@@ -120,20 +119,27 @@ body.panel-open {
   transition: color var(--transition-base);
 }
 
-.account-panel-close:hover {
-  color: var(--color-ink);
-}
+.account-panel-close:hover { color: var(--color-ink); }
 
+/* Scrollable body */
 .account-panel-body {
-  padding: var(--space-4);
+  padding: var(--space-4) var(--space-3) var(--space-3);
   overflow-y: auto;
   overscroll-behavior: contain;
   flex: 1;
 }
 
+/* User header row */
+.ap-user-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
 .account-panel-avatar {
-  width: 54px;
-  height: 54px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--color-green-600);
   color: #fff;
@@ -142,25 +148,30 @@ body.panel-open {
   justify-content: center;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.25rem;
-  margin: 0 auto var(--space-3);
+  font-size: 1rem;
+  flex-shrink: 0;
 }
+
+.ap-user-meta { min-width: 0; }
 
 .account-panel-name {
   font-family: var(--font-heading);
   font-weight: 600;
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--color-ink);
-  text-align: center;
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .account-panel-email {
-  font-size: var(--text-sm);
+  font-size: 0.7rem;
   color: var(--color-muted);
-  text-align: center;
-  margin: 0 0 var(--space-3);
-  word-break: break-all;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .account-panel-divider {
@@ -169,107 +180,110 @@ body.panel-open {
   margin: var(--space-3) 0;
 }
 
-.account-panel-options {
+/* ── Accordion ─────────────────────────────────────────────────────────── */
+
+.ap-accordion {
   display: flex;
   flex-direction: column;
-  gap: 2px;
 }
 
-.account-panel-option {
+.ap-section {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ap-section:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.ap-section-header {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  color: var(--color-ink);
-  font-size: var(--text-sm);
-  font-weight: 500;
-  text-decoration: none;
-  background: none;
-  border: none;
-  cursor: pointer;
   width: 100%;
-  text-align: left;
-  transition: background var(--transition-base), color var(--transition-base);
-}
-
-.account-panel-option:hover {
-  background: var(--color-green-tint);
-  color: var(--color-green-600);
-}
-
-.account-panel-option svg {
-  flex-shrink: 0;
-  color: var(--color-muted);
-  transition: color var(--transition-base);
-}
-
-.account-panel-option:hover svg {
-  color: var(--color-green-600);
-}
-
-.account-panel-option.is-danger:hover {
-  background: #fef2f2;
-  color: var(--color-error);
-}
-
-.account-panel-option.is-danger:hover svg {
-  color: var(--color-error);
-}
-
-/* Sub-views */
-.account-panel-subview {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  flex: 1;
-  padding: var(--space-4);
-}
-
-.panel-back-btn {
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-green-600);
+  padding: var(--space-2) var(--space-2);
+  text-align: left;
+  transition: background var(--transition-base);
+  border-radius: var(--radius-sm);
+}
+
+.ap-section-header:hover {
+  background: var(--color-green-tint);
+}
+
+.ap-section-icon {
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ap-section-label {
+  flex: 1;
   font-size: var(--text-sm);
   font-weight: 600;
-  padding: 0;
-  text-align: left;
-  margin-bottom: var(--space-1);
-  transition: color var(--transition-base);
-}
-
-.panel-back-btn:hover {
-  color: var(--color-green-hover);
-}
-
-.panel-subview-title {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: var(--text-base);
   color: var(--color-ink);
-  margin: 0;
 }
 
-.panel-avatar-note {
-  font-size: 0.7rem;
+.ap-chevron {
+  flex-shrink: 0;
   color: var(--color-muted);
-  text-align: center;
-  margin: calc(-1 * var(--space-2)) 0 0;
+  transition: transform 0.2s ease;
 }
+
+.ap-section-header[aria-expanded="true"] .ap-chevron {
+  transform: rotate(180deg);
+}
+
+.ap-notif-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-green-600);
+  margin-right: var(--space-1);
+  flex-shrink: 0;
+}
+
+/* Expand/collapse with grid-template-rows trick */
+.ap-section-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+}
+
+.ap-section.is-open .ap-section-body {
+  grid-template-rows: 1fr;
+}
+
+.ap-section-content {
+  overflow: hidden;
+  padding: 0 var(--space-2) 0;
+  transition: padding 0.25s ease;
+}
+
+.ap-section.is-open .ap-section-content {
+  padding: 0 var(--space-2) var(--space-3);
+}
+
+/* ── Profile section ──────────────────────────────────────────────────── */
 
 .panel-field {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  margin-bottom: var(--space-3);
 }
 
 .panel-field-label {
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-ink);
+}
+
+.ap-optional {
+  font-weight: 400;
+  color: var(--color-muted);
 }
 
 .panel-field input {
@@ -296,26 +310,44 @@ body.panel-open {
   cursor: not-allowed;
 }
 
-.btn-block {
-  width: 100%;
-  justify-content: center;
+.ap-password-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
 }
 
-.btn-secondary {
+.ap-password-hint {
+  font-size: 0.7rem;
+  color: var(--color-muted);
+  margin: 0.1rem 0 0;
+}
+
+.btn-ghost-sm {
   background: none;
-  border: 1.5px solid var(--color-green-600);
-  color: var(--color-green-600);
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-sm);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-ink);
+  font-size: 0.7rem;
   font-weight: 600;
+  font-family: var(--font-body);
   cursor: pointer;
-  transition: background var(--transition-base), color var(--transition-base);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: border-color var(--transition-base), color var(--transition-base);
 }
 
-.btn-secondary:hover {
-  background: var(--color-green-tint);
+.btn-ghost-sm:hover {
+  border-color: var(--color-green-600);
+  color: var(--color-green-600);
 }
+
+.ap-change-password-form {
+  margin-top: var(--space-2);
+}
+
+/* ── Info rows (billing, care plan) ────────────────────────────────────── */
 
 .panel-section-label {
   font-size: var(--text-sm);
@@ -323,37 +355,14 @@ body.panel-open {
   color: var(--color-muted);
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  margin: 0;
-}
-
-.panel-toggle-label {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  color: var(--color-ink);
-  cursor: pointer;
-}
-
-.panel-toggle-label input[type="checkbox"] {
-  width: 15px;
-  height: 15px;
-  accent-color: var(--color-green-600);
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.panel-info-block {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  margin: 0 0 var(--space-2);
 }
 
 .panel-loading {
   color: var(--color-muted);
   font-size: var(--text-sm);
   text-align: center;
-  margin: var(--space-4) 0;
+  margin: var(--space-3) 0;
 }
 
 .panel-info-row {
@@ -362,6 +371,7 @@ body.panel-open {
   align-items: flex-start;
   gap: var(--space-2);
   font-size: var(--text-sm);
+  margin-bottom: var(--space-2);
 }
 
 .panel-info-row span:first-child {
@@ -401,17 +411,133 @@ body.panel-open {
   color: #b8860b;
 }
 
+/* ── Notification items ─────────────────────────────────────────────────── */
+
+.ap-notif-item {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+}
+
+.ap-notif-item:last-child { border-bottom: none; }
+
+.ap-notif-item .ap-notif-text { flex: 1; line-height: 1.4; }
+
+.ap-notif-item .ap-notif-time {
+  font-size: 0.65rem;
+  color: var(--color-muted);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+/* ── Project items ──────────────────────────────────────────────────────── */
+
+.ap-project-item {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ap-project-item:last-child { border-bottom: none; }
+
+.ap-project-name {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 var(--space-1);
+}
+
+.ap-project-stage {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--color-green-tint);
+  color: var(--color-green-600);
+}
+
+/* ── Logout button ──────────────────────────────────────────────────────── */
+
+.ap-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-error);
+  transition: background var(--transition-base);
+  text-align: left;
+}
+
+.ap-logout-btn:hover {
+  background: #fef2f2;
+}
+
+/* ── Logout confirmation inline box ────────────────────────────────────── */
+
+.ap-logout-confirm {
+  margin-top: var(--space-2);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.ap-logout-confirm p {
+  font-size: var(--text-sm);
+  color: var(--color-ink);
+  margin: 0 0 var(--space-3);
+  text-align: center;
+}
+
+.ap-confirm-btns {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* Shared helpers */
+.btn-block {
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-secondary {
+  background: none;
+  border: 1.5px solid var(--color-green-600);
+  color: var(--color-green-600);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.btn-secondary:hover { background: var(--color-green-tint); }
+
 .form-status {
   font-size: var(--text-sm);
   min-height: 1.2em;
   text-align: center;
 }
 
-.form-status.is-error { color: var(--color-error); }
+.form-status.is-error  { color: var(--color-error); }
 .form-status.is-success { color: var(--color-green-600); }
 
 @media (max-width: 480px) {
-  .account-panel {
-    width: 240px;
-  }
+  .account-panel { width: 252px; }
 }

@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Replace https://trellishub.vercel.app with your final domain once connected -->
+<!--
+  Trellishub Sitemap
+  Base URL : https://www.trellishub.co.za
+  Last updated : 2026-06-19
+
+  Pages included:
+    /                       Homepage (all sections: Hero, Services, Portfolio, About, Pricing, Why Us, Contact)
+    /portfolio/medical      Demo — BrightSmile Dental
+    /portfolio/service      Demo — ProFix Home Services
+    /portfolio/sales        Demo — UrbanEdge Clothing
+    /handover/tutorial      Client tutorial guide
+    /privacy-policy         Privacy policy
+
+  Pages intentionally excluded:
+    /admin/*                Password-gated admin dashboard (noindex in robots.txt)
+    /my-account             Auth-gated client account page
+    /handover/template      Internal handover document form (no SEO value)
+
+  Maintenance: update <lastmod> and add a new <url> block whenever a new
+  public page is deployed.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Homepage — covers all anchor sections -->
   <url>
-    <loc>https://trellishub.vercel.app/</loc>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.trellishub.co.za/</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- Portfolio demo pages -->
   <url>
-    <loc>https://trellishub.vercel.app/privacy-policy</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://www.trellishub.co.za/portfolio/medical</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
+
+  <url>
+    <loc>https://www.trellishub.co.za/portfolio/service</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://www.trellishub.co.za/portfolio/sales</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Client resources -->
+  <url>
+    <loc>https://www.trellishub.co.za/handover/tutorial</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Legal -->
+  <url>
+    <loc>https://www.trellishub.co.za/privacy-policy</loc>
+    <lastmod>2026-06-19</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
 </urlset>

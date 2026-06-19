@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /admin
 Allow: /
 
-Sitemap: /sitemap.xml
+Sitemap: https://www.trellishub.co.za/sitemap.xml

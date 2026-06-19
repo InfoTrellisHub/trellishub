@@ -11,10 +11,6 @@ module.exports = async function handler(req, res) {
   }
 
   const session = getCustomerSession(req);
-  if (!session) {
-    res.status(401).json({ success: false, error: 'Please log in to send a message.' });
-    return;
-  }
 
   if (isHoneypotTripped(req.body)) {
     res.status(200).json({ success: true, id: null });
@@ -36,7 +32,7 @@ module.exports = async function handler(req, res) {
     const supabase = getSupabase();
     const { data: row, error } = await supabase
       .from('leads')
-      .insert({ ...data, customer_id: session.customer_id, ip_country: req.body.ip_country || null, user_agent: req.headers['user-agent'] || null })
+      .insert({ ...data, customer_id: session ? session.customer_id : null, ip_country: req.body.ip_country || null, user_agent: req.headers['user-agent'] || null })
       .select('id')
       .single();
 

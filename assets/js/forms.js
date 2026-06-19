@@ -1,5 +1,6 @@
-// Contact + Booking form handling, gated behind the auth modal at submit time.
-// Pricing CTAs and the chatbot's booking deep-link both call window.TrellisBooking.startBooking().
+// Contact + Booking form handling.
+// Forms work for both guests and logged-in users.
+// When logged in, name/email auto-fill via TrellisForms.prefillFromCustomer().
 (function () {
   const { qs, qsa, api, setStatus, isValidEmail } = window.TrellisUtils;
 
@@ -20,6 +21,25 @@
       if (field) field.classList.toggle('has-error', !valid);
     });
   }
+
+  // ---- Auto-fill from logged-in customer ----
+  function prefillFromCustomer(customer) {
+    if (!customer) return;
+    const name = customer.name || '';
+    const email = customer.email || '';
+
+    const contactName = qs('#contactName');
+    const contactEmail = qs('#contactEmail');
+    if (contactName && !contactName.value) contactName.value = name;
+    if (contactEmail && !contactEmail.value) contactEmail.value = email;
+
+    const bookingName = qs('#bookingName');
+    const bookingEmail = qs('#bookingEmail');
+    if (bookingName && !bookingName.value) bookingName.value = name;
+    if (bookingEmail && !bookingEmail.value) bookingEmail.value = email;
+  }
+
+  window.TrellisForms = { prefillFromCustomer };
 
   // ---- Outer contact tab switching ----
   const contactTabToggle = qs('#contactTabToggle');
@@ -105,15 +125,6 @@
         return;
       }
 
-      if (!window.TrellisAuth.isAuthenticated()) {
-        window.TrellisAuth.openModal({
-          defaultTab: 'signup',
-          prefill: { name: data.name, email: data.email },
-          onSuccess: () => submitBooking(data, statusEl)
-        });
-        return;
-      }
-
       submitBooking(data, statusEl);
     });
   }
@@ -157,15 +168,6 @@
       showFieldErrors(contactForm, validMap);
       if (!validMap.name || !validMap.email || !validMap.message) {
         setStatus(statusEl, 'Please fill in the required fields.', 'error');
-        return;
-      }
-
-      if (!window.TrellisAuth.isAuthenticated()) {
-        window.TrellisAuth.openModal({
-          defaultTab: 'signup',
-          prefill: { name: data.name, email: data.email },
-          onSuccess: () => submitContact(data, statusEl)
-        });
         return;
       }
 

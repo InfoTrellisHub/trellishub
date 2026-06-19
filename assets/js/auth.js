@@ -59,7 +59,7 @@ window.TrellisAuth = (function () {
         if (window.TrellisAccountPanel) window.TrellisAccountPanel.openPanel();
       });
     } else {
-      slot.innerHTML = `<a href="#" class="btn-ghost" id="navLoginLink">Log In</a>`;
+      slot.innerHTML = `<a href="#" class="btn-ghost" id="navLoginLink">Account</a>`;
       const link = qs('#navLoginLink');
       if (link) link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -82,6 +82,7 @@ window.TrellisAuth = (function () {
     updateNavUI();
     closeModal();
     if (window.TrellisAccountPanel) window.TrellisAccountPanel.show(customer);
+    if (window.TrellisForms) window.TrellisForms.prefillFromCustomer(customer);
     if (onSuccessCallback) {
       const cb = onSuccessCallback;
       onSuccessCallback = null;
@@ -108,9 +109,13 @@ window.TrellisAuth = (function () {
       cachedSession = { authenticated: false };
     }
     updateNavUI();
-    if (isAuthenticated() && window.TrellisAccountPanel) {
-      window.TrellisAccountPanel.show(getCustomer());
-      window.TrellisAccountPanel.closePanel();
+    if (isAuthenticated()) {
+      const customer = getCustomer();
+      if (window.TrellisAccountPanel) {
+        window.TrellisAccountPanel.show(customer);
+        window.TrellisAccountPanel.closePanel();
+      }
+      if (window.TrellisForms) window.TrellisForms.prefillFromCustomer(customer);
     }
     return cachedSession;
   }

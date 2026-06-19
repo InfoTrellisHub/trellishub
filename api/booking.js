@@ -11,10 +11,6 @@ module.exports = async function handler(req, res) {
   }
 
   const session = getCustomerSession(req);
-  if (!session) {
-    res.status(401).json({ success: false, error: 'Please log in to book a consultation.' });
-    return;
-  }
 
   if (isHoneypotTripped(req.body)) {
     res.status(200).json({ success: true, id: null });
@@ -36,7 +32,7 @@ module.exports = async function handler(req, res) {
     const supabase = getSupabase();
     const { data: row, error } = await supabase
       .from('bookings')
-      .insert({ ...data, customer_id: session.customer_id })
+      .insert({ ...data, customer_id: session ? session.customer_id : null })
       .select('id')
       .single();
 

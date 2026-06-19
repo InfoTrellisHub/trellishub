@@ -27,7 +27,6 @@
       <div class="card portfolio-card ${meta.accentClass}" data-reveal>
         <div class="portfolio-thumb-new">
           <div class="portfolio-thumb-icon">${meta.icon}</div>
-          <span class="portfolio-value-badge">${project.value}</span>
         </div>
         <div class="portfolio-card-body">
           <span class="portfolio-industry-tag">${project.industry}</span>

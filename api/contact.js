@@ -51,7 +51,14 @@ module.exports = async function handler(req, res) {
 
     res.status(200).json({ success: true, id: row.id });
   } catch (e) {
-    console.error('contact.js error:', e);
-    res.status(500).json({ success: false, error: 'Something went wrong. Please try again or email us directly.' });
+    console.error('contact.js error:', {
+      message: e.message,
+      code:    e.code,
+      status:  e.status,
+      details: e.details,
+      hint:    e.hint,
+      stack:   e.stack,
+    });
+    res.status(500).json({ success: false, error: e.message || 'Something went wrong. Please try again or email us directly.' });
   }
 };

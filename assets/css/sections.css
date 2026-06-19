@@ -492,30 +492,54 @@
   flex-shrink: 0;
 }
 
-.contact-phone-row {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-.contact-wa-icon-link {
-  display: inline-flex;
-  align-items: center;
+.contact-row-icon {
   flex-shrink: 0;
-  opacity: 0.85;
-  transition: opacity 0.18s, transform 0.18s;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.contact-wa-icon-link:hover {
-  opacity: 1;
-  transform: scale(1.12);
+.contact-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-.contact-wa-icon {
-  width: 18px;
-  height: 18px;
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+.contact-links a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.contact-links a:hover {
+  color: var(--color-primary-hover);
+  text-decoration: underline;
+}
+.contact-sep {
+  color: var(--color-muted);
+}
+/* WhatsApp row icon */
+.contact-wa-row-icon {
+  width: 44px;
+  height: 44px;
+  background: #e7f9ee;
+  border-radius: 50%;
+}
+.contact-wa-icon-lg {
+  width: 26px;
+  height: 26px;
   display: block;
 }
-.contact-divider {
-  margin: 0 6px;
-  color: var(--color-muted);
+/* WhatsApp links get green on hover */
+.contact-info-item:has(.contact-wa-icon-lg) .contact-links a {
+  color: #128c5e;
+}
+.contact-info-item:has(.contact-wa-icon-lg) .contact-links a:hover {
+  color: #075e40;
 }
 
 @media (max-width: 860px) {

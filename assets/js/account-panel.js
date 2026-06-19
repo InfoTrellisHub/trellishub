@@ -235,8 +235,82 @@ window.TrellisAccountPanel = (function () {
   function loadProjects() {
     const container = qs('#apProjectsContent');
     if (!container) return;
-    // Placeholder — replace with real API data when projects table exists
-    container.innerHTML = '<p class="panel-loading" style="margin:0">No active projects yet.</p>';
+
+    container.innerHTML = `
+      <div class="ap-proj-subs">
+
+        <div class="ap-proj-sub" id="apProjSubFiles">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Website Files</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              <p class="ap-proj-empty">Your delivered website source code, assets, and project files will be available here once your project is complete.</p>
+              <a class="ap-proj-link" href="/handover/template" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                View Handover Document
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-proj-sub" id="apProjSubTutorials">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Tutorials</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              <p class="ap-proj-empty">Step-by-step video tutorials covering hosting, email setup, managing credentials, and maintaining your site.</p>
+              <a class="ap-proj-link" href="/handover/tutorial" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+                View Tutorial Guide
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-proj-sub" id="apProjSubCreds">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Credentials</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              <p class="ap-proj-empty">Domain details, hosting credentials, email accounts, API keys, and passwords are delivered securely in your handover document.</p>
+              <div class="ap-proj-cred-note">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <p>Your credentials are shared privately. Never store passwords in unsecured locations.</p>
+              </div>
+              <a class="ap-proj-link" href="/handover/template" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Open Handover Document
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    container.querySelectorAll('.ap-proj-sub-header').forEach((header) => {
+      header.addEventListener('click', () => {
+        const sub = header.closest('.ap-proj-sub');
+        const isOpen = sub.classList.contains('is-open');
+        sub.classList.toggle('is-open', !isOpen);
+        header.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
   }
 
   // ── Logout ────────────────────────────────────────────────────────────────

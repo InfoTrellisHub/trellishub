@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Tutorial Guide — TrellisHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: #f0f4f2;
+      color: var(--color-ink);
+      font-size: var(--text-sm);
+      line-height: 1.65;
+    }
+
+    /* ── Header ──────────────────────────────────────────────── */
+    .tut-header {
+      background: var(--color-green-600);
+      color: #fff;
+      padding: 2.5rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .tut-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tut-brand-mark {
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tut-brand-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .tut-header h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .tut-header p {
+      font-size: var(--text-sm);
+      opacity: 0.85;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Table of contents ───────────────────────────────────── */
+    .tut-toc {
+      max-width: 780px;
+      margin: 2rem auto;
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 1.5rem 2rem;
+    }
+
+    .tut-toc h2 {
+      font-family: var(--font-heading);
+      font-size: var(--text-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--color-muted);
+      margin-bottom: 1rem;
+    }
+
+    .tut-toc ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .tut-toc li a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--color-ink);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: var(--text-sm);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: color 150ms ease;
+    }
+
+    .tut-toc li:last-child a { border-bottom: none; }
+
+    .tut-toc li a:hover { color: var(--color-green-600); }
+
+    .tut-toc-num {
+      width: 24px;
+      height: 24px;
+      background: var(--color-green-600);
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* ── Sections ────────────────────────────────────────────── */
+    .tut-sections {
+      max-width: 780px;
+      margin: 0 auto 4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      padding: 0 1rem;
+    }
+
+    .tut-section {
+      background: var(--color-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .tut-section-head {
+      background: #f9fbf9;
+      border-bottom: 1px solid var(--color-border);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .tut-section-badge {
+      width: 36px;
+      height: 36px;
+      background: var(--color-green-600);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: var(--text-sm);
+      flex-shrink: 0;
+    }
+
+    .tut-section-meta { flex: 1; }
+
+    .tut-section-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--color-green-600);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .tut-section-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    .tut-section-body { padding: 1.75rem; }
+
+    /* ── Video placeholder ───────────────────────────────────── */
+    .tut-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #12192b 0%, #1a2640 60%, #0d2215 100%);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tut-video::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.01) 0px,
+        rgba(255,255,255,0.01) 1px,
+        transparent 1px,
+        transparent 20px
+      );
+    }
+
+    .tut-video-play {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tut-video-play svg { margin-left: 3px; }
+
+    .tut-video-label {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .tut-video-label strong {
+      display: block;
+      color: rgba(255,255,255,0.9);
+      font-family: var(--font-heading);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .tut-video-label span {
+      color: rgba(255,255,255,0.45);
+      font-size: 0.75rem;
+    }
+
+    /* ── Key points ──────────────────────────────────────────── */
+    .tut-points-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .tut-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .tut-points li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: var(--text-sm);
+      color: var(--color-ink);
+    }
+
+    .tut-points li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-green-600);
+      flex-shrink: 0;
+      margin-top: 7px;
+    }
+
+    /* ── Section divider ─────────────────────────────────────── */
+    .tut-section-note {
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--color-border);
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      font-style: italic;
+    }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    .tut-footer {
+      max-width: 780px;
+      margin: 0 auto 3rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+
+    .tut-footer-inner {
+      background: var(--color-green-600);
+      color: #fff;
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+
+    .tut-footer-inner h3 {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .tut-footer-inner p {
+      font-size: var(--text-sm);
+      opacity: 0.85;
+      margin-bottom: 1rem;
+    }
+
+    .tut-footer-inner a {
+      color: #fff;
+      font-weight: 600;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .tut-section-head { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      .tut-section-body { padding: 1.25rem; }
+      .tut-toc { margin: 1rem; padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="tut-header">
+    <div class="tut-brand">
+      <div class="tut-brand-mark">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="6.3" y1="6.3" x2="17.7" y2="17.7"/><line x1="17.7" y1="6.3" x2="6.3" y2="17.7"/></svg>
+      </div>
+      <span class="tut-brand-name">Trellis</span>
+    </div>
+    <h1>Your Website Tutorial Guide</h1>
+    <p>A step-by-step walkthrough of everything you need to know to run, manage, and grow your new website.</p>
+  </div>
+
+  <!-- Table of Contents -->
+  <div class="tut-toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#section-1"><span class="tut-toc-num">1</span> Introduction &amp; Overview</a></li>
+      <li><a href="#section-2"><span class="tut-toc-num">2</span> How to Host Your Website</a></li>
+      <li><a href="#section-3"><span class="tut-toc-num">3</span> Managing Emails &amp; Credentials</a></li>
+      <li><a href="#section-4"><span class="tut-toc-num">4</span> Updating &amp; Maintaining Your Site</a></li>
+      <li><a href="#section-5"><span class="tut-toc-num">5</span> Closing Notes &amp; Support</a></li>
+    </ol>
+  </div>
+
+  <!-- Sections -->
+  <div class="tut-sections">
+
+    <!-- Section 1 -->
+    <div class="tut-section" id="section-1">
+      <div class="tut-section-head">
+        <div class="tut-section-badge">1</div>
+        <div class="tut-section-meta">
+          <span class="tut-section-eyebrow">Section One</span>
+          <div class="tut-section-title">Introduction &amp; Overview</div>
+        </div>
+      </div>
+      <div class="tut-section-body">
+        <div class="tut-video">
+          <div class="tut-video-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="tut-video-label">
+            <strong>Video Clip — Introduction &amp; Overview</strong>
+            <span>Insert video clip here</span>
+          </div>
+        </div>
+        <p class="tut-points-title">What this section covers</p>
+        <ul class="tut-points">
+          <li>Welcome — what you've received and what it means for your business</li>
+          <li>A full tour of all pages and key features of your new website</li>
+          <li>What you own after this handover (domain, hosting, source code)</li>
+          <li>How to access your TrellisHub account panel and what's inside it</li>
+          <li>Overview of the handover package — documents, credentials, tutorials</li>
+        </ul>
+        <p class="tut-section-note">Replace the placeholder above with your recorded introduction video. Recommended length: 3–5 minutes.</p>
+      </div>
+    </div>
+
+    <!-- Section 2 -->
+    <div class="tut-section" id="section-2">
+      <div class="tut-section-head">
+        <div class="tut-section-badge">2</div>
+        <div class="tut-section-meta">
+          <span class="tut-section-eyebrow">Section Two</span>
+          <div class="tut-section-title">How to Host Your Website</div>
+        </div>
+      </div>
+      <div class="tut-section-body">
+        <div class="tut-video">
+          <div class="tut-video-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="tut-video-label">
+            <strong>Video Clip — Hosting Your Website</strong>
+            <span>Insert video clip here</span>
+          </div>
+        </div>
+        <p class="tut-points-title">What this section covers</p>
+        <ul class="tut-points">
+          <li>Logging into your hosting control panel (Vercel / cPanel / your provider)</li>
+          <li>How your domain is connected to your hosting — and how to update DNS if needed</li>
+          <li>Understanding your hosting plan — storage, bandwidth, renewal dates</li>
+          <li>How to point a new or additional domain to your existing website</li>
+          <li>What to do if your site goes down — first steps and who to contact</li>
+        </ul>
+        <p class="tut-section-note">Replace the placeholder above with your hosting walkthrough video. Recommended length: 5–8 minutes.</p>
+      </div>
+    </div>
+
+    <!-- Section 3 -->
+    <div class="tut-section" id="section-3">
+      <div class="tut-section-head">
+        <div class="tut-section-badge">3</div>
+        <div class="tut-section-meta">
+          <span class="tut-section-eyebrow">Section Three</span>
+          <div class="tut-section-title">Managing Emails &amp; Credentials</div>
+        </div>
+      </div>
+      <div class="tut-section-body">
+        <div class="tut-video">
+          <div class="tut-video-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="tut-video-label">
+            <strong>Video Clip — Emails &amp; Credentials</strong>
+            <span>Insert video clip here</span>
+          </div>
+        </div>
+        <p class="tut-points-title">What this section covers</p>
+        <ul class="tut-points">
+          <li>Accessing and using your business email accounts (webmail and mail client setup)</li>
+          <li>Adding or removing email addresses in the future</li>
+          <li>Where to find your credentials — using the handover document securely</li>
+          <li>How to change passwords for your domain, hosting, and email accounts</li>
+          <li>Best practices for keeping your credentials secure after handover</li>
+          <li>How API keys work and when you'd need to rotate or update them</li>
+        </ul>
+        <p class="tut-section-note">Replace the placeholder above with your credentials walkthrough video. Recommended length: 5–7 minutes.</p>
+      </div>
+    </div>
+
+    <!-- Section 4 -->
+    <div class="tut-section" id="section-4">
+      <div class="tut-section-head">
+        <div class="tut-section-badge">4</div>
+        <div class="tut-section-meta">
+          <span class="tut-section-eyebrow">Section Four</span>
+          <div class="tut-section-title">Updating &amp; Maintaining Your Site</div>
+        </div>
+      </div>
+      <div class="tut-section-body">
+        <div class="tut-video">
+          <div class="tut-video-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="tut-video-label">
+            <strong>Video Clip — Updating &amp; Maintaining Your Site</strong>
+            <span>Insert video clip here</span>
+          </div>
+        </div>
+        <p class="tut-points-title">What this section covers</p>
+        <ul class="tut-points">
+          <li>How to request content updates — text, images, pricing, new pages</li>
+          <li>What the Trellis Care Plan covers (hosting, updates, maintenance, analytics)</li>
+          <li>How to log into your account panel to track project progress and access files</li>
+          <li>What to do if you need a new feature added to your site</li>
+          <li>How to review your monthly analytics report (if on a Care Plan)</li>
+          <li>Understanding renewals — domain, hosting, and Care Plan billing cycles</li>
+        </ul>
+        <p class="tut-section-note">Replace the placeholder above with your maintenance walkthrough video. Recommended length: 6–10 minutes.</p>
+      </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="tut-section" id="section-5">
+      <div class="tut-section-head">
+        <div class="tut-section-badge">5</div>
+        <div class="tut-section-meta">
+          <span class="tut-section-eyebrow">Section Five</span>
+          <div class="tut-section-title">Closing Notes &amp; Support</div>
+        </div>
+      </div>
+      <div class="tut-section-body">
+        <div class="tut-video">
+          <div class="tut-video-play">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="tut-video-label">
+            <strong>Video Clip — Closing Notes &amp; Support</strong>
+            <span>Insert video clip here</span>
+          </div>
+        </div>
+        <p class="tut-points-title">What this section covers</p>
+        <ul class="tut-points">
+          <li>A summary of everything that's been handed over</li>
+          <li>Congratulations — you're officially live and ready to grow</li>
+          <li>How to reach the Trellis team after handover (email, account panel, phone)</li>
+          <li>What to do if you lose access to any account or credential</li>
+          <li>Tips for getting the most out of your new website from day one</li>
+          <li>What the Trellis roadmap includes — future features and upgrade paths</li>
+        </ul>
+        <p class="tut-section-note">Replace the placeholder above with your closing video. Recommended length: 2–4 minutes.</p>
+      </div>
+    </div>
+
+  </div><!-- /tut-sections -->
+
+  <!-- Footer -->
+  <div class="tut-footer">
+    <div class="tut-footer-inner">
+      <h3>Questions? We're here.</h3>
+      <p>If anything isn't clear after watching these tutorials, reach out directly — we're always happy to help.</p>
+      <p>
+        <a href="mailto:info.trellishub@gmail.com">info.trellishub@gmail.com</a>
+        &nbsp;&nbsp;·&nbsp;&nbsp;
+        <a href="https://www.trellishub.co.za">www.trellishub.co.za</a>
+      </p>
+      <p style="opacity:0.6;font-size:0.75rem;margin-top:0.75rem;margin-bottom:0">Built by Joshua Gorrah &amp; Henco Van Der Merwe · TrellisHub</p>
+    </div>
+  </div>
+
+</body>
+</html>

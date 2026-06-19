@@ -492,6 +492,28 @@
   flex-shrink: 0;
 }
 
+.contact-wa-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.contact-wa-link:hover {
+  color: #25d366;
+}
+.contact-wa-icon {
+  width: 18px;
+  height: 18px;
+  color: #25d366;
+  flex-shrink: 0;
+}
+.contact-divider {
+  margin: 0 6px;
+  color: var(--color-muted);
+}
+
 @media (max-width: 860px) {
   .contact-grid {
     grid-template-columns: 1fr;

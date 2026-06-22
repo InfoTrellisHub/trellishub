@@ -34,9 +34,9 @@ module.exports = async function handler(req, res) {
       { data: payments, error: payErr  },
     ] = await Promise.all([
       supabase
-        .from('care_plans')
+        .from('billing_care_plans')
         .select('plan_type, status, currency, monthly_price, renewal_date')
-        .eq('customer_id', cid)
+        .eq('user_id', cid)
         .eq('status', 'active')
         .maybeSingle(),
 
@@ -53,7 +53,7 @@ module.exports = async function handler(req, res) {
         .order('date', { ascending: false }),
     ]);
 
-    if (planErr) return res.status(500).json({ error: `care_plans: ${planErr.message}` });
+    if (planErr) return res.status(500).json({ error: `billing_care_plans: ${planErr.message}` });
     if (invErr)  return res.status(500).json({ error: `invoices: ${invErr.message}` });
     if (payErr)  return res.status(500).json({ error: `payments: ${payErr.message}` });
 

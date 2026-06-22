@@ -2517,6 +2517,36 @@
       .ue-about-stats { gap: 0; }
       .ue-about-stat + .ue-about-stat { padding-left: 16px; }
     }
+
+    /* ── BLOG MEDIA (images + videos replacing emoji placeholders) ── */
+    .ue-product-img,
+    .ue-product-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      z-index: 0;
+    }
+    .ue-blog-img-label { z-index: 1; }
+    .ue-blog-video-panel {
+      position: relative;
+      overflow: hidden;
+      height: 200px;
+      margin-top: 20px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: #080808;
+    }
+    .ue-blog-video-panel .ue-product-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -2898,9 +2928,11 @@
         <article class="ue-blog-card ue-blog-card-featured" data-ue-reveal data-blog-cat="culture" aria-label="Blog post: The Rise of Quiet Luxury">
           <div class="ue-blog-img-wrap">
             <div class="ue-blog-img"
-                 style="background:linear-gradient(155deg,#080808 0%,#1c1411 45%,#3d2b0a 80%,rgba(201,168,76,0.4) 100%);"
-                 role="img" aria-label="Urban skyline editorial">
-              🏙️
+                 style="background:#080808;overflow:hidden;">
+              <img class="ue-product-img"
+                   src="/assets/products/Magazine_Front_Cover.jpg"
+                   alt="UrbanEdge — Quiet Luxury magazine cover"
+                   loading="lazy" />
               <span class="ue-blog-img-label">Cover story</span>
             </div>
           </div>
@@ -2923,6 +2955,12 @@
             <a class="ue-blog-cta" href="#" aria-label="Read: The Rise of Quiet Luxury">
               Read article <span class="ue-blog-cta-arrow" aria-hidden="true">→</span>
             </a>
+            <div class="ue-blog-video-panel">
+              <video class="ue-product-video" autoplay loop muted playsinline
+                     aria-hidden="true">
+                <source src="/assets/products/South_Africa_Model.mp4" type="video/mp4" />
+              </video>
+            </div>
           </div>
         </article>
 
@@ -2930,9 +2968,11 @@
         <article class="ue-blog-card" data-ue-reveal data-blog-cat="style" aria-label="Blog post: 5 Ways to Style the Oversized Blazer">
           <div class="ue-blog-img-wrap">
             <div class="ue-blog-img"
-                 style="background:linear-gradient(155deg,#e8d5b0 0%,#c9a87c 45%,#8b6914 100%);"
-                 role="img" aria-label="Styling editorial">
-              👔
+                 style="background:#1a1206;overflow:hidden;">
+              <video class="ue-product-video" autoplay loop muted playsinline
+                     aria-hidden="true">
+                <source src="/assets/products/Style_Blazor_Vid.mp4" type="video/mp4" />
+              </video>
               <span class="ue-blog-img-label">Style guide</span>
             </div>
           </div>
@@ -2962,9 +3002,11 @@
         <article class="ue-blog-card" data-ue-reveal data-blog-cat="craft" aria-label="Blog post: Behind the Drop">
           <div class="ue-blog-img-wrap">
             <div class="ue-blog-img"
-                 style="background:linear-gradient(155deg,#0d1a2e 0%,#1a2e4a 50%,#2e4a6e 100%);"
-                 role="img" aria-label="Design studio behind-the-scenes">
-              🧵
+                 style="background:#0d1a2e;overflow:hidden;">
+              <video class="ue-product-video" autoplay loop muted playsinline
+                     aria-hidden="true">
+                <source src="/assets/products/Design-Clothing.mp4" type="video/mp4" />
+              </video>
               <span class="ue-blog-img-label">Behind the scenes</span>
             </div>
           </div>

@@ -1,4 +1,4 @@
-const { verifyCustomerCookie } = require('../../lib/auth');
+const { getCustomerSession } = require('../../lib/auth');
 const { getSupabase } = require('../../lib/supabase');
 
 module.exports = async function handler(req, res) {
@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const session = verifyCustomerCookie(req);
+  const session = getCustomerSession(req);
   if (!session) {
     return res.status(401).json({ error: 'Not authenticated' });
   }

@@ -170,72 +170,51 @@ window.TrellisAccountPanel = (function () {
 
   // ── Billing section ───────────────────────────────────────────────────────
 
-  async function loadBilling() {
+  function loadBilling() {
     const container = qs('#apBillingContent');
     if (!container) return;
-    container.innerHTML = '<p class="panel-loading" style="margin:0">Loading&hellip;</p>';
 
-    let data = null;
-    try {
-      data = await api('/api/account/billing');
-    } catch {
-      container.innerHTML = '<p class="panel-loading" style="margin:0">Could not load billing info.</p>';
-      return;
-    }
+    const invoices = [
+      { num: '001', date: '12 June 2026',  amount: 'R 1,200', method: 'Card' },
+      { num: '002', date: '12 May 2026',   amount: 'R 950',   method: 'EFT'  },
+    ];
+
+    const carePlan = {
+      name:    'Premium Care',
+      renewal: '12 July 2026',
+      monthly: 'R 950',
+    };
 
     // ── Invoices sub-section ─────────────────────────────────────────────────
-    let invoicesHtml = '';
-    if (data.invoices && data.invoices.length) {
-      invoicesHtml = data.invoices.map((inv, i) => `
-        <div class="ap-billing-invoice">
-          <div class="ap-billing-invoice-meta">
-            <span class="ap-billing-invoice-num">Invoice #${String(i + 1).padStart(3, '0')}</span>
-            <span class="ap-billing-invoice-date">${inv.date || '—'}</span>
-            <span class="ap-billing-invoice-amount">${inv.amount || '—'}</span>
-          </div>
-          ${inv.pdf_url
-            ? `<a class="ap-proj-link" href="${inv.pdf_url}" target="_blank" rel="noopener" download>
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Download PDF
-              </a>`
-            : ''}
+    const invoicesHtml = invoices.map((inv) => `
+      <div class="ap-billing-invoice">
+        <div class="ap-billing-invoice-meta">
+          <span class="ap-billing-invoice-num">Invoice #${inv.num}</span>
+          <span class="ap-billing-invoice-date">${inv.date}</span>
+          <span class="ap-billing-invoice-amount">${inv.amount}</span>
         </div>
-      `).join('');
-    } else {
-      invoicesHtml = `<p class="ap-proj-empty">No invoices yet. They will appear here once generated.</p>`;
-    }
+        <a class="ap-proj-link" href="#" onclick="return false;">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </a>
+      </div>
+    `).join('');
 
     // ── Care plan sub-section ────────────────────────────────────────────────
-    let carePlanHtml = '';
-    if (data.plan) {
-      carePlanHtml = `
-        <div class="panel-info-row"><span>Plan</span><span>${data.plan}</span></div>
-        ${data.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${data.monthly_price}</span></div>` : ''}
-        ${data.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${data.renewal_date}</span></div>`  : ''}
-        <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
-      `;
-    } else {
-      carePlanHtml = `
-        <p class="ap-proj-empty">No active care plan. A maintenance plan keeps your site updated, secure, and performing.</p>
-        <a class="ap-proj-link" href="#pricing" onclick="window.TrellisAccountPanel.closePanel()">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-          View Plans
-        </a>
-      `;
-    }
+    const carePlanHtml = `
+      <div class="panel-info-row"><span>Plan</span><span>${carePlan.name}</span></div>
+      <div class="panel-info-row"><span>Monthly</span><span>${carePlan.monthly}</span></div>
+      <div class="panel-info-row"><span>Renewal</span><span>${carePlan.renewal}</span></div>
+      <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
+    `;
 
     // ── Payment history sub-section ──────────────────────────────────────────
-    let paymentsHtml = '';
-    if (data.invoices && data.invoices.length) {
-      paymentsHtml = data.invoices.map((inv) => `
-        <div class="panel-info-row">
-          <span>${inv.date || '—'}</span>
-          <span>${inv.method ? inv.method + ' · ' : ''}${inv.amount || '—'}</span>
-        </div>
-      `).join('');
-    } else {
-      paymentsHtml = `<p class="ap-proj-empty">No payment history yet.</p>`;
-    }
+    const paymentsHtml = invoices.map((inv) => `
+      <div class="panel-info-row">
+        <span>${inv.date}</span>
+        <span>${inv.method} · ${inv.amount}</span>
+      </div>
+    `).join('');
 
     container.innerHTML = `
       <div class="ap-proj-subs">

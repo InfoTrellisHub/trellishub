@@ -232,9 +232,27 @@ window.TrellisAccountPanel = (function () {
 
   // ── Projects section ──────────────────────────────────────────────────────
 
-  function loadProjects() {
+  async function loadProjects() {
     const container = qs('#apProjectsContent');
     if (!container) return;
+
+    let credentialsUrl = null;
+    try {
+      const data = await api('/api/account/handover');
+      credentialsUrl = data.credentials_url || null;
+    } catch {
+      // non-fatal — credentials section will show placeholder
+    }
+
+    const credentialsContent = credentialsUrl
+      ? `<a class="ap-proj-link" href="${credentialsUrl}" target="_blank" rel="noopener" download>
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Download Credentials Document
+              </a>`
+      : `<a class="ap-proj-link" href="/handover/credentials.html" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Open Handover Document
+              </a>`;
 
     container.innerHTML = `
       <div class="ap-proj-subs">
@@ -292,10 +310,7 @@ window.TrellisAccountPanel = (function () {
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 <p>Your credentials are shared privately. Never store passwords in unsecured locations.</p>
               </div>
-              <a class="ap-proj-link" href="/handover/credentials.html" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Open Handover Document
-              </a>
+              ${credentialsContent}
             </div>
           </div>
         </div>

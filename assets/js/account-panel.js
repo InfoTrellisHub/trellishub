@@ -170,51 +170,63 @@ window.TrellisAccountPanel = (function () {
 
   // ── Billing section ───────────────────────────────────────────────────────
 
-  function loadBilling() {
+  async function loadBilling() {
     const container = qs('#apBillingContent');
     if (!container) return;
+    container.innerHTML = '<p class="panel-loading" style="margin:0">Loading&hellip;</p>';
 
-    const invoices = [
-      { num: '001', date: '12 June 2026',  amount: 'R 1,200', method: 'Card' },
-      { num: '002', date: '12 May 2026',   amount: 'R 950',   method: 'EFT'  },
-    ];
+    let data;
+    try {
+      data = await api('/api/account/billing');
+    } catch (err) {
+      container.innerHTML = `<p class="panel-loading" style="margin:0">Could not load billing info: ${err.message}</p>`;
+      return;
+    }
 
-    const carePlan = {
-      name:    'Premium Care',
-      renewal: '12 July 2026',
-      monthly: 'R 950',
-    };
+    const { care_plan, invoices = [], payments = [] } = data;
 
     // ── Invoices sub-section ─────────────────────────────────────────────────
-    const invoicesHtml = invoices.map((inv) => `
-      <div class="ap-billing-invoice">
-        <div class="ap-billing-invoice-meta">
-          <span class="ap-billing-invoice-num">Invoice #${inv.num}</span>
-          <span class="ap-billing-invoice-date">${inv.date}</span>
-          <span class="ap-billing-invoice-amount">${inv.amount}</span>
-        </div>
-        <a class="ap-proj-link" href="#" onclick="return false;">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download PDF
-        </a>
-      </div>
-    `).join('');
+    const invoicesHtml = invoices.length
+      ? invoices.map((inv) => `
+          <div class="ap-billing-invoice">
+            <div class="ap-billing-invoice-meta">
+              <span class="ap-billing-invoice-num">Invoice #${inv.invoice_no || '—'}</span>
+              <span class="ap-billing-invoice-date">${inv.date || '—'}</span>
+              <span class="ap-billing-invoice-amount">${inv.amount || '—'}</span>
+            </div>
+            ${inv.pdf_url
+              ? `<a class="ap-proj-link" href="${inv.pdf_url}" target="_blank" rel="noopener" download>
+                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download PDF
+                </a>`
+              : ''}
+          </div>
+        `).join('')
+      : '<p class="ap-proj-empty">No invoices yet.</p>';
 
     // ── Care plan sub-section ────────────────────────────────────────────────
-    const carePlanHtml = `
-      <div class="panel-info-row"><span>Plan</span><span>${carePlan.name}</span></div>
-      <div class="panel-info-row"><span>Monthly</span><span>${carePlan.monthly}</span></div>
-      <div class="panel-info-row"><span>Renewal</span><span>${carePlan.renewal}</span></div>
-      <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
-    `;
+    const carePlanHtml = care_plan
+      ? `
+          <div class="panel-info-row"><span>Plan</span><span>${care_plan.name}</span></div>
+          ${care_plan.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${care_plan.monthly_price}</span></div>` : ''}
+          ${care_plan.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${care_plan.renewal_date}</span></div>`  : ''}
+          <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
+        `
+      : `<p class="ap-proj-empty">No active care plan.</p>
+         <a class="ap-proj-link" href="#pricing" onclick="window.TrellisAccountPanel.closePanel()">
+           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+           View Plans
+         </a>`;
 
     // ── Payment history sub-section ──────────────────────────────────────────
-    const paymentsHtml = invoices.map((inv) => `
-      <div class="panel-info-row">
-        <span>${inv.date}</span>
-        <span>${inv.method} · ${inv.amount}</span>
-      </div>
-    `).join('');
+    const paymentsHtml = payments.length
+      ? payments.map((p) => `
+          <div class="panel-info-row">
+            <span>${p.date || '—'}</span>
+            <span>${p.method ? p.method + ' · ' : ''}${p.amount || '—'}</span>
+          </div>
+        `).join('')
+      : '<p class="ap-proj-empty">No payments recorded.</p>';
 
     container.innerHTML = `
       <div class="ap-proj-subs">

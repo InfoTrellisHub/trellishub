@@ -1,6 +1,13 @@
 const { getCustomerSession } = require('../../lib/auth');
 const { getSupabase } = require('../../lib/supabase');
 
+const DATE_FMT = { day: 'numeric', month: 'short', year: 'numeric' };
+
+function fmtDate(val) {
+  if (!val) return null;
+  return new Date(val).toLocaleDateString('en-GB', DATE_FMT);
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -19,31 +26,63 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const { data: plan, error } = await supabase
-      .from('care_plans')
-      .select('status, currency, monthly_price, renewal_date, start_date')
-      .eq('customer_id', session.customer_id)
-      .eq('status', 'active')
-      .maybeSingle();
+    const cid = session.customer_id;
 
-    if (error) {
-      return res.status(500).json({ error: `DB error: ${error.message}` });
-    }
+    const [
+      { data: plan,     error: planErr },
+      { data: invoices, error: invErr  },
+      { data: payments, error: payErr  },
+    ] = await Promise.all([
+      supabase
+        .from('care_plans')
+        .select('plan_type, status, currency, monthly_price, renewal_date')
+        .eq('customer_id', cid)
+        .eq('status', 'active')
+        .maybeSingle(),
 
-    if (!plan) {
-      return res.status(200).json({ plan: null, invoices: [] });
-    }
+      supabase
+        .from('invoices')
+        .select('invoice_no, date, amount, currency, pdf_url')
+        .eq('customer_id', cid)
+        .order('date', { ascending: false }),
 
-    const renewal = plan.renewal_date
-      ? new Date(plan.renewal_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      supabase
+        .from('payments')
+        .select('date, method, amount, currency')
+        .eq('customer_id', cid)
+        .order('date', { ascending: false }),
+    ]);
+
+    if (planErr) return res.status(500).json({ error: `care_plans: ${planErr.message}` });
+    if (invErr)  return res.status(500).json({ error: `invoices: ${invErr.message}` });
+    if (payErr)  return res.status(500).json({ error: `payments: ${payErr.message}` });
+
+    const carePlan = plan
+      ? {
+          name:          plan.plan_type || 'Care Plan',
+          monthly_price: plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
+          renewal_date:  fmtDate(plan.renewal_date),
+          status:        plan.status,
+        }
       : null;
 
+    const invoiceList = (invoices || []).map((inv) => ({
+      invoice_no: inv.invoice_no,
+      date:       fmtDate(inv.date),
+      amount:     inv.amount ? `${inv.currency || ''} ${inv.amount}`.trim() : null,
+      pdf_url:    inv.pdf_url || null,
+    }));
+
+    const paymentList = (payments || []).map((p) => ({
+      date:   fmtDate(p.date),
+      method: p.method || null,
+      amount: p.amount ? `${p.currency || ''} ${p.amount}`.trim() : null,
+    }));
+
     return res.status(200).json({
-      plan: 'Essential Website + Care Plan',
-      currency: plan.currency || '',
-      monthly_price: plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
-      renewal_date: renewal,
-      invoices: [],
+      care_plan: carePlan,
+      invoices:  invoiceList,
+      payments:  paymentList,
     });
   } catch (err) {
     return res.status(500).json({ error: `Unexpected error: ${err.message}` });

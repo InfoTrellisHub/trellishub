@@ -11,28 +11,41 @@ module.exports = async function handler(req, res) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
-  const supabase = getSupabase();
-
-  const { data: plan } = await supabase
-    .from('care_plans')
-    .select('status, currency, monthly_price, renewal_date, start_date')
-    .eq('customer_id', session.customer_id)
-    .eq('status', 'active')
-    .maybeSingle();
-
-  if (!plan) {
-    return res.status(200).json({ plan: null, invoices: [] });
+  let supabase;
+  try {
+    supabase = getSupabase();
+  } catch (err) {
+    return res.status(500).json({ error: `Supabase init failed: ${err.message}` });
   }
 
-  const renewal = plan.renewal_date
-    ? new Date(plan.renewal_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
-    : null;
+  try {
+    const { data: plan, error } = await supabase
+      .from('care_plans')
+      .select('status, currency, monthly_price, renewal_date, start_date')
+      .eq('customer_id', session.customer_id)
+      .eq('status', 'active')
+      .maybeSingle();
 
-  return res.status(200).json({
-    plan: 'Essential Website + Care Plan',
-    currency: plan.currency || '',
-    monthly_price: plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
-    renewal_date: renewal,
-    invoices: [],
-  });
+    if (error) {
+      return res.status(500).json({ error: `DB error: ${error.message}` });
+    }
+
+    if (!plan) {
+      return res.status(200).json({ plan: null, invoices: [] });
+    }
+
+    const renewal = plan.renewal_date
+      ? new Date(plan.renewal_date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      : null;
+
+    return res.status(200).json({
+      plan: 'Essential Website + Care Plan',
+      currency: plan.currency || '',
+      monthly_price: plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
+      renewal_date: renewal,
+      invoices: [],
+    });
+  } catch (err) {
+    return res.status(500).json({ error: `Unexpected error: ${err.message}` });
+  }
 };

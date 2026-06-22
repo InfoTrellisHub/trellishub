@@ -574,6 +574,41 @@ body.panel-open {
   line-height: 1.45;
 }
 
+/* ── Billing invoice rows ──────────────────────────────────────────────── */
+.ap-billing-invoice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ap-billing-invoice:last-child { border-bottom: none; }
+
+.ap-billing-invoice-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ap-billing-invoice-num {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.ap-billing-invoice-date {
+  font-size: 0.72rem;
+  color: var(--color-muted);
+}
+
+.ap-billing-invoice-amount {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-green-600);
+}
+
 /* ── Logout button ──────────────────────────────────────────────────────── */
 
 .ap-logout-btn {

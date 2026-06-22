@@ -174,38 +174,128 @@ window.TrellisAccountPanel = (function () {
     const container = qs('#apBillingContent');
     if (!container) return;
     container.innerHTML = '<p class="panel-loading" style="margin:0">Loading&hellip;</p>';
+
+    let data = null;
     try {
-      const data = await api('/api/account/billing');
-      if (!data || (!data.plan && (!data.invoices || !data.invoices.length))) {
-        container.innerHTML = '<p class="panel-loading" style="margin:0">No billing records yet.</p>';
-        return;
-      }
-      let html = '';
-      if (data.plan) {
-        html += `<div class="panel-info-row"><span>Plan</span><span>${data.plan}</span></div>`;
-        if (data.monthly_price) html += `<div class="panel-info-row"><span>Monthly</span><span>${data.monthly_price}</span></div>`;
-        if (data.renewal_date)  html += `<div class="panel-info-row"><span>Renewal</span><span>${data.renewal_date}</span></div>`;
-        const status      = data.status || 'inactive';
-        const badgeClass  = status === 'active' ? 'is-active' : status === 'cancellation_requested' ? 'is-pending' : 'is-inactive';
-        const badgeLabel  = status === 'active' ? 'Active'    : status === 'cancellation_requested' ? 'Cancellation Requested' : status === 'cancelled' ? 'Cancelled' : 'Not Subscribed';
-        html += `<div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge ${badgeClass}">${badgeLabel}</span></span></div>`;
-        html += '<div class="account-panel-divider"></div>';
-      }
-      if (data.invoices && data.invoices.length) {
-        html += '<p class="panel-section-label">Payment History</p>';
-        data.invoices.forEach((inv) => {
-          html += `<div class="panel-info-row"><span>${inv.date}</span><span>${inv.amount}</span></div>`;
-        });
-      } else {
-        html += '<p class="panel-loading" style="margin-top:0">No payment history yet.</p>';
-      }
-      if (!data.plan || data.status === 'inactive' || data.status === 'cancelled') {
-        html += `<a href="#pricing" class="btn btn-primary btn-block" style="text-align:center;text-decoration:none;margin-top:var(--space-3)" onclick="window.TrellisAccountPanel.closePanel()">View Plans</a>`;
-      }
-      container.innerHTML = html;
+      data = await api('/api/account/billing');
     } catch {
       container.innerHTML = '<p class="panel-loading" style="margin:0">Could not load billing info.</p>';
+      return;
     }
+
+    // ── Invoices sub-section ─────────────────────────────────────────────────
+    let invoicesHtml = '';
+    if (data.invoices && data.invoices.length) {
+      invoicesHtml = data.invoices.map((inv, i) => `
+        <div class="ap-billing-invoice">
+          <div class="ap-billing-invoice-meta">
+            <span class="ap-billing-invoice-num">Invoice #${String(i + 1).padStart(3, '0')}</span>
+            <span class="ap-billing-invoice-date">${inv.date || '—'}</span>
+            <span class="ap-billing-invoice-amount">${inv.amount || '—'}</span>
+          </div>
+          ${inv.pdf_url
+            ? `<a class="ap-proj-link" href="${inv.pdf_url}" target="_blank" rel="noopener" download>
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Download PDF
+              </a>`
+            : ''}
+        </div>
+      `).join('');
+    } else {
+      invoicesHtml = `<p class="ap-proj-empty">No invoices yet. They will appear here once generated.</p>`;
+    }
+
+    // ── Care plan sub-section ────────────────────────────────────────────────
+    let carePlanHtml = '';
+    if (data.plan) {
+      carePlanHtml = `
+        <div class="panel-info-row"><span>Plan</span><span>${data.plan}</span></div>
+        ${data.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${data.monthly_price}</span></div>` : ''}
+        ${data.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${data.renewal_date}</span></div>`  : ''}
+        <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
+      `;
+    } else {
+      carePlanHtml = `
+        <p class="ap-proj-empty">No active care plan. A maintenance plan keeps your site updated, secure, and performing.</p>
+        <a class="ap-proj-link" href="#pricing" onclick="window.TrellisAccountPanel.closePanel()">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          View Plans
+        </a>
+      `;
+    }
+
+    // ── Payment history sub-section ──────────────────────────────────────────
+    let paymentsHtml = '';
+    if (data.invoices && data.invoices.length) {
+      paymentsHtml = data.invoices.map((inv) => `
+        <div class="panel-info-row">
+          <span>${inv.date || '—'}</span>
+          <span>${inv.method ? inv.method + ' · ' : ''}${inv.amount || '—'}</span>
+        </div>
+      `).join('');
+    } else {
+      paymentsHtml = `<p class="ap-proj-empty">No payment history yet.</p>`;
+    }
+
+    container.innerHTML = `
+      <div class="ap-proj-subs">
+
+        <div class="ap-proj-sub" id="apBillingSubInvoices">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Invoices</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              ${invoicesHtml}
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-proj-sub" id="apBillingSubCarePlan">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Care Plan Status</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              ${carePlanHtml}
+            </div>
+          </div>
+        </div>
+
+        <div class="ap-proj-sub" id="apBillingSubPayments">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Payment History</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              ${paymentsHtml}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    `;
+
+    container.querySelectorAll('.ap-proj-sub-header').forEach((header) => {
+      header.addEventListener('click', () => {
+        const sub = header.closest('.ap-proj-sub');
+        const isOpen = sub.classList.contains('is-open');
+        sub.classList.toggle('is-open', !isOpen);
+        header.setAttribute('aria-expanded', String(!isOpen));
+      });
+    });
   }
 
   // ── Notifications section ─────────────────────────────────────────────────

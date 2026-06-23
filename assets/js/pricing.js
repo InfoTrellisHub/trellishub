@@ -1,106 +1,112 @@
 (function () {
-  const { qs, qsa, api } = window.TrellisUtils;
+  const { qs, qsa } = window.TrellisUtils;
 
-  // Mirrors lib/pricing-zones.js server-side — keep both in sync if these numbers ever change.
-  const PRICING_BY_ZONE = {
-    africa: { currency: 'ZAR', symbol: 'R', website: 3999, websiteBundled: 3199, carePlan: 399 },
-    americas: { currency: 'USD', symbol: '$', website: 500, websiteBundled: 400, carePlan: 70 },
-    australia: { currency: 'AUD', symbol: 'A$', website: 500, websiteBundled: 400, carePlan: 70 },
-    europe: { currency: 'EUR', symbol: '€', website: 500, websiteBundled: 400, carePlan: 70 },
-    fallback_usd: { currency: 'USD', symbol: '$', website: 500, websiteBundled: 400, carePlan: 70 }
+  const PRICES = {
+    ZAR: {
+      symbol: 'R', code: 'ZAR',
+      starter: { build: 3999,  care: 499  },
+      growth:  { build: 6499,  care: 999  },
+      premium: { build: 12999, care: 1999 },
+    },
+    USD: {
+      symbol: '$', code: 'USD',
+      starter: { build: 599,  care: 50  },
+      growth:  { build: 1199, care: 100 },
+      premium: { build: 2499, care: 200 },
+    },
+    GBP: {
+      symbol: '£', code: 'GBP',
+      starter: { build: 499,  care: 40  },
+      growth:  { build: 999,  care: 80  },
+      premium: { build: 1999, care: 160 },
+    },
+    EUR: {
+      symbol: '€', code: 'EUR',
+      starter: { build: 599,  care: 50  },
+      growth:  { build: 1199, care: 100 },
+      premium: { build: 2499, care: 200 },
+    },
+    AUD: {
+      symbol: 'A$', code: 'AUD',
+      starter: { build: 899,  care: 75  },
+      growth:  { build: 1699, care: 150 },
+      premium: { build: 3499, care: 300 },
+    },
   };
 
-  const CURRENCY_TO_ZONE = { ZAR: 'africa', USD: 'americas', AUD: 'australia', EUR: 'europe' };
-  const OVERRIDE_KEY = 'trellis_currency_override';
+  // Maps geo API zone names → currency code
+  const ZONE_TO_CURRENCY = {
+    africa:       'ZAR',
+    americas:     'USD',
+    australia:    'AUD',
+    europe:       'EUR',
+    fallback_usd: 'USD',
+  };
 
-  function formatMoney(amount, zoneData) {
-    return `${zoneData.symbol}${amount.toLocaleString()}`;
+  // Maps browser locale region tag → currency code
+  const REGION_TO_CURRENCY = {
+    ZA: 'ZAR',
+    US: 'USD', CA: 'USD', MX: 'USD',
+    GB: 'GBP',
+    AU: 'AUD', NZ: 'AUD',
+    DE: 'EUR', FR: 'EUR', IT: 'EUR', ES: 'EUR', NL: 'EUR',
+    BE: 'EUR', AT: 'EUR', PT: 'EUR', IE: 'EUR', FI: 'EUR',
+    GR: 'EUR', LU: 'EUR', SK: 'EUR', SI: 'EUR', EE: 'EUR',
+    LV: 'EUR', LT: 'EUR', CY: 'EUR', MT: 'EUR',
+  };
+
+  function fmt(symbol, amount) {
+    return `${symbol}${amount.toLocaleString()}`;
   }
 
-  function render(zoneKey) {
-    const zone = PRICING_BY_ZONE[zoneKey] || PRICING_BY_ZONE.fallback_usd;
-    const save = zone.website - zone.websiteBundled;
-    const pct = Math.round((save / zone.website) * 100);
-
-    const setText = (key, value) => {
-      const el = qs(`[data-price="${key}"]`);
-      if (el) el.textContent = value;
+  function render(currencyCode) {
+    const p = PRICES[currencyCode] || PRICES.ZAR;
+    const set = (key, val) => {
+      qsa(`[data-price="${key}"]`).forEach((el) => { el.textContent = val; });
     };
-
-    setText('essential-current', `${formatMoney(zone.website, zone)}`);
-    setText('bundled-original', `${formatMoney(zone.website, zone)}`);
-    setText('bundled-current', `${formatMoney(zone.websiteBundled, zone)}`);
-    setText('bundled-save', `Save ${formatMoney(save, zone)} (${pct}%) on your website build`);
-    setText('careplan-current', `${formatMoney(zone.carePlan, zone)}`);
-
-    qsa('.currency-pill').forEach((pill) => {
-      pill.classList.toggle('is-active', pill.dataset.currency === zone.currency);
-    });
+    set('starter-build', fmt(p.symbol, p.starter.build));
+    set('starter-care',  fmt(p.symbol, p.starter.care));
+    set('growth-build',  fmt(p.symbol, p.growth.build));
+    set('growth-care',   fmt(p.symbol, p.growth.care));
+    set('premium-build', fmt(p.symbol, p.premium.build));
+    set('premium-care',  fmt(p.symbol, p.premium.care));
   }
 
-  function applyZoneFromCurrency(currency, opts) {
-    const zoneKey = CURRENCY_TO_ZONE[currency] || 'fallback_usd';
-    render(zoneKey);
-    if (opts && opts.persistOverride) {
-      localStorage.setItem(OVERRIDE_KEY, currency);
-    }
+  function currencyFromLocale() {
+    const lang = (navigator.language || navigator.languages && navigator.languages[0] || 'en-ZA');
+    const region = lang.split('-')[1] || '';
+    return REGION_TO_CURRENCY[region.toUpperCase()] || 'ZAR';
   }
 
-  async function detectZone() {
-    const override = localStorage.getItem(OVERRIDE_KEY);
-    const note = qs('#currencyDetectNote');
-    if (override) {
-      applyZoneFromCurrency(override);
-      if (note) note.textContent = `Showing prices in ${override} (your saved preference).`;
-      return;
-    }
-
-    // Render a sensible default immediately so pricing never blocks on the network.
-    render('fallback_usd');
+  async function detectAndRender() {
+    // Apply locale guess immediately so pricing is never blank
+    render(currencyFromLocale());
 
     try {
-      const result = await api('/api/geo');
-      const zoneKey = result && result.zone ? result.zone : 'fallback_usd';
-      render(zoneKey);
-      if (note) {
-        note.textContent = result && result.country
-          ? `Prices shown in your local currency, detected from your region (${result.country}). You can switch currency above.`
-          : 'Prices shown in USD by default. You can switch currency above.';
+      const res = await fetch('/api/geo');
+      if (res.ok) {
+        const data = await res.json();
+        const currency = ZONE_TO_CURRENCY[data.zone] || currencyFromLocale();
+        render(currency);
       }
-    } catch (e) {
-      if (note) note.textContent = 'Prices shown in USD by default. You can switch currency above.';
+    } catch (_) {
+      // locale fallback already applied above
     }
   }
 
-  qsa('.currency-pill').forEach((pill) => {
-    pill.addEventListener('click', () => {
-      applyZoneFromCurrency(pill.dataset.currency, { persistOverride: true });
-      const note = qs('#currencyDetectNote');
-      if (note) note.textContent = `Showing prices in ${pill.dataset.currency}. `;
-      const undo = document.createElement('a');
-      undo.href = '#';
-      undo.textContent = 'Use detected currency instead';
-      undo.addEventListener('click', (e) => {
-        e.preventDefault();
-        localStorage.removeItem(OVERRIDE_KEY);
-        detectZone();
-      });
-      if (note) note.appendChild(undo);
-    });
-  });
-
+  // Wire booking CTAs
   qsa('[data-booking-cta]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const type = btn.dataset.bookingType || 'quote';
       if (window.TrellisBooking) {
         window.TrellisBooking.startBooking(type);
-      } else {
+      } else if (window.TrellisNav) {
         window.TrellisNav.scrollToBooking(type);
       }
     });
   });
 
-  detectZone();
+  detectAndRender();
 
-  window.TrellisPricing = { PRICING_BY_ZONE, render, detectZone };
+  window.TrellisPricing = { PRICES, render, detectAndRender };
 })();

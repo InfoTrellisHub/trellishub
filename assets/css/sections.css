@@ -292,6 +292,13 @@
   margin-bottom: var(--space-5);
 }
 
+.pricing-footnote {
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  margin-top: var(--space-6);
+}
+
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -22,7 +22,15 @@ module.exports = async function handler(req, res) {
   try {
     supabase = getSupabase();
   } catch (err) {
-    return res.status(500).json({ error: `Supabase init failed: ${err.message}` });
+    const raw = process.env.SUPABASE_URL || '';
+    return res.status(500).json({
+      error: `Supabase init failed: ${err.message}`,
+      debug: {
+        url_length: raw.length,
+        url_first10_codes: [...raw].slice(0, 10).map(c => c.charCodeAt(0)),
+        url_value: raw,
+      },
+    });
   }
 
   try {

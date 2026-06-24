@@ -1,10 +1,12 @@
-const { supabase } = require('../lib/supabase');
+const { supabaseAnon } = require('../lib/supabase');
 
 async function runAuthTests() {
-  if (!supabase) {
+  if (!supabaseAnon) {
     console.error('Supabase anon client is null — check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY are set.');
     process.exit(1);
   }
+
+  const supabase = supabaseAnon;
 
   // 1. Sign up test
   const { data: signUpData, error: signUpError } = await supabase.auth.signUp({

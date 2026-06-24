@@ -40,7 +40,8 @@
     americas:     'USD',
     australia:    'AUD',
     europe:       'EUR',
-    fallback_usd: 'USD',
+    uk:           'GBP',
+    fallback_usd: 'ZAR',
   };
 
   // Maps browser locale region tag → currency code

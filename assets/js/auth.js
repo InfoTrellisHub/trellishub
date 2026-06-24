@@ -176,7 +176,11 @@ window.TrellisAuth = (function () {
         const { data, error } = await supabase.auth.signUp({
           email, password, options: { data: { full_name: name } }
         });
-        if (error) throw new Error(error.message || error.error_description || JSON.stringify(error) || 'Sign-up failed — please try again.');
+        if (error) {
+          const msg = error.message || error.error_description || (error.status ? `Server error ${error.status}` : null) || 'Sign-up failed — please check your details and try again.';
+          console.error('[TrellisAuth] signUp error object:', error);
+          throw new Error(msg);
+        }
         if (data.session) {
           const result = await exchangeToken(data.session.access_token, data.user);
           setStatus(statusEl, 'Account created!', 'success');

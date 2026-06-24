@@ -147,13 +147,13 @@ window.TrellisAuth = (function () {
       setStatus(statusEl, 'Signing in…', '');
       try {
         const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw new Error(error.message);
+        if (error) throw new Error(error.message || error.error_description || JSON.stringify(error) || 'Sign-in failed — please try again.');
         const result = await exchangeToken(data.session.access_token, data.user);
         setStatus(statusEl, 'Logged in!', 'success');
         handleAuthSuccess(result.customer);
         form.reset();
       } catch (err) {
-        setStatus(statusEl, err.message, 'error');
+        setStatus(statusEl, err.message || 'Sign-in failed — please try again.', 'error');
       }
     });
   }
@@ -176,7 +176,7 @@ window.TrellisAuth = (function () {
         const { data, error } = await supabase.auth.signUp({
           email, password, options: { data: { full_name: name } }
         });
-        if (error) throw new Error(error.message);
+        if (error) throw new Error(error.message || error.error_description || JSON.stringify(error) || 'Sign-up failed — please try again.');
         if (data.session) {
           const result = await exchangeToken(data.session.access_token, data.user);
           setStatus(statusEl, 'Account created!', 'success');
@@ -187,7 +187,7 @@ window.TrellisAuth = (function () {
           form.reset();
         }
       } catch (err) {
-        setStatus(statusEl, err.message, 'error');
+        setStatus(statusEl, err.message || 'Sign-up failed — please try again.', 'error');
       }
     });
   }

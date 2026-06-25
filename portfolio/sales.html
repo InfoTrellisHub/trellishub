@@ -2579,6 +2579,200 @@
     #contact     { content-visibility: auto; contain-intrinsic-size: 0 550px; }
     /* Limit reflow scope to individual cards */
     .ue-product-card { contain: layout style; }
+
+    /* ── MICRO-INTERACTIONS ── */
+    @keyframes ue-card-bounce {
+      0%   { transform: scale(1); }
+      30%  { transform: scale(1.035); }
+      65%  { transform: scale(0.975); }
+      100% { transform: scale(1); }
+    }
+    .ue-product-card.is-adding {
+      animation: ue-card-bounce 0.42s cubic-bezier(0.36,0.07,0.19,0.97);
+    }
+    @keyframes ue-heart-pulse {
+      0%   { transform: scale(1); }
+      38%  { transform: scale(1.45); }
+      68%  { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    .ue-wishlist-btn.is-pulsing {
+      animation: ue-heart-pulse 0.38s cubic-bezier(0.36,0.07,0.19,0.97);
+    }
+
+    /* ── FILTER BAR ── */
+    .ue-filter-bar {
+      background: #fafafa;
+      border: 1px solid #f0f0f0;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 28px;
+      align-items: flex-start;
+    }
+    .ue-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ue-filter-label {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+    }
+    .ue-filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .ue-filter-pill {
+      background: transparent;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 0.77rem;
+      font-weight: 500;
+      color: #666;
+      cursor: pointer;
+      transition: background 0.14s, border-color 0.14s, color 0.14s;
+      white-space: nowrap;
+      line-height: 1;
+    }
+    .ue-filter-pill:hover { border-color: var(--ue-gold,#c9a84c); color: #8c7030; }
+    .ue-filter-pill.is-active {
+      background: var(--ue-black,#080808);
+      border-color: var(--ue-black,#080808);
+      color: #fff;
+    }
+
+    /* Active filter chips */
+    .ue-active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      min-height: 0;
+    }
+    @keyframes ue-chip-in {
+      from { opacity: 0; transform: scale(0.75); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .ue-active-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--ue-gold,#c9a84c);
+      color: #fff;
+      border-radius: 20px;
+      padding: 4px 8px 4px 12px;
+      font-size: 0.73rem;
+      font-weight: 600;
+      animation: ue-chip-in 0.18s ease;
+    }
+    .ue-active-chip button {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.82);
+      cursor: pointer;
+      padding: 0 2px;
+      line-height: 1;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      transition: color 0.12s;
+    }
+    .ue-active-chip button:hover { color: #fff; }
+
+    /* ── PERSONALIZATION SECTIONS ── */
+    .ue-personal-section {
+      background: #fafafa;
+      padding: 4rem 0;
+    }
+    .ue-personal-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 2rem;
+    }
+    .ue-personal-card {
+      background: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .ue-personal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.09);
+    }
+    .ue-personal-thumb {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      overflow: hidden;
+    }
+    .ue-personal-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ue-personal-info { padding: 10px 12px 12px; }
+    .ue-personal-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ue-black,#080808);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 3px;
+    }
+    .ue-personal-price { font-size: 0.8rem; font-weight: 700; color: #8c7030; }
+    .ue-rec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 2rem;
+    }
+    .ue-rec-card {
+      background: #fff;
+      border: 1px solid #f0f0f0;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .ue-rec-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.09);
+    }
+    .ue-rec-thumb {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      overflow: hidden;
+    }
+    .ue-rec-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .ue-rec-info { padding: 14px 16px 16px; }
+    .ue-rec-cat {
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 4px;
+    }
+    .ue-rec-name { font-size: 0.88rem; font-weight: 600; color: var(--ue-black,#080808); margin-bottom: 5px; }
+    .ue-rec-price { font-size: 0.88rem; font-weight: 700; color: #8c7030; }
+    @media (max-width: 900px) {
+      .ue-filter-bar { gap: 14px 20px; padding: 14px 16px; }
+      .ue-personal-grid { grid-template-columns: repeat(3, 1fr); }
+      .ue-rec-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .ue-personal-grid { grid-template-columns: repeat(2, 1fr); }
+      .ue-rec-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -2911,6 +3105,41 @@
           <p>Limited stock. All pieces ship within 2 business days across South Africa.</p>
         </header>
 
+        <!-- Filter bar -->
+        <div class="ue-filter-bar" data-ue-reveal id="filterBar">
+          <div class="ue-filter-group">
+            <span class="ue-filter-label">Category</span>
+            <div class="ue-filter-pills">
+              <button class="ue-filter-pill is-active" data-filter-cat="all">All</button>
+              <button class="ue-filter-pill" data-filter-cat="Essentials">Essentials</button>
+              <button class="ue-filter-pill" data-filter-cat="Street Culture">Street Culture</button>
+              <button class="ue-filter-pill" data-filter-cat="Luxe Edit">Luxe Edit</button>
+            </div>
+          </div>
+          <div class="ue-filter-group">
+            <span class="ue-filter-label">Size</span>
+            <div class="ue-filter-pills">
+              <button class="ue-filter-pill" data-filter-size="XS">XS</button>
+              <button class="ue-filter-pill" data-filter-size="S">S</button>
+              <button class="ue-filter-pill" data-filter-size="M">M</button>
+              <button class="ue-filter-pill" data-filter-size="L">L</button>
+              <button class="ue-filter-pill" data-filter-size="XL">XL</button>
+              <button class="ue-filter-pill" data-filter-size="XXL">XXL</button>
+            </div>
+          </div>
+          <div class="ue-filter-group">
+            <span class="ue-filter-label">Price</span>
+            <div class="ue-filter-pills">
+              <button class="ue-filter-pill" data-filter-price="under500">Under R500</button>
+              <button class="ue-filter-pill" data-filter-price="500to900">R500–R900</button>
+              <button class="ue-filter-pill" data-filter-price="over900">Over R900</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Active filter chips -->
+        <div class="ue-active-filters" id="activeFilters" aria-live="polite"></div>
+
         <!-- Sort toolbar -->
         <div class="ue-shop-toolbar" data-ue-reveal>
           <p class="ue-shop-count" id="productCount">Showing <strong>8</strong> products</p>
@@ -2925,6 +3154,33 @@
         <!-- Grid populated by JS -->
         <div class="ue-product-grid" id="productGrid" aria-live="polite" aria-label="Product catalogue"></div>
 
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RECENTLY VIEWED
+         ============================================================ -->
+    <section class="ue-personal-section" id="recentlyViewed" style="display:none" aria-labelledby="rvHeading">
+      <div class="ue-container">
+        <div class="ue-section-header" data-ue-reveal>
+          <span class="ue-overline">Your History</span>
+          <h2 class="ue-heading" id="rvHeading">Recently Viewed</h2>
+        </div>
+        <div class="ue-personal-grid" id="recentlyViewedGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         RECOMMENDED FOR YOU
+         ============================================================ -->
+    <section class="ue-personal-section" id="recommendedSection" style="display:none" aria-labelledby="recHeading">
+      <div class="ue-container">
+        <div class="ue-section-header" data-ue-reveal>
+          <span class="ue-overline">Curated for You</span>
+          <h2 class="ue-heading" id="recHeading">Recommended for You</h2>
+          <p class="ue-subheading" id="recommendedNote"></p>
+        </div>
+        <div class="ue-rec-grid" id="recommendedGrid"></div>
       </div>
     </section>
 
@@ -4401,6 +4657,13 @@
           Cart.add(id, size);
           showToast(`${p.name} (Size ${size}) added to cart`);
 
+          /* Card bounce micro-interaction */
+          card.classList.add('is-adding');
+          card.addEventListener('animationend', () => card.classList.remove('is-adding'), { once: true });
+
+          /* Track as recently viewed */
+          RecentlyViewed.track(id);
+
           /* Button feedback */
           const orig = btn.textContent;
           btn.textContent = 'Added ✓';
@@ -4415,6 +4678,11 @@
           e.stopPropagation();
           const id = parseInt(btn.dataset.wlId, 10);
           Wishlist.toggle(id);
+
+          /* Heart pulse micro-interaction */
+          btn.classList.add('is-pulsing');
+          btn.addEventListener('animationend', () => btn.classList.remove('is-pulsing'), { once: true });
+
           const active = Wishlist.has(id);
           const p = PRODUCTS.find(x => x.id === id);
 
@@ -4429,6 +4697,16 @@
           showToast(active ? `${p.name} added to wishlist` : `${p.name} removed from wishlist`);
         });
       });
+
+      /* Recently viewed — track on 1.5 s hover dwell */
+      document.querySelectorAll('.ue-product-card').forEach(card => {
+        let hoverTimer;
+        card.addEventListener('mouseenter', () => {
+          const id = parseInt(card.dataset.productId, 10);
+          if (id) hoverTimer = setTimeout(() => RecentlyViewed.track(id), 1500);
+        });
+        card.addEventListener('mouseleave', () => clearTimeout(hoverTimer));
+      });
     }
 
     /* ── SORT ── */
@@ -4438,6 +4716,161 @@
       if (order === 'price-desc') return list.sort((a,b) => b.price - a.price);
       if (order === 'name-asc')   return list.sort((a,b) => a.name.localeCompare(b.name));
       return list;
+    }
+
+    /* ── FILTERS ── */
+    const Filters = {
+      category: 'all',
+      sizes: new Set(),
+      price: null,
+
+      getFiltered() {
+        let list = [...PRODUCTS];
+        if (this.category !== 'all') list = list.filter(p => p.category === this.category);
+        if (this.sizes.size > 0) list = list.filter(p => p.sizes.some(s => this.sizes.has(s)));
+        if (this.price === 'under500') list = list.filter(p => p.price < 500);
+        else if (this.price === '500to900') list = list.filter(p => p.price >= 500 && p.price <= 900);
+        else if (this.price === 'over900') list = list.filter(p => p.price > 900);
+        const order = document.getElementById('sortSelect')?.value || 'default';
+        const sorted = getSorted(order);
+        return sorted.filter(s => list.find(l => l.id === s.id));
+      },
+
+      apply() {
+        const list = this.getFiltered();
+        renderProducts(list);
+        const el = document.getElementById('productCount');
+        if (el) el.innerHTML = `Showing <strong>${list.length}</strong> product${list.length !== 1 ? 's' : ''}`;
+        this.renderChips();
+      },
+
+      renderChips() {
+        const container = document.getElementById('activeFilters');
+        if (!container) return;
+        const chips = [];
+        if (this.category !== 'all') chips.push({ label: this.category, type: 'cat', val: this.category });
+        this.sizes.forEach(s => chips.push({ label: `Size: ${s}`, type: 'size', val: s }));
+        if (this.price) {
+          const map = { under500: 'Under R500', '500to900': 'R500–R900', over900: 'Over R900' };
+          chips.push({ label: map[this.price], type: 'price', val: this.price });
+        }
+        container.innerHTML = chips.map(c =>
+          `<span class="ue-active-chip" data-chip-type="${c.type}" data-chip-val="${c.val}">
+             ${c.label}<button aria-label="Remove ${c.label} filter">×</button>
+           </span>`
+        ).join('');
+        container.querySelectorAll('.ue-active-chip button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const chip = btn.closest('.ue-active-chip');
+            const type = chip.dataset.chipType, val = chip.dataset.chipVal;
+            if (type === 'cat') this.category = 'all';
+            else if (type === 'size') this.sizes.delete(val);
+            else if (type === 'price') this.price = null;
+            this.apply();
+            syncFilterPillUI();
+          });
+        });
+      }
+    };
+
+    function syncFilterPillUI() {
+      document.querySelectorAll('[data-filter-cat]').forEach(b =>
+        b.classList.toggle('is-active', b.dataset.filterCat === Filters.category));
+      document.querySelectorAll('[data-filter-size]').forEach(b =>
+        b.classList.toggle('is-active', Filters.sizes.has(b.dataset.filterSize)));
+      document.querySelectorAll('[data-filter-price]').forEach(b =>
+        b.classList.toggle('is-active', b.dataset.filterPrice === Filters.price));
+    }
+
+    /* ── RECENTLY VIEWED ── */
+    const RecentlyViewed = {
+      MAX: 5,
+      ids: JSON.parse(localStorage.getItem('ue_recent') || '[]'),
+
+      track(id) {
+        this.ids = [id, ...this.ids.filter(i => i !== id)].slice(0, this.MAX);
+        localStorage.setItem('ue_recent', JSON.stringify(this.ids));
+        this.renderAll();
+      },
+
+      renderAll() {
+        this.renderViewed();
+        this.renderRecommended();
+      },
+
+      renderViewed() {
+        const section = document.getElementById('recentlyViewed');
+        const grid    = document.getElementById('recentlyViewedGrid');
+        if (!section || !grid) return;
+        const products = this.ids.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+        if (!products.length) { section.style.display = 'none'; return; }
+        section.style.display = '';
+        grid.innerHTML = products.map(p => renderPersonalCard(p)).join('');
+        bindPersonalCardTracking(grid);
+      },
+
+      renderRecommended() {
+        const section = document.getElementById('recommendedSection');
+        const grid    = document.getElementById('recommendedGrid');
+        const note    = document.getElementById('recommendedNote');
+        if (!section || !grid) return;
+        const items = this.getRecommended();
+        if (!items.length) { section.style.display = 'none'; return; }
+        if (note) note.textContent = `Based on your interest in ${this.getTopCategory()}`;
+        section.style.display = '';
+        grid.innerHTML = items.map(p => renderRecCard(p)).join('');
+        bindPersonalCardTracking(grid);
+      },
+
+      getTopCategory() {
+        const cats = this.ids.map(id => PRODUCTS.find(p => p.id === id)?.category).filter(Boolean);
+        if (!cats.length) return '';
+        const counts = cats.reduce((acc, c) => { acc[c] = (acc[c] || 0) + 1; return acc; }, {});
+        return Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+      },
+
+      getRecommended() {
+        const topCat = this.getTopCategory();
+        if (!topCat) return [];
+        return PRODUCTS.filter(p => p.category === topCat && !this.ids.includes(p.id)).slice(0, 3);
+      }
+    };
+
+    function renderPersonalCard(p) {
+      const thumb = p.image
+        ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
+        : p.emoji;
+      return `<div class="ue-personal-card" data-track-id="${p.id}" role="button" tabindex="0" aria-label="${p.name}">
+        <div class="ue-personal-thumb" style="background:${p.gradient}">${thumb}</div>
+        <div class="ue-personal-info">
+          <div class="ue-personal-name">${p.name}</div>
+          <div class="ue-personal-price">R${p.price.toLocaleString()}</div>
+        </div>
+      </div>`;
+    }
+
+    function renderRecCard(p) {
+      const thumb = p.image
+        ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
+        : p.emoji;
+      return `<div class="ue-rec-card" data-track-id="${p.id}" role="button" tabindex="0" aria-label="${p.name}">
+        <div class="ue-rec-thumb" style="background:${p.gradient}">${thumb}</div>
+        <div class="ue-rec-info">
+          <div class="ue-rec-cat">${p.category}</div>
+          <div class="ue-rec-name">${p.name}</div>
+          <div class="ue-rec-price">R${p.price.toLocaleString()}</div>
+        </div>
+      </div>`;
+    }
+
+    function bindPersonalCardTracking(container) {
+      container.querySelectorAll('[data-track-id]').forEach(card => {
+        const id = parseInt(card.dataset.trackId, 10);
+        card.addEventListener('click', () => RecentlyViewed.track(id));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') RecentlyViewed.track(id);
+        });
+      });
     }
 
     /* ── CART UI ── */
@@ -4898,8 +5331,45 @@
         this.value = v;
       });
 
-    document.getElementById('sortSelect')?.addEventListener('change', e => {
-      renderProducts(getSorted(e.target.value));
+    document.getElementById('sortSelect')?.addEventListener('change', () => {
+      Filters.apply();
+    });
+
+    /* ── FILTER PILL HANDLERS ── */
+    document.querySelectorAll('[data-filter-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        Filters.category = btn.dataset.filterCat;
+        document.querySelectorAll('[data-filter-cat]').forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
+        Filters.apply();
+      });
+    });
+    document.querySelectorAll('[data-filter-size]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const size = btn.dataset.filterSize;
+        if (Filters.sizes.has(size)) {
+          Filters.sizes.delete(size);
+          btn.classList.remove('is-active');
+        } else {
+          Filters.sizes.add(size);
+          btn.classList.add('is-active');
+        }
+        Filters.apply();
+      });
+    });
+    document.querySelectorAll('[data-filter-price]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.filterPrice;
+        if (Filters.price === key) {
+          Filters.price = null;
+          btn.classList.remove('is-active');
+        } else {
+          Filters.price = key;
+          document.querySelectorAll('[data-filter-price]').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+        }
+        Filters.apply();
+      });
     });
 
     /* Hero card "Add" buttons — now wired to Cart */
@@ -5434,7 +5904,8 @@
 
     /* ── INIT ── */
     Account.load();
-    renderProducts(PRODUCTS);
+    Filters.apply();
+    RecentlyViewed.renderAll();
     updateCartUI();
     updateWishlistUI();
     /* Reflect persisted login state on nav icon */

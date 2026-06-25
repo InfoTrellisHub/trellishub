@@ -455,3 +455,42 @@ input, textarea, select { font-family: inherit; }
   .ue-banner img { height: 300px; }
   .ue-banner-overlay { background: rgba(0,0,0,0.55); padding: 0 24px; }
 }
+
+/* ============================================================
+   MOBILE — product card touch accessibility
+   ============================================================ */
+@media (max-width: 640px) {
+  /* Always show wishlist heart on touch screens */
+  .ue-wishlist-btn { opacity: 1; }
+
+  /* Always show Add-to-Cart bar — no hover needed */
+  .ue-product-actions { transform: translateY(0); }
+
+  /* Hide size picker (too small to tap accurately on mobile) */
+  .ue-size-picker { display: none; }
+
+  /* Compact Add button to fit narrow cards */
+  .ue-quick-add { padding: 10px 8px; font-size: 0.72rem; letter-spacing: 0.04em; }
+
+  /* Tighter section headers on mobile */
+  .ue-section-header { margin-bottom: 32px; }
+  .ue-section-header p { font-size: 0.9rem; max-width: 100%; }
+
+  /* Stack shop toolbar count + sort on small screens */
+  .ue-shop-toolbar { flex-direction: column; align-items: flex-start; gap: 10px; margin-bottom: 20px; }
+  .ue-sort-select { width: 100%; }
+
+  /* Banner text always readable */
+  .ue-banner-content { max-width: 100%; }
+  .ue-banner-content .ue-heading { font-size: 1.5rem; }
+  .ue-banner-content p { font-size: 0.9rem; }
+}
+
+/* Very small screens (≤380px) */
+@media (max-width: 380px) {
+  .ue-product-grid { gap: 10px; }
+  .ue-product-name { font-size: 0.85rem; }
+  .ue-product-price { font-size: 0.85rem; }
+  .ue-product-info { padding: 10px 0 0; }
+  .ue-collections-grid { gap: 10px; }
+}

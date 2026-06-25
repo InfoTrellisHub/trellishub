@@ -443,8 +443,10 @@
       .ue-hero-heading { font-size: clamp(2.4rem, 9vw, 3.4rem); }
     }
     @media (max-width: 640px) {
+      .ue-hero-flex { padding: 56px 0 48px; }
       .ue-hero-ctas { flex-direction: column; align-items: flex-start; }
-      .ue-hero-trust { gap: 14px; }
+      .ue-hero-trust { gap: 14px; flex-wrap: wrap; }
+      .ue-hero-sub { font-size: 0.95rem; margin-bottom: 28px; }
     }
 
     /* ============================================================
@@ -2769,9 +2771,25 @@
       .ue-personal-grid { grid-template-columns: repeat(3, 1fr); }
       .ue-rec-grid { grid-template-columns: repeat(2, 1fr); }
     }
+    @media (max-width: 640px) {
+      /* Filter bar becomes a vertical accordion on mobile */
+      .ue-filter-bar { flex-direction: column; gap: 12px; padding: 14px; }
+      /* Filter pill rows scroll horizontally instead of wrapping */
+      .ue-filter-pills { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
+      .ue-filter-pills::-webkit-scrollbar { display: none; }
+      /* Active filter chips scroll too */
+      .ue-active-filters { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .ue-active-filters::-webkit-scrollbar { display: none; }
+      /* Tighter personalization sections */
+      .ue-personal-section { padding: 3rem 0; }
+    }
     @media (max-width: 560px) {
       .ue-personal-grid { grid-template-columns: repeat(2, 1fr); }
       .ue-rec-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 380px) {
+      .ue-personal-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .ue-personal-thumb { height: 100px; }
     }
   </style>
 </head>

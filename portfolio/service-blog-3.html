@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choosing the Right Paint Finish for Every Room | ProFix Home Services</title>
+  <meta name="description" content="Matt, satin, semi-gloss, or gloss? The finish you choose affects how a room looks, feels, and cleans. Here's how to get it right in every room." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #1B7A4D; --green-dark: #145C3A; --green-tint: #e3f3ea;
+      --slate: #1e293b; --muted: #475569; --border: #e2e8f0;
+      --white: #ffffff; --bg: #f8fafc; --ink: #0f172a;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--slate); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    .demo-banner { background: #0f172a; color: #94a3b8; text-align: center; padding: 0.6rem 1rem; font-size: 0.75rem; letter-spacing: 0.04em; }
+    .demo-banner a { color: #4ade80; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: var(--green); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; }
+    nav { background: var(--slate); padding: 0.9rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: white; text-decoration: none; }
+    .nav-logo span { color: #4ade80; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: #94a3b8; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: white; }
+    .nav-cta { background: var(--green); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+    .nav-cta:hover { background: var(--green-dark); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: all 0.2s; }
+    .nav-mobile { display: none; flex-direction: column; background: var(--slate); border-top: 1px solid rgba(255,255,255,0.08); padding: 0.25rem 1.5rem 1.25rem; }
+    .nav-mobile.is-open { display: flex; }
+    .nav-mobile a { display: block; padding: 0.75rem 0; color: #94a3b8; text-decoration: none; font-size: 0.92rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.07); transition: color 0.2s; }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: white; }
+    .nav-mobile .nm-cta { margin-top: 0.5rem; background: var(--green); color: white; text-align: center; border-radius: 8px; padding: 0.75rem; font-weight: 700; border-bottom: none; }
+    .nav-mobile .nm-cta:hover { background: var(--green-dark); }
+
+    .article-hero { background: linear-gradient(135deg, var(--green-tint), #d4eddf); padding: 4rem 2rem 3rem; }
+    .article-hero-inner { max-width: 760px; margin: 0 auto; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--green); font-size: 0.82rem; font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+    .article-back:hover { text-decoration: underline; }
+    .article-category { display: inline-block; background: var(--green-tint); color: var(--green-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 0.9rem; border: 1px solid #a7d9bc; }
+    .article-hero h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 1rem; color: var(--ink); }
+    .article-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .article-body-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 320px; gap: 3.5rem; align-items: start; }
+    .article-content h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+    .article-content h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--green-dark); }
+    .article-content p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .article-content ul, .article-content ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .article-content li { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.4rem; }
+    .article-content strong { color: var(--ink); }
+    .callout { background: var(--green-tint); border-left: 4px solid var(--green); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .callout p { margin: 0; color: var(--green-dark); font-size: 0.9rem; line-height: 1.7; }
+    .callout strong { color: var(--green-dark); }
+    .callout-warn { background: #fff7ed; border-left-color: #f97316; }
+    .callout-warn p { color: #9a3412; }
+
+    .finish-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .finish-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.3rem; }
+    .finish-card h4 { font-size: 1rem; color: var(--ink); margin-bottom: 0.4rem; }
+    .finish-sheen { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; background: var(--green-tint); color: var(--green-dark); border: 1px solid #a7d9bc; padding: 2px 8px; border-radius: 999px; margin-bottom: 0.65rem; }
+    .finish-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.75rem; }
+    .finish-rooms { font-size: 0.78rem; font-weight: 600; color: var(--slate); }
+    .finish-rooms span { color: var(--muted); font-weight: 400; }
+
+    .room-guide { margin: 1.5rem 0; }
+    .room-row { display: flex; gap: 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+    .room-row:last-child { border-bottom: none; }
+    .room-name { font-weight: 600; font-size: 0.9rem; color: var(--ink); min-width: 130px; flex-shrink: 0; }
+    .room-rec { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .room-rec strong { color: var(--green-dark); }
+
+    .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-size: 0.75rem; color: var(--muted); }
+
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-cta { background: linear-gradient(135deg, var(--green), var(--green-dark)); border-radius: 16px; padding: 1.8rem; color: white; margin-bottom: 1.5rem; text-align: center; }
+    .sidebar-cta h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .sidebar-cta p { font-size: 0.84rem; opacity: 0.88; line-height: 1.6; margin-bottom: 1.2rem; }
+    .sidebar-cta a { display: block; background: white; color: var(--green-dark); font-weight: 700; font-size: 0.88rem; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; transition: opacity 0.2s; }
+    .sidebar-cta a:hover { opacity: 0.9; }
+    .sidebar-related { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .sidebar-related h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .related-link { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); font-size: 0.86rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+    .related-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-link:hover { color: var(--green); }
+    .related-link span { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    footer { background: #0a0f1a; color: #64748b; padding: 1.5rem 2rem; text-align: center; font-size: 0.84rem; }
+    footer a { color: #4ade80; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .article-body-wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .finish-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0.75rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .article-hero { padding: 3rem 1.25rem 2.5rem; }
+      .article-hero h1 { font-size: 1.5rem; }
+      .article-body-wrap { padding: 2.5rem 1.25rem; }
+      .room-row { flex-direction: column; gap: 0.3rem; }
+      .room-name { min-width: unset; }
+    }
+    @media (max-width: 480px) {
+      .article-hero { padding: 2.5rem 1rem 2rem; }
+      .article-hero h1 { font-size: 1.3rem; }
+      .article-body-wrap { padding: 2rem 1rem; gap: 2rem; }
+      .article-content h2 { font-size: 1.15rem; }
+      footer { padding: 1.25rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    <span class="demo-tier">Tier 1</span>
+    Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business →</a>
+  </div>
+
+  <header class="site-header">
+    <nav>
+      <a href="/portfolio/service.html" class="nav-logo">Pro<span>Fix</span> Home Services</a>
+      <ul class="nav-links">
+        <li><a href="/portfolio/service.html#services">Services</a></li>
+        <li><a href="/portfolio/service.html#about">About</a></li>
+        <li><a href="/portfolio/service.html#reviews">Reviews</a></li>
+        <li><a href="/portfolio/service.html#quote">Get Quote</a></li>
+      </ul>
+      <a href="/portfolio/service.html#quote" class="nav-cta">Get Free Quote</a>
+      <button class="nav-hamburger" id="blogNav" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="nav-mobile" id="blogMobileNav" aria-hidden="true">
+      <a href="/portfolio/service.html#services">Services</a>
+      <a href="/portfolio/service.html#about">About</a>
+      <a href="/portfolio/service.html#reviews">Reviews</a>
+      <a href="/portfolio/service.html#quote">Get Quote</a>
+      <a href="/portfolio/service.html#quote" class="nm-cta">Get Free Quote →</a>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="/portfolio/service.html" class="article-back">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to ProFix
+      </a>
+      <div class="article-category">🎨 Painting Tips</div>
+      <h1>Choosing the Right Paint Finish for Every Room</h1>
+      <div class="article-meta">
+        <span>📅 28 May 2025</span>
+        <span>⏱ 5 min read</span>
+        <span>✍️ ProFix Painting Team</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body-wrap">
+    <article class="article-content">
+
+      <p>Choosing the right colour is the part most people think about — but the finish is what determines how a room actually looks and how long it lasts. A beautiful colour in the wrong finish can make walls look patchy, make imperfections stand out, or leave surfaces impossible to clean in rooms that need it most.</p>
+
+      <p>Here's a room-by-room guide to selecting the right sheen level, and the reasoning behind each recommendation.</p>
+
+      <h2>Understanding the four main finish levels</h2>
+
+      <div class="finish-grid">
+        <div class="finish-card">
+          <div class="finish-sheen">Flat / Matt</div>
+          <h4>No sheen</h4>
+          <p>Absorbs light rather than reflecting it. Hides surface imperfections exceptionally well. Not washable — marks must be painted over, not wiped off.</p>
+          <div class="finish-rooms">Best for: <span>Low-traffic areas, ceilings</span></div>
+        </div>
+        <div class="finish-card">
+          <div class="finish-sheen">Eggshell / Satin</div>
+          <h4>Low to medium sheen</h4>
+          <p>Slight sheen that gives walls depth and warmth. More durable than matt and can handle light cleaning with a damp cloth. Hides most imperfections.</p>
+          <div class="finish-rooms">Best for: <span>Living rooms, bedrooms, hallways</span></div>
+        </div>
+        <div class="finish-card">
+          <div class="finish-sheen">Semi-Gloss</div>
+          <h4>Noticeable sheen</h4>
+          <p>Reflects light clearly, giving a clean and bright appearance. Very durable and easy to wipe clean. Shows surface imperfections more readily.</p>
+          <div class="finish-rooms">Best for: <span>Kitchens, bathrooms, trim, doors</span></div>
+        </div>
+        <div class="finish-card">
+          <div class="finish-sheen">Gloss</div>
+          <h4>High shine</h4>
+          <p>Maximum durability and moisture resistance. Highly reflective — even small surface flaws are visible. Requires excellent prep and a skilled painter to apply well.</p>
+          <div class="finish-rooms">Best for: <span>Doors, window frames, cabinetry</span></div>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p><strong>The rule of thumb:</strong> The higher the traffic or moisture in a room, the higher the sheen level you need. A matt finish in a kitchen will look grimy within months; a high-gloss finish in a bedroom will make every brush mark visible.</p>
+      </div>
+
+      <h2>Room-by-room recommendations</h2>
+
+      <div class="room-guide">
+        <div class="room-row">
+          <div class="room-name">Living room</div>
+          <div class="room-rec"><strong>Eggshell or satin.</strong> These finishes give depth and warmth to walls that are seen in natural and artificial light. They handle the occasional scuff or fingerprint from furniture moving.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Master bedroom</div>
+          <div class="room-rec"><strong>Matt or eggshell.</strong> Low-traffic, low-humidity — a matt finish creates a calm, sophisticated look and hides the minor imperfections common in older plaster walls.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Children's bedroom</div>
+          <div class="room-rec"><strong>Satin or semi-gloss.</strong> Kids' rooms need washable walls. Satin handles repeated cleaning without losing its appearance. Semi-gloss is even more durable if the room sees significant scuffing.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Kitchen</div>
+          <div class="room-rec"><strong>Semi-gloss.</strong> Kitchens produce steam, grease, and splashes. Semi-gloss resists moisture and can be wiped clean repeatedly without the finish degrading.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Bathroom</div>
+          <div class="room-rec"><strong>Semi-gloss or gloss.</strong> The highest-humidity room in the house. Semi-gloss is the minimum — gloss is preferable for shower surrounds and any area with direct water contact.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Hallways &amp; passages</div>
+          <div class="room-rec"><strong>Satin.</strong> High-traffic zones need durability. Satin hides minor scuffs while being wipeable — the practical middle ground for areas that see daily wear.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Ceilings</div>
+          <div class="room-rec"><strong>Flat / matt.</strong> Ceilings are almost always painted flat. A sheen on a ceiling catches light and makes every imperfection — sanding marks, joint lines — glaringly obvious.</div>
+        </div>
+        <div class="room-row">
+          <div class="room-name">Doors &amp; trim</div>
+          <div class="room-rec"><strong>Semi-gloss or gloss.</strong> Trim and doors take constant handling. A gloss finish looks clean and sharp, wipes down easily, and the contrast between a satin wall and gloss trim is a classic finish that never dates.</div>
+        </div>
+      </div>
+
+      <h2>One mistake most DIY painters make</h2>
+      <p>Using the same finish on walls and ceilings. A wall in eggshell with a ceiling in flat (white) immediately reads as intentional and professional. Painting both in the same finish with the same colour makes the room feel flat and box-like. The finish contrast is as important as the colour contrast.</p>
+
+      <h2>Does prep work matter more than the paint?</h2>
+      <p>Yes — especially if you're using a higher sheen finish. A semi-gloss or gloss finish will faithfully reflect every crack, uneven patch, or poorly sanded joint on the wall surface. The higher the sheen, the more thorough the prep needs to be: filling, sanding, priming, and a final sand before the finish coat.</p>
+      <p>At ProFix, our painters spend as much time on preparation as they do on painting itself. This is why our finishes look sharp and last for years — not months.</p>
+
+      <div class="callout callout-warn">
+        <p><strong>Avoid matching paint in-store to an old chip.</strong> Paint colour shifts significantly as it dries, and after years on a wall it has often faded. For touch-ups or colour matching, always test a small patch on the wall in natural daylight before committing to a full coat.</p>
+      </div>
+
+      <div class="article-tags">
+        <span class="article-tag">Painting</span>
+        <span class="article-tag">Interior Design</span>
+        <span class="article-tag">Paint Finish</span>
+        <span class="article-tag">Home Improvement</span>
+        <span class="article-tag">Tips</span>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+      <div class="sidebar-cta">
+        <h3>Need a painting quote?</h3>
+        <p>Our painters handle prep, undercoat, and finish — with a clean site handover.</p>
+        <a href="/portfolio/service.html#quote">Get a Free Quote →</a>
+      </div>
+      <div class="sidebar-related">
+        <h4>More Articles</h4>
+        <a href="/portfolio/service-blog-1.html" class="related-link">
+          5 Warning Signs of a Hidden Plumbing Leak
+          <span>Plumbing Tips · 5 min read</span>
+        </a>
+        <a href="/portfolio/service-blog-2.html" class="related-link">
+          Geyser Repair or Replace? What Experts Say
+          <span>Geyser &amp; Hot Water · 6 min read</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>ProFix Home Services &copy; 2025 &nbsp;|&nbsp; Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business →</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('blogNav');
+      var menu = document.getElementById('blogMobileNav');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-hidden', String(!open));
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geyser Repair or Replace? What South African Homeowners Need to Know | ProFix</title>
+  <meta name="description" content="Your geyser has stopped working — should you repair it or replace it? Here's a practical guide to making the right call and avoiding costly mistakes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #1B7A4D; --green-dark: #145C3A; --green-tint: #e3f3ea;
+      --slate: #1e293b; --muted: #475569; --border: #e2e8f0;
+      --white: #ffffff; --bg: #f8fafc; --ink: #0f172a;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--slate); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    .demo-banner { background: #0f172a; color: #94a3b8; text-align: center; padding: 0.6rem 1rem; font-size: 0.75rem; letter-spacing: 0.04em; }
+    .demo-banner a { color: #4ade80; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: var(--green); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+
+    .site-header { position: sticky; top: 0; z-index: 100; }
+    nav { background: var(--slate); padding: 0.9rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: white; text-decoration: none; }
+    .nav-logo span { color: #4ade80; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: #94a3b8; font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: white; }
+    .nav-cta { background: var(--green); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+    .nav-cta:hover { background: var(--green-dark); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 5px; flex-shrink: 0; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; transition: all 0.2s; }
+    .nav-mobile { display: none; flex-direction: column; background: var(--slate); border-top: 1px solid rgba(255,255,255,0.08); padding: 0.25rem 1.5rem 1.25rem; }
+    .nav-mobile.is-open { display: flex; }
+    .nav-mobile a { display: block; padding: 0.75rem 0; color: #94a3b8; text-decoration: none; font-size: 0.92rem; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,0.07); transition: color 0.2s; }
+    .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile a:hover { color: white; }
+    .nav-mobile .nm-cta { margin-top: 0.5rem; background: var(--green); color: white; text-align: center; border-radius: 8px; padding: 0.75rem; font-weight: 700; border-bottom: none; }
+    .nav-mobile .nm-cta:hover { background: var(--green-dark); }
+
+    .article-hero { background: linear-gradient(135deg, var(--green-tint), #d4eddf); padding: 4rem 2rem 3rem; }
+    .article-hero-inner { max-width: 760px; margin: 0 auto; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--green); font-size: 0.82rem; font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+    .article-back:hover { text-decoration: underline; }
+    .article-category { display: inline-block; background: var(--green-tint); color: var(--green-dark); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 0.9rem; border: 1px solid #a7d9bc; }
+    .article-hero h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 1rem; color: var(--ink); }
+    .article-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .article-body-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 320px; gap: 3.5rem; align-items: start; }
+    .article-content h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+    .article-content h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--green-dark); }
+    .article-content p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .article-content ul, .article-content ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .article-content li { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.4rem; }
+    .article-content strong { color: var(--ink); }
+    .callout { background: var(--green-tint); border-left: 4px solid var(--green); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .callout p { margin: 0; color: var(--green-dark); font-size: 0.9rem; line-height: 1.7; }
+    .callout strong { color: var(--green-dark); }
+    .callout-warn { background: #fff7ed; border-left-color: #f97316; }
+    .callout-warn p { color: #9a3412; }
+
+    .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; border-radius: 10px; border: 1px solid var(--border); }
+    .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    .comparison-table th { background: var(--slate); color: white; padding: 0.85rem 1rem; text-align: left; font-family: 'Sora', sans-serif; font-size: 0.82rem; }
+    .comparison-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--bg); }
+    .td-repair { color: var(--green-dark); font-weight: 600; }
+    .td-replace { color: #9a3412; font-weight: 600; }
+
+    .decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .decision-card { border-radius: 12px; padding: 1.3rem; border: 1px solid var(--border); }
+    .decision-card.repair { background: var(--green-tint); border-color: #a7d9bc; }
+    .decision-card.replace { background: #fff7ed; border-color: #fed7aa; }
+    .decision-card h4 { font-size: 0.95rem; margin-bottom: 0.75rem; }
+    .decision-card.repair h4 { color: var(--green-dark); }
+    .decision-card.replace h4 { color: #9a3412; }
+    .decision-card ul { padding-left: 1.2rem; }
+    .decision-card li { font-size: 0.86rem; color: var(--muted); line-height: 1.7; margin-bottom: 0.3rem; }
+
+    .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-size: 0.75rem; color: var(--muted); }
+
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-cta { background: linear-gradient(135deg, var(--green), var(--green-dark)); border-radius: 16px; padding: 1.8rem; color: white; margin-bottom: 1.5rem; text-align: center; }
+    .sidebar-cta h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .sidebar-cta p { font-size: 0.84rem; opacity: 0.88; line-height: 1.6; margin-bottom: 1.2rem; }
+    .sidebar-cta a { display: block; background: white; color: var(--green-dark); font-weight: 700; font-size: 0.88rem; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; transition: opacity 0.2s; }
+    .sidebar-cta a:hover { opacity: 0.9; }
+    .sidebar-related { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .sidebar-related h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .related-link { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); font-size: 0.86rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+    .related-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-link:hover { color: var(--green); }
+    .related-link span { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    footer { background: #0a0f1a; color: #64748b; padding: 1.5rem 2rem; text-align: center; font-size: 0.84rem; }
+    footer a { color: #4ade80; text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .article-body-wrap { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .decision-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0.75rem 1.25rem; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .article-hero { padding: 3rem 1.25rem 2.5rem; }
+      .article-hero h1 { font-size: 1.5rem; }
+      .article-body-wrap { padding: 2.5rem 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .article-hero { padding: 2.5rem 1rem 2rem; }
+      .article-hero h1 { font-size: 1.3rem; }
+      .article-body-wrap { padding: 2rem 1rem; gap: 2rem; }
+      .article-content h2 { font-size: 1.15rem; }
+      .comparison-table { font-size: 0.8rem; }
+      .comparison-table td, .comparison-table th { padding: 0.65rem 0.75rem; }
+      footer { padding: 1.25rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    <span class="demo-tier">Tier 1</span>
+    Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business →</a>
+  </div>
+
+  <header class="site-header">
+    <nav>
+      <a href="/portfolio/service.html" class="nav-logo">Pro<span>Fix</span> Home Services</a>
+      <ul class="nav-links">
+        <li><a href="/portfolio/service.html#services">Services</a></li>
+        <li><a href="/portfolio/service.html#about">About</a></li>
+        <li><a href="/portfolio/service.html#reviews">Reviews</a></li>
+        <li><a href="/portfolio/service.html#quote">Get Quote</a></li>
+      </ul>
+      <a href="/portfolio/service.html#quote" class="nav-cta">Get Free Quote</a>
+      <button class="nav-hamburger" id="blogNav" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="nav-mobile" id="blogMobileNav" aria-hidden="true">
+      <a href="/portfolio/service.html#services">Services</a>
+      <a href="/portfolio/service.html#about">About</a>
+      <a href="/portfolio/service.html#reviews">Reviews</a>
+      <a href="/portfolio/service.html#quote">Get Quote</a>
+      <a href="/portfolio/service.html#quote" class="nm-cta">Get Free Quote →</a>
+    </div>
+  </header>
+
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="/portfolio/service.html" class="article-back">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to ProFix
+      </a>
+      <div class="article-category">🚿 Geyser &amp; Hot Water</div>
+      <h1>Geyser Repair or Replace? What South African Homeowners Need to Know</h1>
+      <div class="article-meta">
+        <span>📅 14 April 2025</span>
+        <span>⏱ 6 min read</span>
+        <span>✍️ ProFix Plumbing Team</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body-wrap">
+    <article class="article-content">
+
+      <p>Your geyser has stopped producing hot water — or worse, it's leaking from the bottom. Now the question every homeowner faces: do you repair it, or replace it? The wrong call can cost you significantly, either through a costly repair on a geyser that fails again within a year, or an unnecessary replacement when a simple fix would have done the job.</p>
+
+      <p>Here's a practical framework to help you make the right decision — and what to expect from each option.</p>
+
+      <h2>First: understand what's likely wrong</h2>
+      <p>Most geyser failures fall into a handful of categories, each with different repair-versus-replace implications:</p>
+      <ul>
+        <li><strong>Element failure</strong> — the heating element has burned out (common, straightforward to replace)</li>
+        <li><strong>Thermostat failure</strong> — the geyser runs but water doesn't reach the right temperature</li>
+        <li><strong>Pressure control valve (PCV) or temperature/pressure relief (TPR) valve failure</strong> — water drips from the relief valve pipe outside the house</li>
+        <li><strong>Tank corrosion and internal rust</strong> — discoloured or rust-smelling hot water; usually means the sacrificial anode has been depleted</li>
+        <li><strong>Tank rupture or seam failure</strong> — active leak from the body of the geyser itself</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Important:</strong> A leaking TPR valve doesn't always mean the geyser needs replacing — it may simply be doing its job by relieving excess pressure. Have a plumber assess before assuming the worst.</p>
+      </div>
+
+      <h2>Repair vs. replace: the decision framework</h2>
+
+      <div class="decision-grid">
+        <div class="decision-card repair">
+          <h4>✅ Lean towards repair when…</h4>
+          <ul>
+            <li>The geyser is under 8 years old</li>
+            <li>The fault is an element, thermostat, or valve (not the tank)</li>
+            <li>The repair cost is less than 40% of a replacement</li>
+            <li>The tank shows no signs of corrosion or rust</li>
+            <li>Hot water was previously consistent and adequate</li>
+          </ul>
+        </div>
+        <div class="decision-card replace">
+          <h4>⚠️ Lean towards replacement when…</h4>
+          <ul>
+            <li>The geyser is 10+ years old</li>
+            <li>The tank itself is leaking (cannot be repaired)</li>
+            <li>Hot water has an orange or rust tinge</li>
+            <li>This is the second or third failure in two years</li>
+            <li>You want to upgrade to a heat pump or solar geyser</li>
+          </ul>
+        </div>
+      </div>
+
+      <h2>Cost comparison</h2>
+      <p>The table below gives typical cost ranges for common geyser interventions in Gauteng. Prices vary by geyser size, brand, and access difficulty.</p>
+
+      <div class="table-scroll">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Intervention</th>
+              <th>Typical Cost</th>
+              <th>Lifespan Impact</th>
+              <th>Verdict</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Element replacement</td>
+              <td>R800 – R1,500</td>
+              <td>3–5 years if tank is sound</td>
+              <td class="td-repair">Repair</td>
+            </tr>
+            <tr>
+              <td>Thermostat replacement</td>
+              <td>R600 – R1,200</td>
+              <td>Several years</td>
+              <td class="td-repair">Repair</td>
+            </tr>
+            <tr>
+              <td>TPR or PCV valve replacement</td>
+              <td>R500 – R900</td>
+              <td>Long-term if tank is sound</td>
+              <td class="td-repair">Repair</td>
+            </tr>
+            <tr>
+              <td>Full geyser replacement (150L)</td>
+              <td>R6,000 – R10,000</td>
+              <td>8–12 years</td>
+              <td class="td-replace">Replace</td>
+            </tr>
+            <tr>
+              <td>Heat pump upgrade</td>
+              <td>R18,000 – R28,000</td>
+              <td>15+ years, ~60% energy saving</td>
+              <td class="td-replace">Replace (upgrade)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>The age rule</h2>
+      <p>Most traditional electric storage geysers in South Africa have a realistic lifespan of 8–12 years with proper maintenance (including anode rod replacement every 3–5 years). After the 10-year mark, even a successful repair is likely to be followed by another failure within 1–2 years as other components reach end-of-life.</p>
+      <p>Our rule of thumb: if the repair cost exceeds 40% of the replacement cost and the geyser is over 8 years old, replacement is the better long-term investment.</p>
+
+      <h2>Is now the time to upgrade to a heat pump?</h2>
+      <p>If you're already replacing a geyser, it's worth considering a heat pump or solar geyser at the same time. Replacing a failed geyser with another standard electric unit is the cheapest option upfront — but in Eskom's pricing environment, a heat pump typically pays for the price difference within 3–4 years through electricity savings. The installation disruption is the same whether you install a standard geyser or a heat pump.</p>
+
+      <div class="callout callout-warn">
+        <p><strong>Never attempt a DIY geyser repair.</strong> Geysers operate under mains pressure with high-temperature water. In South Africa, all geyser installations and replacements must comply with SANS 10254 and be signed off by a licensed plumber. An uncertified repair can void your home insurance.</p>
+      </div>
+
+      <div class="article-tags">
+        <span class="article-tag">Geyser</span>
+        <span class="article-tag">Plumbing</span>
+        <span class="article-tag">Hot Water</span>
+        <span class="article-tag">Home Maintenance</span>
+        <span class="article-tag">Energy Saving</span>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+      <div class="sidebar-cta">
+        <h3>Geyser problems?</h3>
+        <p>We assess, quote, and fix — same-day response across Gauteng.</p>
+        <a href="/portfolio/service.html#quote">Get a Free Quote →</a>
+      </div>
+      <div class="sidebar-related">
+        <h4>More Articles</h4>
+        <a href="/portfolio/service-blog-1.html" class="related-link">
+          5 Warning Signs of a Hidden Plumbing Leak
+          <span>Plumbing Tips · 5 min read</span>
+        </a>
+        <a href="/portfolio/service-blog-3.html" class="related-link">
+          Choosing the Right Paint Finish for Every Room
+          <span>Painting Tips · 5 min read</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>ProFix Home Services &copy; 2025 &nbsp;|&nbsp; Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business →</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      var btn = document.getElementById('blogNav');
+      var menu = document.getElementById('blogMobileNav');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('is-open');
+        btn.setAttribute('aria-expanded', String(open));
+        menu.setAttribute('aria-hidden', String(!open));
+      });
+      menu.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          menu.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

@@ -42,8 +42,8 @@
     .demo-tier { display: inline-block; background: #0284c7; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
 
     /* ── Nav ─────────────────────────────────────── */
+    .site-header { position: sticky; top: 0; z-index: 100; }
     nav {
-      position: sticky; top: 0; z-index: 100;
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
@@ -84,8 +84,10 @@
     .nav-hamburger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.2s; }
     .nav-mobile { display: none; flex-direction: column; gap: 0; padding: 0.5rem 2rem 1rem; background: white; border-bottom: 1px solid var(--border); }
     .nav-mobile.is-open { display: flex; }
-    .nav-mobile a { padding: 0.65rem 0; color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--border); }
+    .nav-mobile a { padding: 0.65rem 0; color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--border); transition: color 0.2s; }
+    .nav-mobile a:hover { color: var(--blue); }
     .nav-mobile a:last-child { border-bottom: none; }
+    .nav-mobile .nm-book { color: var(--blue); font-weight: 700; }
 
     /* ── Shared layout ───────────────────────────── */
     .section { padding: 5rem 2rem; }
@@ -544,7 +546,8 @@
     @media (max-width: 900px) {
       .about-grid, .booking-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .team-grid { grid-template-columns: 1fr; }
-      /* Collapse 4-col dashboard metrics on tablets */
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
       .dash-metrics { grid-template-columns: repeat(2, 1fr); }
       .section { padding: 4rem 1.5rem; }
     }
@@ -562,6 +565,7 @@
       .footer-bottom { flex-direction: column; align-items: flex-start; }
       .bf-row { grid-template-columns: 1fr; }
       .bw-row { grid-template-columns: 1fr; }
+      .booking-form { padding: 1.5rem; }
       .section { padding: 3.5rem 1.5rem; }
     }
     @media (max-width: 480px) {
@@ -572,8 +576,15 @@
       .trust-badges { flex-direction: column; align-items: center; }
       .service-card-body { padding: 1.1rem 1.2rem 1.4rem; }
       .booking-widget { padding: 1.5rem 1.25rem; }
+      .booking-form { padding: 1.25rem; }
+      .cta-section { padding: 3rem 1.25rem; }
+      .cta-section h2 { font-size: 1.6rem; }
       .bf-step-lbl { display: none; }
       .bf-step-line { margin-bottom: 0; }
+      .bf-nav-btns { flex-wrap: wrap; }
+      .bf-nav-btns .btn-primary, .bf-nav-btns .btn-outline { flex: 1; text-align: center; }
+      .doc-modal-photo, .doc-modal-initials { width: 120px; height: 120px; }
+      .doc-modal { padding: 1.75rem 1.5rem 1.5rem; }
     }
   </style>
 </head>
@@ -584,6 +595,7 @@
     This is a <strong>demo website</strong> built by <a href="/">Trellishub</a> to show what a Tier 2 dental practice site looks like. &nbsp;|&nbsp; <a href="/#contact">Get one for your business →</a>
   </div>
 
+  <header class="site-header">
   <nav id="mainNav">
     <div class="nav-logo">Bright<span>Smile</span> Dental</div>
     <ul class="nav-links">
@@ -606,7 +618,9 @@
     <a href="#blog">Blog</a>
     <a href="#faq">FAQ</a>
     <a href="#contact">Contact</a>
+    <a href="#contact" class="nm-book">Book Appointment →</a>
   </div>
+  </header>
 
   <!-- ── HERO ───────────────────────────────────── -->
   <section style="background:var(--white);">

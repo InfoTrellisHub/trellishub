@@ -396,7 +396,8 @@
       padding: 20px;
       font-size: 4.5rem;
       line-height: 1;
-      transition: transform 0.65s ease;
+      transition: transform 0.35s ease;
+      will-change: transform;
     }
     .ue-collection-card:hover .ue-coll-img { transform: scale(1.05); }
 
@@ -456,7 +457,8 @@
       align-items: center;
       justify-content: center;
       font-size: 3.5rem;
-      transition: transform 0.55s ease;
+      transition: transform 0.32s ease;
+      will-change: transform;
     }
     .ue-product-card:hover .ue-product-ph { transform: scale(1.06); }
 
@@ -578,6 +580,7 @@
       overflow-y: auto;
       transform: translateY(100%);
       transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
     }
     .ue-checkout-overlay.is-open { transform: translateY(0); }
 
@@ -677,6 +680,7 @@
       overflow-y: auto;
       transform: translateX(100%);
       transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
     }
     .ue-account-overlay.is-open { transform: translateX(0); }
 
@@ -1235,6 +1239,7 @@
       box-shadow: 0 16px 48px rgba(0,0,0,0.1);
       max-height: 92vh;
       overflow-y: auto;
+      will-change: transform;
     }
     .ue-search-overlay.is-open { transform: translateY(0); }
 
@@ -1390,6 +1395,7 @@
       display: flex;
       flex-direction: column;
       box-shadow: -4px 0 40px rgba(0,0,0,0.09);
+      will-change: transform;
     }
     .ue-wishlist-drawer.is-open { transform: translateX(0); }
 
@@ -2006,7 +2012,8 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: box-shadow 0.28s ease, transform 0.28s ease;
+      transition: transform 0.28s ease;
+      will-change: transform;
     }
     .ue-blog-card:hover {
       box-shadow: 0 16px 48px rgba(0,0,0,0.08);
@@ -2021,8 +2028,9 @@
       align-items: center;
       justify-content: center;
       font-size: 3.2rem;
-      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.35s ease;
       position: relative;
+      will-change: transform;
     }
     .ue-blog-card:hover .ue-blog-img { transform: scale(1.05); }
 
@@ -2035,9 +2043,8 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
-      background: rgba(0,0,0,0.35);
-      backdrop-filter: blur(4px);
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.62);
       padding: 4px 10px;
       border-radius: 100px;
     }
@@ -2299,10 +2306,8 @@
       position: absolute;
       top: 28px;
       left: 24px;
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(18,18,18,0.82);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 12px;
       padding: 14px 18px;
       display: flex;

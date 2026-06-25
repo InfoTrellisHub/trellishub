@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional vs. At-Home Whitening | BrightSmile Dental</title>
+  <meta name="description" content="We break down the science behind teeth whitening and explain why in-chair treatments consistently outperform DIY kits." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0284c7; --blue-dark: #0369a1; --blue-tint: #e0f2fe;
+      --teal: #0d9488; --teal-tint: #f0fdfa;
+      --ink: #0f172a; --muted: #475569; --border: #e2e8f0;
+      --white: #ffffff; --bg: #f8fafc;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    .demo-banner { background: #0f172a; color: #94a3b8; text-align: center; padding: 0.6rem 1rem; font-size: 0.75rem; letter-spacing: 0.04em; }
+    .demo-banner a { color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: #0284c7; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0.9rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: var(--ink); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.15s; text-decoration: none; display: inline-block; }
+    .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(2,132,199,0.3); }
+
+    .article-hero { background: linear-gradient(135deg, #fff7ed, #fed7aa, #fef3c7); padding: 4rem 2rem 3rem; }
+    .article-hero-inner { max-width: 760px; margin: 0 auto; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--blue); font-size: 0.82rem; font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+    .article-back:hover { text-decoration: underline; }
+    .article-category { display: inline-block; background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 0.9rem; }
+    .article-hero h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+
+    .article-body-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 320px; gap: 3.5rem; align-items: start; }
+    .article-content h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+    .article-content h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--blue-dark); }
+    .article-content p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .article-content ul, .article-content ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .article-content li { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.4rem; }
+    .article-content strong { color: var(--ink); }
+    .callout { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .callout p { margin: 0; color: var(--blue-dark); font-size: 0.9rem; line-height: 1.7; }
+    .callout-amber { background: #fffbeb; border-left-color: #f59e0b; }
+    .callout-amber p { color: #92400e; }
+    .callout-teal { background: var(--teal-tint); border-left-color: var(--teal); }
+    .callout-teal p { color: #0f766e; }
+
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.88rem; }
+    .comparison-table th { background: var(--blue); color: white; padding: 0.75rem 1rem; text-align: left; font-family: 'Sora', sans-serif; font-size: 0.85rem; }
+    .comparison-table th:first-child { border-radius: 8px 0 0 0; }
+    .comparison-table th:last-child { border-radius: 0 8px 0 0; }
+    .comparison-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table tr:nth-child(even) td { background: var(--bg); }
+    .comparison-table .win { color: #0f766e; font-weight: 600; }
+    .comparison-table .mid { color: #92400e; }
+    .comparison-table .lose { color: #be185d; }
+
+    .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-size: 0.75rem; color: var(--muted); }
+
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-cta { background: linear-gradient(135deg, var(--blue), var(--teal)); border-radius: 16px; padding: 1.8rem; color: white; margin-bottom: 1.5rem; text-align: center; }
+    .sidebar-cta h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .sidebar-cta p { font-size: 0.84rem; opacity: 0.88; line-height: 1.6; margin-bottom: 1.2rem; }
+    .sidebar-cta a { display: block; background: white; color: var(--blue); font-weight: 700; font-size: 0.88rem; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; transition: opacity 0.2s; }
+    .sidebar-cta a:hover { opacity: 0.9; }
+    .sidebar-related { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .sidebar-related h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .related-link { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); font-size: 0.86rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+    .related-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-link:hover { color: var(--blue); }
+    .related-link span { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    footer { background: var(--ink); color: #94a3b8; font-size: 0.84rem; padding: 1.5rem 2rem; text-align: center; }
+    footer a { color: #38bdf8; text-decoration: none; }
+    .footer-compliance { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 0.75rem; }
+    .compliance-badge { background: #1e293b; border: 1px solid #334155; border-radius: 5px; padding: 3px 9px; font-size: 0.68rem; font-weight: 600; color: #94a3b8; }
+
+    @media (max-width: 900px) { .article-body-wrap { grid-template-columns: 1fr; } .sidebar { position: static; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .article-hero h1 { font-size: 1.6rem; } }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    <span class="demo-tier">Tier 2</span>
+    Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your practice →</a>
+  </div>
+
+  <nav>
+    <a href="/portfolio/medical.html" class="nav-logo">Bright<span>Smile</span> Dental</a>
+    <ul class="nav-links">
+      <li><a href="/portfolio/medical.html#services">Services</a></li>
+      <li><a href="/portfolio/medical.html#about">About</a></li>
+      <li><a href="/portfolio/medical.html#testimonials">Reviews</a></li>
+      <li><a href="/portfolio/medical.html#blog">Blog</a></li>
+      <li><a href="/portfolio/medical.html#faq">FAQ</a></li>
+      <li><a href="/portfolio/medical.html#contact">Contact</a></li>
+    </ul>
+    <a href="/portfolio/medical.html#contact" class="nav-cta">Book Appointment</a>
+  </nav>
+
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="/portfolio/medical.html#blog" class="article-back">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+      <div class="article-category">Cosmetic Dentistry</div>
+      <h1>Professional vs. At-Home Whitening: What Actually Works</h1>
+      <div class="article-meta">
+        <span>📅 28 May 2025</span>
+        <span>⏱ 6 min read</span>
+        <span>✍️ Dr. Aisha Moosa</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body-wrap">
+    <article class="article-content">
+
+      <p>Teeth whitening is one of the most requested cosmetic dental treatments in the world — and the market for at-home whitening products has never been larger. Strips, pens, trays, LED kits, whitening toothpastes, charcoal powders — the options are endless and confusing. So what actually works, what's just marketing, and what could genuinely harm your teeth?</p>
+
+      <h2>How whitening works</h2>
+      <p>Before comparing options, it helps to understand the mechanism. Most whitening products — professional and over-the-counter — rely on peroxide compounds, typically <strong>hydrogen peroxide</strong> or <strong>carbamide peroxide</strong>. These molecules penetrate the enamel and break apart the chemical bonds in stain molecules (chromogens) that have accumulated over time.</p>
+      <p>The key variables are: <strong>concentration</strong> (how much peroxide is present), <strong>contact time</strong> (how long it stays on the tooth), and <strong>custom fit</strong> (whether the product contacts all tooth surfaces evenly). Professional treatments are superior on all three counts.</p>
+
+      <h2>Comparing whitening methods</h2>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Peroxide %</th>
+            <th>Avg. Result</th>
+            <th>Duration</th>
+            <th>Safety</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>In-chair (professional)</strong></td>
+            <td class="win">25–40%</td>
+            <td class="win">6–10 shades</td>
+            <td>1–2 hrs</td>
+            <td class="win">Supervised</td>
+          </tr>
+          <tr>
+            <td><strong>Take-home trays (dental)</strong></td>
+            <td class="win">10–22%</td>
+            <td class="win">4–8 shades</td>
+            <td>2–4 weeks</td>
+            <td class="win">Custom-fit</td>
+          </tr>
+          <tr>
+            <td><strong>OTC whitening strips</strong></td>
+            <td class="mid">6–10%</td>
+            <td class="mid">2–4 shades</td>
+            <td>2–4 weeks</td>
+            <td class="mid">Generic fit</td>
+          </tr>
+          <tr>
+            <td><strong>Whitening toothpaste</strong></td>
+            <td>Abrasives only</td>
+            <td class="lose">Surface only</td>
+            <td>Ongoing</td>
+            <td class="mid">Enamel risk</td>
+          </tr>
+          <tr>
+            <td><strong>Charcoal powder</strong></td>
+            <td>None</td>
+            <td class="lose">Minimal</td>
+            <td>—</td>
+            <td class="lose">High abrasion</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>In-chair whitening</h2>
+      <p>Professional in-chair whitening (sometimes called "power whitening" or "laser whitening") is the fastest and most dramatic option. A dental professional applies a high-concentration peroxide gel directly to the teeth, protecting your gums with a rubber dam or paint-on barrier. Some systems use a light source — not technically a laser — to activate the gel and speed up the process.</p>
+      <p>Results are immediate: most patients achieve <strong>6–10 shades lighter</strong> in a single 60–90 minute appointment. This is the method to choose if you have an event coming up or want the fastest possible improvement.</p>
+
+      <h2>Custom take-home trays</h2>
+      <p>This is the option dental professionals most commonly recommend for long-term whitening. Your dentist takes impressions of your teeth and fabricates custom-fitted trays. You fill these with a lower-concentration peroxide gel at home and wear them for a set period each day — usually 30–60 minutes — over two to four weeks.</p>
+      <p>Because the trays are custom-fitted, the gel contacts every part of every tooth surface evenly. Results are comparable to in-chair whitening but achieved gradually. Trays can be used for top-up treatments in future years using fresh gel from your dentist.</p>
+
+      <div class="callout">
+        <p><strong>The best of both:</strong> Many patients combine in-chair whitening for an immediate boost, followed by custom trays at home for maintenance. This gives the fastest result with the longest-lasting outcome.</p>
+      </div>
+
+      <h2>Over-the-counter strips</h2>
+      <p>OTC strips contain real peroxide and do produce real results — they're not entirely ineffective. However, the concentration is limited by regulation, the generic fit means uneven contact (leading to patchy results), and the whitening effect is significantly less dramatic than professional options.</p>
+      <p>For someone who wants gradual, modest improvement and has generally healthy teeth and gums, strips are a reasonable maintenance option — not a replacement for professional treatment.</p>
+
+      <h2>What doesn't actually whiten teeth</h2>
+      <p><strong>Whitening toothpaste</strong> works primarily through mild abrasives that scrub surface stains. This can make teeth look cleaner and brighter, but it doesn't penetrate enamel and doesn't change the intrinsic colour of the tooth. Used aggressively, abrasive toothpastes can cause enamel wear over time.</p>
+      <p><strong>Charcoal powders</strong> have no evidence base for whitening and carry real risk of enamel damage. The British Dental Journal and multiple dental associations have published warnings against their use. The gritty texture of activated charcoal is highly abrasive, and abrading enamel away actually makes teeth appear more yellow over time, since the underlying dentine (which is yellow) becomes more visible.</p>
+
+      <div class="callout callout-amber">
+        <p><strong>Who should avoid whitening:</strong> Whitening is not suitable for teeth with untreated cavities, cracked teeth, or active gum disease. It also won't change the colour of crowns, veneers, or composite fillings. A check-up before whitening ensures safe and consistent results.</p>
+      </div>
+
+      <h2>How long do results last?</h2>
+      <p>Professional whitening results typically last <strong>one to three years</strong> depending on your diet and lifestyle. Coffee, tea, red wine, and tobacco are the main causes of re-staining. Touch-up treatments with your dentist-provided trays can extend results significantly at low cost.</p>
+
+      <div class="callout callout-teal">
+        <p><strong>Ready for a brighter smile?</strong> Our Teeth Whitening service uses professional-grade treatment with custom trays included. Book a whitening consultation and we'll assess whether in-chair, take-home, or a combination approach is right for you.</p>
+      </div>
+
+      <div class="article-tags">
+        <span class="article-tag">Teeth Whitening</span>
+        <span class="article-tag">Cosmetic Dentistry</span>
+        <span class="article-tag">Oral Health</span>
+        <span class="article-tag">In-Chair Whitening</span>
+        <span class="article-tag">Enamel Care</span>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+      <div class="sidebar-cta">
+        <h3>Book a whitening consult</h3>
+        <p>Find out which whitening method is right for your teeth and goals.</p>
+        <a href="/portfolio/medical.html#contact">Book Appointment →</a>
+      </div>
+      <div class="sidebar-related">
+        <h4>More Articles</h4>
+        <a href="/portfolio/medical-blog-1.html" class="related-link">
+          5 Signs You Should See a Dentist This Week
+          <span>Preventive Care · 5 min read</span>
+        </a>
+        <a href="/portfolio/medical-blog-3.html" class="related-link">
+          How to Make Your Child Love Going to the Dentist
+          <span>Family Dental · 5 min read</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>BrightSmile Dental &copy; 2025 &nbsp;·&nbsp; Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your practice →</a></p>
+    <div class="footer-compliance">
+      <span class="compliance-badge">🔒 SSL</span>
+      <span class="compliance-badge">HIPAA Compliant</span>
+      <span class="compliance-badge">GDPR Ready</span>
+    </div>
+  </footer>
+
+</body>
+</html>

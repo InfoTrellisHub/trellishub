@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Make Your Child Love Going to the Dentist | BrightSmile Dental</title>
+  <meta name="description" content="Dental anxiety starts young. These four simple strategies can help your child build a positive relationship with dental care for life." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0284c7; --blue-dark: #0369a1; --blue-tint: #e0f2fe;
+      --teal: #0d9488; --teal-tint: #f0fdfa;
+      --ink: #0f172a; --muted: #475569; --border: #e2e8f0;
+      --white: #ffffff; --bg: #f8fafc;
+      --purple-tint: #fdf4ff; --purple: #9333ea;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    .demo-banner { background: #0f172a; color: #94a3b8; text-align: center; padding: 0.6rem 1rem; font-size: 0.75rem; letter-spacing: 0.04em; }
+    .demo-banner a { color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: #0284c7; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0.9rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: var(--ink); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.15s; text-decoration: none; display: inline-block; }
+    .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(2,132,199,0.3); }
+
+    .article-hero { background: linear-gradient(135deg, #fdf4ff, #e9d5ff, #f0fdfa); padding: 4rem 2rem 3rem; }
+    .article-hero-inner { max-width: 760px; margin: 0 auto; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--blue); font-size: 0.82rem; font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+    .article-back:hover { text-decoration: underline; }
+    .article-category { display: inline-block; background: #fdf4ff; color: #7e22ce; border: 1px solid #e9d5ff; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 0.9rem; }
+    .article-hero h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+
+    .article-body-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 320px; gap: 3.5rem; align-items: start; }
+    .article-content h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+    .article-content h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--blue-dark); }
+    .article-content p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .article-content ul, .article-content ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .article-content li { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.4rem; }
+    .article-content strong { color: var(--ink); }
+    .callout { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .callout p { margin: 0; color: var(--blue-dark); font-size: 0.9rem; line-height: 1.7; }
+    .callout-teal { background: var(--teal-tint); border-left-color: var(--teal); }
+    .callout-teal p { color: #0f766e; }
+    .callout-purple { background: #fdf4ff; border-left-color: #9333ea; }
+    .callout-purple p { color: #6b21a8; }
+    .tip-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.4rem 1.6rem; margin-bottom: 1.2rem; }
+    .tip-card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .tip-icon { font-size: 1.4rem; }
+    .tip-card h3 { font-size: 1rem; color: var(--ink); margin: 0; }
+    .tip-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; margin: 0; }
+    .age-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0; }
+    .age-card { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; }
+    .age-card h4 { font-size: 0.88rem; font-weight: 700; color: var(--blue); margin-bottom: 0.4rem; }
+    .age-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 0; }
+    .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-size: 0.75rem; color: var(--muted); }
+
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-cta { background: linear-gradient(135deg, var(--blue), var(--teal)); border-radius: 16px; padding: 1.8rem; color: white; margin-bottom: 1.5rem; text-align: center; }
+    .sidebar-cta h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .sidebar-cta p { font-size: 0.84rem; opacity: 0.88; line-height: 1.6; margin-bottom: 1.2rem; }
+    .sidebar-cta a { display: block; background: white; color: var(--blue); font-weight: 700; font-size: 0.88rem; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; transition: opacity 0.2s; }
+    .sidebar-cta a:hover { opacity: 0.9; }
+    .sidebar-related { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .sidebar-related h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .related-link { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); font-size: 0.86rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+    .related-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-link:hover { color: var(--blue); }
+    .related-link span { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    footer { background: var(--ink); color: #94a3b8; font-size: 0.84rem; padding: 1.5rem 2rem; text-align: center; }
+    footer a { color: #38bdf8; text-decoration: none; }
+    .footer-compliance { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 0.75rem; }
+    .compliance-badge { background: #1e293b; border: 1px solid #334155; border-radius: 5px; padding: 3px 9px; font-size: 0.68rem; font-weight: 600; color: #94a3b8; }
+
+    @media (max-width: 900px) { .article-body-wrap { grid-template-columns: 1fr; } .sidebar { position: static; } .age-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .article-hero h1 { font-size: 1.6rem; } }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    <span class="demo-tier">Tier 2</span>
+    Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your practice →</a>
+  </div>
+
+  <nav>
+    <a href="/portfolio/medical.html" class="nav-logo">Bright<span>Smile</span> Dental</a>
+    <ul class="nav-links">
+      <li><a href="/portfolio/medical.html#services">Services</a></li>
+      <li><a href="/portfolio/medical.html#about">About</a></li>
+      <li><a href="/portfolio/medical.html#testimonials">Reviews</a></li>
+      <li><a href="/portfolio/medical.html#blog">Blog</a></li>
+      <li><a href="/portfolio/medical.html#faq">FAQ</a></li>
+      <li><a href="/portfolio/medical.html#contact">Contact</a></li>
+    </ul>
+    <a href="/portfolio/medical.html#contact" class="nav-cta">Book Appointment</a>
+  </nav>
+
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="/portfolio/medical.html#blog" class="article-back">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+      <div class="article-category">Family Dental</div>
+      <h1>How to Make Your Child Love Going to the Dentist</h1>
+      <div class="article-meta">
+        <span>📅 10 May 2025</span>
+        <span>⏱ 5 min read</span>
+        <span>✍️ Dr. Liam Nkosi</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body-wrap">
+    <article class="article-content">
+
+      <p>Dental anxiety is one of the most common phobias in adults — and research consistently shows it almost always originates in childhood. A frightening or uncomfortable dental experience early in life can create lasting avoidance behaviour that affects oral health for decades. The good news: with the right approach, you can build a completely different association for your child — one where the dentist is a trusted, familiar place rather than somewhere to dread.</p>
+
+      <p>Here's what actually works, backed by what paediatric dental teams observe every day.</p>
+
+      <h2>Start earlier than you think you should</h2>
+      <p>The South African Dental Association, along with dental associations worldwide, recommends a child's first dental visit <strong>by their first birthday</strong> — or within six months of the first tooth appearing. This might feel unnecessarily early, but there are two important reasons for it.</p>
+      <p>First, early visits allow the dentist to identify and intercept any developmental concerns while they're simple to address. Second — and more importantly for anxiety — a child who visits the dentist from infancy has no "before" memory without the dentist in it. The dental surgery becomes a normal, familiar place. There's nothing strange to fear.</p>
+
+      <div class="callout">
+        <p><strong>What a first visit looks like:</strong> For very young children, the appointment is typically a "happy visit" — a quick, gentle look at the teeth, a ride in the chair, and a chance to hold the mirror. No drills, no stress. The goal is familiarity.</p>
+      </div>
+
+      <h2>Watch your language</h2>
+      <p>Children pick up on more than we realise. Two things to avoid:</p>
+      <ul>
+        <li><strong>Don't use the dental visit as a threat</strong> ("If you don't brush, the dentist will have to fix your teeth"). This plants an association between the dentist and punishment or pain before any appointment has even happened.</li>
+        <li><strong>Avoid loaded words</strong> like "needle," "drill," "hurt," or "scary." Dentists and their teams are trained to use alternative language — "sleepy juice," "tooth counter," "camera" — and it helps when parents use the same neutral, matter-of-fact framing at home.</li>
+      </ul>
+      <p>Simply describe the appointment as something that happens regularly: "We're going to the dentist on Saturday to check your teeth are healthy." Keep it ordinary.</p>
+
+      <h2>Practise at home — make it a game</h2>
+      <p>Playing "dentist" at home is one of the most effective ways to normalise the experience. Use a toothbrush to gently count a stuffed animal's teeth, or let your child "check" your teeth. When children have already role-played the scenario, the real thing holds far less novelty — and far less potential for fear.</p>
+      <p>There are also excellent children's books and short animated videos specifically designed to prepare young children for dental visits. Your dentist's practice can usually recommend a few. Watching a character have a positive dental experience before the appointment can be surprisingly powerful.</p>
+
+      <div class="tip-card">
+        <div class="tip-card-header">
+          <span class="tip-icon">📖</span>
+          <h3>Read together beforehand</h3>
+        </div>
+        <p>Books like <em>The Berenstain Bears Visit the Dentist</em> and <em>Peppa Pig: Dentist Trip</em> walk children through a dental visit in a friendly, age-appropriate way. Reading them in the days before an appointment is a simple preparation tool that many parents find genuinely helpful.</p>
+      </div>
+
+      <h2>Let them feel in control</h2>
+      <p>A significant driver of dental anxiety — at any age — is the feeling of helplessness. Being reclined in a chair while someone works in your mouth is an inherently vulnerable position. For children, this can be especially distressing.</p>
+      <p>Paediatric-focused dental teams counteract this deliberately. Simple strategies that make a real difference:</p>
+      <ul>
+        <li>Let the child hold the suction tool or mirror during the examination</li>
+        <li>Establish a "stop signal" — a raised hand means the dentist pauses immediately, no questions asked</li>
+        <li>Explain each step before doing it: "I'm going to count your teeth now"</li>
+        <li>Give the child genuine choices where possible: "Do you want to sit in the chair first or have a look around first?"</li>
+      </ul>
+      <p>When children feel they have some agency over what happens, the experience becomes collaborative rather than something done to them. This single shift makes an enormous difference in how they perceive and remember the visit.</p>
+
+      <h2>What to do after the appointment</h2>
+      <p>How you respond after the visit shapes the memory. Keep it low-key and positive:</p>
+      <ul>
+        <li>Acknowledge their bravery matter-of-factly: "You did really well today"</li>
+        <li>Avoid making a dramatic fuss even if they were upset — this amplifies the emotional significance</li>
+        <li>A small, non-food reward can help for younger children — a sticker, a trip to the park</li>
+        <li>Ask them what they liked or found interesting, not just whether it hurt</li>
+      </ul>
+
+      <h2>Age-by-age guide</h2>
+      <div class="age-grid">
+        <div class="age-card">
+          <h4>👶 0–2 years</h4>
+          <p>First visit by age 1. Mainly a "happy visit" — the goal is familiarity, not treatment. Clean gums and first teeth with a soft cloth or infant toothbrush.</p>
+        </div>
+        <div class="age-card">
+          <h4>🧒 2–5 years</h4>
+          <p>Regular 6-month check-ups. Use play-dentist at home and age-appropriate books. Let them choose their toothbrush. Keep brushing a shared, fun routine.</p>
+        </div>
+        <div class="age-card">
+          <h4>👦 5–10 years</h4>
+          <p>Introduce flossing. First adult teeth start appearing. Reinforce the "dentist as health team" framing. X-rays may begin at this stage.</p>
+        </div>
+        <div class="age-card">
+          <h4>🧑 10+ years</h4>
+          <p>Encourage independence with oral hygiene. Orthodontic assessment typically starts. Address any emerging anxiety openly and without dismissal.</p>
+        </div>
+      </div>
+
+      <div class="callout callout-teal">
+        <p><strong>Our paediatric team</strong> is specifically trained to work with children of all ages and anxiety levels. We take as much time as needed and never rush a young patient. If your child has had a bad experience before, tell us — we can adjust our entire approach accordingly.</p>
+      </div>
+
+      <div class="callout callout-purple">
+        <p><strong>Dental anxiety in parents transfers to children.</strong> If you have dental anxiety yourself, try not to discuss it in front of your child before their appointment. Your calm, matter-of-fact attitude on the day is one of the most powerful signals they will follow.</p>
+      </div>
+
+      <div class="article-tags">
+        <span class="article-tag">Family Dental</span>
+        <span class="article-tag">Paediatric Dentistry</span>
+        <span class="article-tag">Dental Anxiety</span>
+        <span class="article-tag">Children's Health</span>
+        <span class="article-tag">Preventive Care</span>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+      <div class="sidebar-cta">
+        <h3>Book a child's check-up</h3>
+        <p>Our paediatric team makes every visit gentle, fun, and stress-free.</p>
+        <a href="/portfolio/medical.html#contact">Book Appointment →</a>
+      </div>
+      <div class="sidebar-related">
+        <h4>More Articles</h4>
+        <a href="/portfolio/medical-blog-1.html" class="related-link">
+          5 Signs You Should See a Dentist This Week
+          <span>Preventive Care · 5 min read</span>
+        </a>
+        <a href="/portfolio/medical-blog-2.html" class="related-link">
+          Professional vs. At-Home Whitening: What Actually Works
+          <span>Cosmetic Dentistry · 6 min read</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>BrightSmile Dental &copy; 2025 &nbsp;·&nbsp; Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your practice →</a></p>
+    <div class="footer-compliance">
+      <span class="compliance-badge">🔒 SSL</span>
+      <span class="compliance-badge">HIPAA Compliant</span>
+      <span class="compliance-badge">GDPR Ready</span>
+    </div>
+  </footer>
+
+</body>
+</html>

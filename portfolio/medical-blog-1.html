@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 Signs You Should See a Dentist This Week | BrightSmile Dental</title>
+  <meta name="description" content="Most dental problems are painless at first — but catching them early saves time, money, and discomfort. Here's what to watch for." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #0284c7; --blue-dark: #0369a1; --blue-tint: #e0f2fe;
+      --teal: #0d9488; --teal-tint: #f0fdfa;
+      --ink: #0f172a; --muted: #475569; --border: #e2e8f0;
+      --white: #ffffff; --bg: #f8fafc;
+    }
+    body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
+
+    .demo-banner { background: #0f172a; color: #94a3b8; text-align: center; padding: 0.6rem 1rem; font-size: 0.75rem; letter-spacing: 0.04em; }
+    .demo-banner a { color: #38bdf8; text-decoration: none; font-weight: 600; }
+    .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: #0284c7; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 0.9rem 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--blue); text-decoration: none; }
+    .nav-logo span { color: var(--ink); }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta { background: var(--blue); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: background 0.2s, transform 0.15s, box-shadow 0.15s; text-decoration: none; display: inline-block; }
+    .nav-cta:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(2,132,199,0.3); }
+
+    .article-hero { background: linear-gradient(135deg, var(--blue-tint), #e0f9f0); padding: 4rem 2rem 3rem; }
+    .article-hero-inner { max-width: 760px; margin: 0 auto; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--blue); font-size: 0.82rem; font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+    .article-back:hover { text-decoration: underline; }
+    .article-category { display: inline-block; background: var(--blue-tint); color: var(--blue); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 0.9rem; }
+    .article-hero h1 { font-size: 2rem; line-height: 1.25; margin-bottom: 1rem; }
+    .article-meta { display: flex; gap: 1.5rem; font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; }
+    .article-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    .article-body-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; display: grid; grid-template-columns: 1fr 320px; gap: 3.5rem; align-items: start; }
+    .article-content h2 { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+    .article-content h3 { font-size: 1.05rem; margin: 1.5rem 0 0.5rem; color: var(--blue-dark); }
+    .article-content p { font-size: 0.95rem; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .article-content ul, .article-content ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    .article-content li { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 0.4rem; }
+    .article-content strong { color: var(--ink); }
+    .callout { background: var(--blue-tint); border-left: 4px solid var(--blue); border-radius: 0 10px 10px 0; padding: 1rem 1.2rem; margin: 1.5rem 0; }
+    .callout p { margin: 0; color: var(--blue-dark); font-size: 0.9rem; line-height: 1.7; }
+    .callout strong { color: var(--blue-dark); }
+    .callout-teal { background: var(--teal-tint); border-left-color: var(--teal); }
+    .callout-teal p { color: #0f766e; }
+    .sign-card { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem 1.4rem; margin-bottom: 1rem; display: flex; gap: 1rem; align-items: flex-start; }
+    .sign-num { width: 36px; height: 36px; border-radius: 50%; background: var(--blue); color: white; font-family: 'Sora', sans-serif; font-weight: 700; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .sign-card h3 { font-size: 1rem; margin-bottom: 0.35rem; color: var(--ink); }
+    .sign-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin: 0; }
+    .article-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+    .article-tag { background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 3px 12px; font-size: 0.75rem; color: var(--muted); }
+
+    .sidebar { position: sticky; top: 90px; }
+    .sidebar-cta { background: linear-gradient(135deg, var(--blue), var(--teal)); border-radius: 16px; padding: 1.8rem; color: white; margin-bottom: 1.5rem; text-align: center; }
+    .sidebar-cta h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .sidebar-cta p { font-size: 0.84rem; opacity: 0.88; line-height: 1.6; margin-bottom: 1.2rem; }
+    .sidebar-cta a { display: block; background: white; color: var(--blue); font-weight: 700; font-size: 0.88rem; padding: 0.7rem 1rem; border-radius: 8px; text-decoration: none; transition: opacity 0.2s; }
+    .sidebar-cta a:hover { opacity: 0.9; }
+    .sidebar-related { background: var(--bg); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem; }
+    .sidebar-related h4 { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .related-link { display: block; padding: 0.7rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: var(--ink); font-size: 0.86rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+    .related-link:last-child { border-bottom: none; padding-bottom: 0; }
+    .related-link:hover { color: var(--blue); }
+    .related-link span { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    footer { background: var(--ink); color: #94a3b8; font-size: 0.84rem; padding: 1.5rem 2rem; text-align: center; }
+    footer a { color: #38bdf8; text-decoration: none; }
+    .footer-compliance { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-top: 0.75rem; }
+    .compliance-badge { background: #1e293b; border: 1px solid #334155; border-radius: 5px; padding: 3px 9px; font-size: 0.68rem; font-weight: 600; color: #94a3b8; }
+
+    @media (max-width: 900px) { .article-body-wrap { grid-template-columns: 1fr; } .sidebar { position: static; } }
+    @media (max-width: 768px) { .nav-links { display: none; } .article-hero h1 { font-size: 1.6rem; } }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner">
+    <span class="demo-tier">Tier 2</span>
+    Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your practice →</a>
+  </div>
+
+  <nav>
+    <a href="/portfolio/medical.html" class="nav-logo">Bright<span>Smile</span> Dental</a>
+    <ul class="nav-links">
+      <li><a href="/portfolio/medical.html#services">Services</a></li>
+      <li><a href="/portfolio/medical.html#about">About</a></li>
+      <li><a href="/portfolio/medical.html#testimonials">Reviews</a></li>
+      <li><a href="/portfolio/medical.html#blog">Blog</a></li>
+      <li><a href="/portfolio/medical.html#faq">FAQ</a></li>
+      <li><a href="/portfolio/medical.html#contact">Contact</a></li>
+    </ul>
+    <a href="/portfolio/medical.html#contact" class="nav-cta">Book Appointment</a>
+  </nav>
+
+  <div class="article-hero">
+    <div class="article-hero-inner">
+      <a href="/portfolio/medical.html#blog" class="article-back">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Blog
+      </a>
+      <div class="article-category">Preventive Care</div>
+      <h1>5 Signs You Should See a Dentist This Week</h1>
+      <div class="article-meta">
+        <span>📅 12 June 2025</span>
+        <span>⏱ 5 min read</span>
+        <span>✍️ Dr. Sarah van der Berg</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body-wrap">
+    <article class="article-content">
+
+      <p>Most dental problems don't announce themselves with sudden, dramatic pain. They start quietly — a slight sensitivity here, a little tenderness there — and it's easy to brush them off as nothing serious. But early dental problems caught at this stage are almost always simpler and cheaper to treat. Left untreated, the same problem can progress into something that requires root canal treatment, tooth extraction, or even bone grafts.</p>
+
+      <p>Here are the five signs that warrant an appointment sooner rather than later:</p>
+
+      <div class="sign-card">
+        <div class="sign-num">1</div>
+        <div>
+          <h3>Tooth sensitivity when eating or drinking</h3>
+          <p>If a sip of cold water or a bite of ice cream sends a sharp jolt through a tooth, that's your enamel — or more importantly, the layer beneath it called dentine — telling you something is wrong. Sensitivity can indicate early-stage cavities, a cracked tooth, receding gums, or worn enamel. A dentist can identify exactly which tooth is affected and why, and address it before the nerve becomes involved.</p>
+        </div>
+      </div>
+
+      <div class="sign-card">
+        <div class="sign-num">2</div>
+        <div>
+          <h3>Bleeding gums when you brush or floss</h3>
+          <p>Healthy gums don't bleed. If yours do — even occasionally — it's one of the most common early signs of gingivitis, the first stage of gum disease. The good news: gingivitis is fully reversible with a professional clean and improved home care. The bad news: if you ignore it, it progresses to periodontitis, which causes irreversible bone loss around the teeth and is a leading cause of adult tooth loss.</p>
+        </div>
+      </div>
+
+      <div class="sign-card">
+        <div class="sign-num">3</div>
+        <div>
+          <h3>Persistent bad breath that doesn't improve</h3>
+          <p>Bad breath after a meal heavy in garlic is normal. Bad breath that persists despite brushing, flossing, and using mouthwash is not. Chronic bad breath — known as halitosis — is commonly caused by bacteria in pockets of gum disease, a decaying tooth, or a dry mouth condition. It's rarely a hygiene problem alone, and needs a clinical assessment to find the source.</p>
+        </div>
+      </div>
+
+      <div class="sign-card">
+        <div class="sign-num">4</div>
+        <div>
+          <h3>A toothache, throbbing, or pressure in the jaw</h3>
+          <p>Pain of any kind in or around a tooth is a clear signal that something needs attention. Throbbing pain that lingers — especially at night — is often a sign that bacteria have reached the pulp of the tooth and an infection may be developing. Don't manage dental pain with painkillers and hope it resolves. Dental infections can spread and, in rare cases, become dangerous. Same-day or next-day care is strongly recommended.</p>
+        </div>
+      </div>
+
+      <div class="sign-card">
+        <div class="sign-num">5</div>
+        <div>
+          <h3>White spots, sores, or unusual patches in the mouth</h3>
+          <p>White spots on teeth can indicate the earliest stage of decay — a demineralised patch that hasn't yet become a cavity. White or red patches inside the mouth, persistent mouth sores that don't heal within two weeks, or any unusual lump or thickening should always be checked without delay. While most are benign, some patches in the mouth warrant investigation to rule out more serious conditions.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <p><strong>The 2-week rule:</strong> Any sore, ulcer, or patch in your mouth that hasn't healed within 14 days should be assessed by a dentist or GP. This is a simple, well-established guideline supported by dental associations worldwide.</p>
+      </div>
+
+      <h2>What happens if you wait?</h2>
+      <p>Dental problems rarely stay the same — they progress. A small cavity that could be filled in one short appointment can, over several months, become deep enough to require root canal treatment. Gum disease that could be reversed with a clean and improved flossing technique can become a chronic infection requiring specialist care.</p>
+      <p>The other factor is cost. Preventive and early-intervention dental treatment is a fraction of the cost of treatment for advanced problems. A regular check-up every six months is the most financially sound dental decision most people can make.</p>
+
+      <h2>How often should you have a check-up?</h2>
+      <p>For most adults in good dental health, every six months is the standard recommendation. If you have a history of gum disease, dental implants, or are more cavity-prone, your dentist may recommend more frequent visits — every three to four months.</p>
+      <p>Children should be seen from the eruption of their first tooth (or by their first birthday) and regularly thereafter.</p>
+
+      <div class="callout callout-teal">
+        <p><strong>Don't wait for pain.</strong> The majority of dental problems are completely painless in their early stages. A check-up is the only reliable way to find them early.</p>
+      </div>
+
+      <div class="article-tags">
+        <span class="article-tag">Preventive Care</span>
+        <span class="article-tag">Oral Health</span>
+        <span class="article-tag">Gum Disease</span>
+        <span class="article-tag">Tooth Decay</span>
+        <span class="article-tag">Dental Check-Up</span>
+      </div>
+
+    </article>
+
+    <aside class="sidebar">
+      <div class="sidebar-cta">
+        <h3>Book a check-up</h3>
+        <p>Concerned about any of these signs? Our team can see you this week.</p>
+        <a href="/portfolio/medical.html#contact">Book Appointment →</a>
+      </div>
+      <div class="sidebar-related">
+        <h4>More Articles</h4>
+        <a href="/portfolio/medical-blog-2.html" class="related-link">
+          Professional vs. At-Home Whitening: What Actually Works
+          <span>Cosmetic Dentistry · 6 min read</span>
+        </a>
+        <a href="/portfolio/medical-blog-3.html" class="related-link">
+          How to Make Your Child Love Going to the Dentist
+          <span>Family Dental · 5 min read</span>
+        </a>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <p>BrightSmile Dental &copy; 2025 &nbsp;·&nbsp; Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your practice →</a></p>
+    <div class="footer-compliance">
+      <span class="compliance-badge">🔒 SSL</span>
+      <span class="compliance-badge">HIPAA Compliant</span>
+      <span class="compliance-badge">GDPR Ready</span>
+    </div>
+  </footer>
+
+</body>
+</html>

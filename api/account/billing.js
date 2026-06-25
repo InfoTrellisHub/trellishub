@@ -42,14 +42,14 @@ module.exports = async function handler(req, res) {
 
       supabase
         .from('invoices')
-        .select('invoice_no, date, amount, currency, pdf_url')
-        .eq('customer_id', cid)
+        .select('invoice_no, description, amount, date')
+        .eq('user_id', cid)
         .order('date', { ascending: false }),
 
       supabase
         .from('payments')
-        .select('date, method, amount, currency')
-        .eq('customer_id', cid)
+        .select('date, amount, method')
+        .eq('user_id', cid)
         .order('date', { ascending: false }),
     ]);
 
@@ -67,16 +67,16 @@ module.exports = async function handler(req, res) {
       : null;
 
     const invoiceList = (invoices || []).map((inv) => ({
-      invoice_no: inv.invoice_no,
-      date:       fmtDate(inv.date),
-      amount:     inv.amount ? `${inv.currency || ''} ${inv.amount}`.trim() : null,
-      pdf_url:    inv.pdf_url || null,
+      invoice_no:  inv.invoice_no,
+      description: inv.description || null,
+      date:        fmtDate(inv.date),
+      amount:      inv.amount != null ? String(inv.amount) : null,
     }));
 
     const paymentList = (payments || []).map((p) => ({
       date:   fmtDate(p.date),
       method: p.method || null,
-      amount: p.amount ? `${p.currency || ''} ${p.amount}`.trim() : null,
+      amount: p.amount != null ? String(p.amount) : null,
     }));
 
     return res.status(200).json({

@@ -205,29 +205,31 @@ window.TrellisAccountPanel = (function () {
               <span class="ap-billing-invoice-date">${inv.date || '—'}</span>
               <span class="ap-billing-invoice-amount">${inv.amount || '—'}</span>
             </div>
-            ${inv.pdf_url
-              ? `<a class="ap-proj-link" href="${inv.pdf_url}" target="_blank" rel="noopener" download>
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  Download PDF
-                </a>`
-              : ''}
+            ${inv.description ? `<p class="ap-billing-invoice-desc">${inv.description}</p>` : ''}
           </div>
         `).join('')
       : '<p class="ap-proj-empty">No invoices yet.</p>';
 
-    // ── Care plan sub-section ────────────────────────────────────────────────
-    const carePlanHtml = care_plan
-      ? `
-          <div class="panel-info-row"><span>Plan</span><span>${care_plan.name}</span></div>
-          ${care_plan.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${care_plan.monthly_price}</span></div>` : ''}
-          ${care_plan.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${care_plan.renewal_date}</span></div>`  : ''}
-          <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
-        `
-      : `<p class="ap-proj-empty">No active care plan.</p>
-         <a class="ap-proj-link" href="#pricing" onclick="window.TrellisAccountPanel.closePanel()">
-           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-           View Plans
-         </a>`;
+    // ── Care plan sub-section (only rendered when user has an active plan) ───
+    const carePlanSubHtml = care_plan ? `
+        <div class="ap-proj-sub" id="apBillingSubCarePlan">
+          <button class="ap-proj-sub-header" aria-expanded="false">
+            <span class="ap-proj-sub-icon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <span class="ap-proj-sub-label">Care Plan Status</span>
+            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="ap-proj-sub-body">
+            <div class="ap-proj-sub-content">
+              <div class="panel-info-row"><span>Plan</span><span>${care_plan.name}</span></div>
+              ${care_plan.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${care_plan.monthly_price}</span></div>` : ''}
+              ${care_plan.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${care_plan.renewal_date}</span></div>`  : ''}
+              <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
+            </div>
+          </div>
+        </div>
+      ` : '';
 
     // ── Payment history sub-section ──────────────────────────────────────────
     const paymentsHtml = payments.length
@@ -242,6 +244,8 @@ window.TrellisAccountPanel = (function () {
     container.innerHTML = `
       <div class="ap-proj-subs">
 
+        ${carePlanSubHtml}
+
         <div class="ap-proj-sub" id="apBillingSubInvoices">
           <button class="ap-proj-sub-header" aria-expanded="false">
             <span class="ap-proj-sub-icon">
@@ -253,21 +257,6 @@ window.TrellisAccountPanel = (function () {
           <div class="ap-proj-sub-body">
             <div class="ap-proj-sub-content">
               ${invoicesHtml}
-            </div>
-          </div>
-        </div>
-
-        <div class="ap-proj-sub" id="apBillingSubCarePlan">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Care Plan Status</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              ${carePlanHtml}
             </div>
           </div>
         </div>

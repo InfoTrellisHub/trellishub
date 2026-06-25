@@ -34,6 +34,7 @@
     }
     .demo-banner a { color: #4ade80; text-decoration: none; font-weight: 600; }
     .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: #1B7A4D; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
 
     nav {
       position: sticky; top: 0; z-index: 100;
@@ -46,9 +47,10 @@
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { text-decoration: none; color: #94a3b8; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: white; }
-    .nav-cta { background: var(--green); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
+    .nav-cta { background: var(--green); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
     .nav-cta:hover { background: var(--green-dark); }
 
+    /* ── Hero ────────────────────────────────────── */
     .hero {
       background: linear-gradient(135deg, var(--slate) 0%, #0f2417 100%);
       color: white; padding: 6rem 2rem;
@@ -69,7 +71,6 @@
     .btn-green:hover { background: var(--green-dark); }
     .btn-ghost { border: 2px solid rgba(255,255,255,0.2); color: white; padding: 0.9rem 2rem; border-radius: 10px; font-weight: 600; text-decoration: none; transition: all 0.2s; display: inline-block; font-size: 0.95rem; }
     .btn-ghost:hover { background: rgba(255,255,255,0.08); }
-
     .trust-strip { display: flex; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
     .trust-strip span { font-size: 0.82rem; color: #94a3b8; display: flex; align-items: center; gap: 0.4rem; }
     .trust-strip span::before { content: '✓'; color: #4ade80; font-weight: 700; }
@@ -88,6 +89,7 @@
     }
     .qc-submit { width: 100%; background: var(--green); color: white; border: none; padding: 0.8rem; border-radius: 8px; font-weight: 700; font-size: 0.95rem; cursor: pointer; margin-top: 0.5rem; }
 
+    /* ── Layout ────────────────────────────────────── */
     .section { padding: 5rem 2rem; }
     .section.bg-light { background: var(--bg); }
     .container { max-width: 1100px; margin: 0 auto; }
@@ -96,45 +98,170 @@
     .section-head h2 { font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--slate); }
     .section-head p { color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
 
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .service-card {
-      background: white; border-radius: 14px; padding: 1.8rem;
-      border: 1px solid var(--border);
-      border-bottom: 3px solid var(--green);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .service-card:hover { box-shadow: 0 8px 24px rgba(27,122,77,0.12); transform: translateY(-2px); }
-    .service-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: var(--green-tint); display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem; font-size: 1.4rem;
-    }
-    .service-card h3 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--slate); }
-    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
-
+    /* ── Trust Strip ────────────────────────────────────── */
     .trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
     .trust-item { text-align: center; padding: 2rem 1rem; }
     .trust-number { font-family: 'Sora', sans-serif; font-size: 2.4rem; font-weight: 700; color: var(--green); margin-bottom: 0.5rem; }
     .trust-label { font-size: 0.88rem; color: var(--muted); }
 
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .testimonial-card {
-      background: white; border-radius: 14px; padding: 1.8rem;
-      border-left: 4px solid var(--green);
+    /* ── Services ────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
     }
-    .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 0.75rem; }
-    .testimonial-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
-    .reviewer { display: flex; align-items: center; gap: 0.75rem; }
-    .reviewer-avatar {
-      width: 38px; height: 38px; border-radius: 50%;
-      background: var(--green-tint); display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; color: var(--green);
+    .service-card:hover {
+      box-shadow: 0 12px 32px rgba(27,122,77,0.14);
     }
-    .reviewer-name { font-weight: 600; font-size: 0.88rem; color: var(--slate); }
-    .reviewer-role { font-size: 0.78rem; color: var(--muted); }
+    .service-card-img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+    .service-card-body {
+      padding: 1.6rem 1.6rem 1.8rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .service-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 0.6rem;
+    }
+    .service-card h3 {
+      font-size: 1.15rem;
+      color: var(--slate);
+      margin-bottom: 0.7rem;
+      line-height: 1.3;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+      flex: 1;
+      margin-bottom: 1.4rem;
+    }
+    .btn-quote {
+      display: inline-block;
+      background: var(--green);
+      color: white;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      text-decoration: none;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .btn-quote:hover { background: var(--green-dark); }
 
+    /* ── Testimonials Slider ────────────────────────────────────── */
+    .testimonials-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--green-tint);
+      color: var(--green-dark);
+      border: 1px solid #a7d9bc;
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 2.5rem;
+    }
+    .ts-slider {
+      position: relative;
+      min-height: 200px;
+    }
+    .ts-slide {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      opacity: 0;
+      transition: opacity 0.55s ease;
+      pointer-events: none;
+    }
+    .ts-slide.active {
+      opacity: 1;
+      position: relative;
+      pointer-events: auto;
+    }
+    .ts-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2.2rem 2.4rem;
+      border-left: 4px solid var(--green);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+    .ts-stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .ts-quote {
+      font-size: 0.97rem;
+      color: var(--muted);
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 1.4rem;
+    }
+    .ts-reviewer { display: flex; align-items: center; gap: 0.8rem; }
+    .ts-avatar {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--green-tint), #a7d9bc);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; color: var(--green-dark);
+    }
+    .ts-name { font-weight: 600; font-size: 0.9rem; color: var(--slate); }
+    .ts-location { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
+    .ts-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .ts-btn {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--slate);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .ts-btn:hover { background: var(--green-tint); border-color: var(--green); color: var(--green); }
+    .ts-dots { display: flex; gap: 0.5rem; align-items: center; }
+    .ts-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border);
+      border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      padding: 0;
+    }
+    .ts-dot.active { background: var(--green); transform: scale(1.35); }
+
+    /* ── CTA ────────────────────────────────────── */
     .cta-section {
       background: var(--slate); padding: 5rem 2rem; text-align: center; color: white;
     }
@@ -144,17 +271,26 @@
     footer { background: #0a0f1a; color: #64748b; padding: 2rem; text-align: center; font-size: 0.85rem; }
     footer a { color: #4ade80; text-decoration: none; }
 
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+    }
     @media (max-width: 768px) {
       .hero-inner { grid-template-columns: 1fr; }
-      .services-grid, .testimonials-grid, .trust-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
+      .hero h1 { font-size: 2rem; }
+      .ts-card { padding: 1.6rem 1.4rem; }
+    }
+    @media (min-width: 901px) and (max-width: 1100px) {
+      .services-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
     }
   </style>
 </head>
 <body>
 
   <div class="demo-banner">
-    This is a <strong>demo website</strong> built by <a href="/">Trellis</a> to showcase what we'd create for a service business. &nbsp;|&nbsp; <a href="/#contact">Get one for your business →</a>
+    <span class="demo-tier">Tier 1</span>
+    Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business →</a>
   </div>
 
   <nav>
@@ -165,17 +301,18 @@
       <li><a href="#reviews">Reviews</a></li>
       <li><a href="#quote">Get Quote</a></li>
     </ul>
-    <button class="nav-cta">Get Free Quote</button>
+    <a href="#quote" class="nav-cta">Get Free Quote</a>
   </nav>
 
+  <!-- ── Hero ────────────────────────────────────── -->
   <section class="hero" id="quote">
     <div class="hero-inner">
       <div>
         <div class="hero-badge">⚡ Fast, Reliable, Guaranteed</div>
         <h1>Your home, <span>fixed right</span> the first time.</h1>
-        <p>ProFix is your trusted partner for plumbing, electrical, painting, and general home maintenance. Licensed professionals, upfront pricing, guaranteed workmanship.</p>
+        <p>ProFix is your trusted partner for plumbing, electrical, and painting. Licensed professionals, upfront pricing, guaranteed workmanship.</p>
         <div class="hero-btns">
-          <a href="#" class="btn-green">Get a Free Quote</a>
+          <a href="#quote" class="btn-green">Get a Free Quote</a>
           <a href="#services" class="btn-ghost">Our Services</a>
         </div>
         <div class="trust-strip">
@@ -195,8 +332,7 @@
           <select>
             <option>Plumbing Repair</option>
             <option>Electrical Work</option>
-            <option>Interior Painting</option>
-            <option>General Maintenance</option>
+            <option>Interior / Exterior Painting</option>
             <option>Emergency Call-Out</option>
           </select>
         </div>
@@ -209,6 +345,7 @@
     </div>
   </section>
 
+  <!-- ── Stats ────────────────────────────────────── -->
   <section class="section" id="about">
     <div class="container">
       <div class="trust-grid">
@@ -232,84 +369,166 @@
     </div>
   </section>
 
+  <!-- ── Services ────────────────────────────────────── -->
   <section class="section bg-light" id="services">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Our Services</span>
-        <h2>Everything your home needs</h2>
-        <p>One call, one team — we handle it all so you don't have to manage multiple contractors.</p>
+        <h2>Expert trades, one trusted team</h2>
+        <p>From a dripping tap to a full interior repaint — we handle it with the same standard of care. Licensed, insured, and on time.</p>
       </div>
       <div class="services-grid">
+
+        <!-- Plumbing -->
         <div class="service-card">
-          <div class="service-icon">🔧</div>
-          <h3>Plumbing</h3>
-          <p>Leaks, burst pipes, geyser installations, drain unblocking — fast response guaranteed.</p>
+          <img
+            class="service-card-img"
+            src="https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=700&auto=format&fit=crop&q=80"
+            alt="Licensed plumber fixing under-sink pipes"
+            loading="lazy"
+          />
+          <div class="service-card-body">
+            <span class="service-label">🔧 Plumbing</span>
+            <h3>Fast, Leak-Free Repairs &amp; Installations</h3>
+            <p>From burst pipes and blocked drains to full geyser replacements, our licensed plumbers arrive equipped to fix it right the first time. We service both residential and light commercial properties with upfront, no-surprise pricing.</p>
+            <a href="#quote" class="btn-quote">Request a Quote →</a>
+          </div>
         </div>
+
+        <!-- Electrical -->
         <div class="service-card">
-          <div class="service-icon">⚡</div>
-          <h3>Electrical</h3>
-          <p>DB board upgrades, fault finding, light fittings, plugs and switches — all SANS compliant.</p>
+          <img
+            class="service-card-img"
+            src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=700&auto=format&fit=crop&q=80"
+            alt="Certified electrician working on a distribution board"
+            loading="lazy"
+          />
+          <div class="service-card-body">
+            <span class="service-label">⚡ Electrical</span>
+            <h3>SANS-Compliant Electrical Work You Can Trust</h3>
+            <p>DB board upgrades, fault-finding, light fittings, plugs, switches, and COC certificates — all carried out by certified electricians. Every job is inspected and signed off to South African national safety standards.</p>
+            <a href="#quote" class="btn-quote">Request a Quote →</a>
+          </div>
         </div>
+
+        <!-- Painting -->
         <div class="service-card">
-          <div class="service-icon">🎨</div>
-          <h3>Painting</h3>
-          <p>Interior and exterior painting, feature walls, full property repaints with premium finishes.</p>
+          <img
+            class="service-card-img"
+            src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=700&auto=format&fit=crop&q=80"
+            alt="Professional painter rolling a fresh coat on interior walls"
+            loading="lazy"
+          />
+          <div class="service-card-body">
+            <span class="service-label">🎨 Painting</span>
+            <h3>Premium Finishes, Inside &amp; Outside</h3>
+            <p>Interior feature walls, full room repaints, exterior weatherproofing, and touch-ups — done with premium paints and meticulous prep work. Our painters leave every surface clean and every edge sharp.</p>
+            <a href="#quote" class="btn-quote">Request a Quote →</a>
+          </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon">🏗️</div>
-          <h3>Building &amp; Renovations</h3>
-          <p>Minor structural work, tiling, kitchen and bathroom updates — done right with a guarantee.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🌿</div>
-          <h3>Garden &amp; Outdoor</h3>
-          <p>Landscaping, irrigation, paving, outdoor painting, and regular garden maintenance plans.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon">🚨</div>
-          <h3>Emergency Call-Out</h3>
-          <p>Available 24/7 for urgent plumbing, electrical, and security emergencies. We come to you.</p>
-        </div>
+
       </div>
     </div>
   </section>
 
+  <!-- ── Testimonials ────────────────────────────────────── -->
   <section class="section" id="reviews">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">What Clients Say</span>
-        <h2>500+ happy homeowners</h2>
-        <p>Real reviews from real clients across Johannesburg.</p>
+        <h2>Real results, real homeowners</h2>
+        <p>Hundreds of happy households across Johannesburg — here's what they say.</p>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Called ProFix for an emergency plumbing issue on a Saturday night. They were at my door within 90 minutes. Absolute lifesavers!"</p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">LV</div>
-            <div><div class="reviewer-name">Lisa van der Berg</div><div class="reviewer-role">Sandton</div></div>
+
+      <div style="text-align:center; margin-bottom: 2rem;">
+        <span class="trust-badge">🛡️ Trusted by 100+ homeowners across Gauteng</span>
+      </div>
+
+      <div class="testimonials-wrap">
+        <div class="ts-slider" id="tsSlider">
+
+          <div class="ts-slide active">
+            <div class="ts-card">
+              <div class="ts-stars">★★★★★</div>
+              <p class="ts-quote">"Called ProFix for an emergency plumbing issue on a Saturday night. They were at my door within 90 minutes and had everything sorted before midnight. Absolute lifesavers — I won't call anyone else."</p>
+              <div class="ts-reviewer">
+                <div class="ts-avatar">LV</div>
+                <div>
+                  <div class="ts-name">Lisa van der Berg</div>
+                  <div class="ts-location">Sandton, Johannesburg</div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div class="ts-slide">
+            <div class="ts-card">
+              <div class="ts-stars">★★★★★</div>
+              <p class="ts-quote">"Upfront pricing, no hidden surprises, and the electrical work was done in half the time I expected. My DB board was fully upgraded and I got the COC certificate the same day. Will never use another contractor."</p>
+              <div class="ts-reviewer">
+                <div class="ts-avatar">MN</div>
+                <div>
+                  <div class="ts-name">Michael Nkosi</div>
+                  <div class="ts-location">Midrand, Johannesburg</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ts-slide">
+            <div class="ts-card">
+              <div class="ts-stars">★★★★★</div>
+              <p class="ts-quote">"Had my entire home repainted — inside and out. The team was professional, incredibly tidy, and the result was stunning. Every edge was sharp and they cleaned up completely before leaving. Highly recommended."</p>
+              <div class="ts-reviewer">
+                <div class="ts-avatar">AR</div>
+                <div>
+                  <div class="ts-name">Anita Reddy</div>
+                  <div class="ts-location">Centurion, Pretoria</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ts-slide">
+            <div class="ts-card">
+              <div class="ts-stars">★★★★★</div>
+              <p class="ts-quote">"The geyser replacement was quick, fairly priced, and the plumber explained everything as he went. No mess left behind and the quote matched the invoice exactly. That alone earns five stars."</p>
+              <div class="ts-reviewer">
+                <div class="ts-avatar">TK</div>
+                <div>
+                  <div class="ts-name">Thabo Khumalo</div>
+                  <div class="ts-location">Soweto, Johannesburg</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ts-slide">
+            <div class="ts-card">
+              <div class="ts-stars">★★★★★</div>
+              <p class="ts-quote">"Used ProFix for a full kitchen and bathroom repaint. The colour advice was spot on and the finish looks like a show house. My neighbour has already asked for their number. Five stars, no question."</p>
+              <div class="ts-reviewer">
+                <div class="ts-avatar">SB</div>
+                <div>
+                  <div class="ts-name">Stephanie Botha</div>
+                  <div class="ts-location">Roodepoort, Johannesburg</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Upfront pricing, no hidden surprises, and the work was done in half the time I expected. Will never use another contractor."</p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">MN</div>
-            <div><div class="reviewer-name">Michael Nkosi</div><div class="reviewer-role">Midrand</div></div>
-          </div>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Had my entire home repainted — inside and out. The team was professional, tidy, and the result was stunning. Highly recommended."</p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">AR</div>
-            <div><div class="reviewer-name">Anita Reddy</div><div class="reviewer-role">Centurion</div></div>
-          </div>
+
+        <div class="ts-nav">
+          <button class="ts-btn" id="tsPrev" aria-label="Previous review">&#8592;</button>
+          <div class="ts-dots" id="tsDots"></div>
+          <button class="ts-btn" id="tsNext" aria-label="Next review">&#8594;</button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ── CTA ────────────────────────────────────── -->
   <div class="cta-section">
     <h2>Ready to get your home sorted?</h2>
     <p>Free quotes, no obligation. We'll assess your job and send a detailed quote within 2 hours.</p>
@@ -317,8 +536,55 @@
   </div>
 
   <footer>
-    <p>ProFix Home Services &copy; 2025 &nbsp;|&nbsp; Demo website built by <a href="/">Trellis</a> — <a href="/#contact">Get this for your business</a></p>
+    <p>ProFix Home Services &copy; 2025 &nbsp;|&nbsp; Demo website built by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business</a></p>
   </footer>
+
+  <script>
+    (function () {
+      const slider = document.getElementById('tsSlider');
+      const dotsContainer = document.getElementById('tsDots');
+      const slides = Array.from(slider.querySelectorAll('.ts-slide'));
+      let current = 0;
+      let timer = null;
+
+      // Build dots
+      slides.forEach(function (_, i) {
+        const dot = document.createElement('button');
+        dot.className = 'ts-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Review ' + (i + 1));
+        dot.addEventListener('click', function () { goTo(i); resetTimer(); });
+        dotsContainer.appendChild(dot);
+      });
+
+      function goTo(idx) {
+        slides[current].classList.remove('active');
+        dotsContainer.children[current].classList.remove('active');
+        current = (idx + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dotsContainer.children[current].classList.add('active');
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function startTimer() {
+        timer = setInterval(next, 5000);
+      }
+      function resetTimer() {
+        clearInterval(timer);
+        startTimer();
+      }
+
+      document.getElementById('tsNext').addEventListener('click', function () { next(); resetTimer(); });
+      document.getElementById('tsPrev').addEventListener('click', function () { prev(); resetTimer(); });
+
+      // Pause on hover
+      slider.addEventListener('mouseenter', function () { clearInterval(timer); });
+      slider.addEventListener('mouseleave', startTimer);
+
+      startTimer();
+    })();
+  </script>
 
 </body>
 </html>

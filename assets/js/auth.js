@@ -7,6 +7,13 @@ window.TrellisAuth = (function () {
   let onSuccessCallback = null;
   let supabase = null;
 
+  // Captured before Supabase cleans the URL on init
+  const _urlHadAuthTokens = (() => {
+    const h = window.location.hash;
+    const p = new URLSearchParams(window.location.search);
+    return h.includes('access_token') || p.has('token_hash') || p.has('code');
+  })();
+
   const overlay = () => qs('#authModalOverlay');
 
   function setActiveTab(tabName) {
@@ -174,7 +181,8 @@ window.TrellisAuth = (function () {
       setStatus(statusEl, 'Creating account…', '');
       try {
         const { data, error } = await supabase.auth.signUp({
-          email, password, options: { data: { full_name: name } }
+          email, password,
+          options: { data: { full_name: name }, emailRedirectTo: window.location.origin + '/' },
         });
         if (error) {
           const msg = error.message || error.error_description || (error.status ? `Server error ${error.status}` : null) || 'Sign-up failed — please check your details and try again.';
@@ -262,6 +270,65 @@ window.TrellisAuth = (function () {
     }
   }
 
+  async function checkForEmailConfirmation() {
+    if (!supabase || !_urlHadAuthTokens) return false;
+    const params = new URLSearchParams(window.location.search);
+    const type = params.get('type');
+
+    // Don't touch password-recovery redirects — onAuthStateChange handles those
+    if (type === 'recovery') return false;
+
+    // PKCE code flow (?code=...)
+    const code = params.get('code');
+    if (code) {
+      try {
+        const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+        if (!error && data.session) {
+          const result = await exchangeToken(data.session.access_token, data.user);
+          handleAuthSuccess(result.customer);
+          params.delete('code');
+          params.delete('type');
+          window.history.replaceState({}, '', window.location.pathname + (params.toString() ? '?' + params : ''));
+          return true;
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // OTP token_hash flow (?token_hash=...&type=signup|email)
+    const tokenHash = params.get('token_hash');
+    if (tokenHash && (type === 'signup' || type === 'email')) {
+      try {
+        const { data, error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type });
+        if (!error && data.session) {
+          const result = await exchangeToken(data.session.access_token, data.user);
+          handleAuthSuccess(result.customer);
+          params.delete('token_hash');
+          params.delete('type');
+          window.history.replaceState({}, '', window.location.pathname + (params.toString() ? '?' + params : ''));
+          return true;
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // Implicit hash flow (#access_token=... — auto-processed by Supabase on createClient)
+    if (window.location.hash.includes('access_token')) {
+      const hashType = new URLSearchParams(window.location.hash.slice(1)).get('type');
+      if (hashType !== 'recovery') {
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            const result = await exchangeToken(session.access_token, session.user);
+            handleAuthSuccess(result.customer);
+            window.history.replaceState({}, '', window.location.pathname + window.location.search);
+            return true;
+          }
+        } catch (e) { /* ignore */ }
+      }
+    }
+
+    return false;
+  }
+
   function checkForLoginParam() {
     const params = new URLSearchParams(window.location.search);
     if (params.get('login')) {
@@ -278,7 +345,8 @@ window.TrellisAuth = (function () {
     wireSignupForm();
     wireForgotForm();
     wireResetForm();
-    await checkSession();
+    const autoLoggedIn = await checkForEmailConfirmation();
+    if (!autoLoggedIn) await checkSession();
     checkForLoginParam();
   }
 

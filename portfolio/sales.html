@@ -4172,6 +4172,7 @@
             price: p.price,
             size,
             qty: 1,
+            image: p.image || null,
             gradient: p.gradient,
             emoji: p.emoji,
           });
@@ -4438,9 +4439,9 @@
       itemsEl.innerHTML = Cart.items.map(item => `
         <div class="ue-cart-item" data-cart-id="${item.cartId}">
           <div class="ue-cart-item-img">
-            <div style="width:100%;height:100%;background:${item.gradient};
-                        display:flex;align-items:center;justify-content:center;
-                        font-size:1.6rem;">${item.emoji}</div>
+            ${item.image
+              ? `<img src="${item.image}" alt="${item.name}" loading="lazy">`
+              : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ue-gray-100);color:var(--ue-gray-400);font-size:0.65rem;text-align:center;line-height:1.3;">No<br>Image</div>`}
           </div>
           <div class="ue-cart-item-body">
             <div class="ue-cart-item-name">${item.name}</div>
@@ -4610,9 +4611,9 @@
           ? Cart.items.map(item => `
               <div class="ue-order-item">
                 <div class="ue-order-item-img">
-                  <div style="width:100%;height:100%;background:${item.gradient};
-                    display:flex;align-items:center;justify-content:center;
-                    font-size:1.2rem;">${item.emoji}</div>
+                  ${item.image
+                    ? `<img src="${item.image}" alt="${item.name}" loading="lazy">`
+                    : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ue-gray-200);color:var(--ue-gray-400);font-size:0.65rem;text-align:center;line-height:1.3;">No<br>Image</div>`}
                 </div>
                 <div style="flex:1;min-width:0;">
                   <div class="ue-order-item-name">${item.name}</div>

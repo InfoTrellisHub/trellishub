@@ -36,12 +36,63 @@
     .demo-banner a:hover { text-decoration: underline; }
     .demo-tier { display: inline-block; background: #1B7A4D; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
 
+    .site-header { position: sticky; top: 0; z-index: 100; }
     nav {
-      position: sticky; top: 0; z-index: 100;
       background: var(--slate);
       padding: 1rem 2rem;
       display: flex; align-items: center; justify-content: space-between;
     }
+
+    /* ── Mobile nav ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: white;
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-mobile {
+      display: none;
+      flex-direction: column;
+      background: var(--slate);
+      padding: 0.25rem 1.5rem 1.25rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-mobile.is-open { display: flex; }
+    .nav-mobile a {
+      display: block;
+      padding: 0.75rem 0;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      transition: color 0.2s;
+    }
+    .nav-mobile a:hover, .nav-mobile a:focus { color: white; }
+    .nm-cta {
+      margin-top: 0.5rem;
+      background: var(--green) !important;
+      color: white !important;
+      text-align: center;
+      border-radius: 8px !important;
+      padding: 0.75rem !important;
+      font-weight: 700;
+      border-bottom: none !important;
+      transition: background 0.2s;
+    }
+    .nm-cta:hover { background: var(--green-dark) !important; }
     .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: white; }
     .nav-logo span { color: #4ade80; }
     .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -328,18 +379,44 @@
     footer a { color: #4ade80; text-decoration: none; }
 
     @media (max-width: 900px) {
-      .services-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+      /* Services go 2-col on tablet */
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      /* Stats always 2-col at ≤900px */
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      /* Remove negative-margin overlap — bar is too tall when stacked */
+      .quote-bar-outer { margin-top: 0; padding: 0 1.5rem; }
+      #about { padding-top: 3rem !important; }
       .quote-bar { flex-direction: column; align-items: stretch; gap: 1rem; }
       .qb-label { border-right: none; padding-right: 0; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
       .qb-fields { flex-direction: column; }
       .qb-submit { width: 100%; padding: 0.85rem; font-size: 0.95rem; }
     }
     @media (max-width: 768px) {
-      .trust-grid { grid-template-columns: repeat(2, 1fr); }
       .nav-links { display: none; }
-      .hero h1 { font-size: 2.1rem; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero { padding: 3.5rem 1.5rem 5rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 0.95rem; }
+      /* Services go 1-col on phones */
+      .services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .section { padding: 4rem 1.5rem; }
       .ts-card { padding: 1.6rem 1.4rem; }
-      .quote-bar-outer { padding: 0 1rem; margin-top: -40px; }
+      .quote-bar-outer { padding: 0 1rem; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 3rem 1.25rem 4rem; }
+      .hero h1 { font-size: 1.7rem; line-height: 1.15; }
+      .hero p { font-size: 0.9rem; margin-bottom: 1.5rem; }
+      .hero-badge { font-size: 0.72rem; padding: 0.3rem 0.75rem; }
+      .section { padding: 3rem 1.25rem; }
+      .section-head h2 { font-size: 1.5rem; }
+      .trust-number { font-size: 2rem; }
+      .trust-item { padding: 1.25rem 0.75rem; }
+      .cta-section { padding: 3rem 1.25rem; }
+      .cta-section h2 { font-size: 1.5rem; }
+      .ts-quote { font-size: 0.9rem; }
+      footer { padding: 1.5rem 1.25rem; }
     }
     @media (min-width: 901px) and (max-width: 1100px) {
       .services-grid { grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
@@ -353,16 +430,28 @@
     Demo by <a href="/">Trellishub</a> — <a href="/#contact">Get this for your business →</a>
   </div>
 
-  <nav>
-    <div class="nav-logo">Pro<span>Fix</span> Home Services</div>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#quote">Get Quote</a></li>
-    </ul>
-    <a href="#quote" class="nav-cta">Get Free Quote</a>
-  </nav>
+  <header class="site-header">
+    <nav>
+      <div class="nav-logo">Pro<span>Fix</span> Home Services</div>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#quote">Get Quote</a></li>
+      </ul>
+      <a href="#quote" class="nav-cta">Get Free Quote</a>
+      <button class="nav-hamburger" id="pfHamburger" aria-label="Open navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="nav-mobile" id="pfMobileNav" aria-hidden="true">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#quote">Get Quote</a>
+      <a href="#quote" class="nm-cta">Get Free Quote →</a>
+    </div>
+  </header>
 
   <!-- ── Hero ────────────────────────────────────── -->
   <section class="hero">
@@ -647,6 +736,25 @@
       slider.addEventListener('mouseleave', startTimer);
 
       startTimer();
+    })();
+
+    /* ── Mobile nav ── */
+    (function () {
+      const hamburger = document.getElementById('pfHamburger');
+      const mobileNav = document.getElementById('pfMobileNav');
+      if (!hamburger || !mobileNav) return;
+      hamburger.addEventListener('click', function () {
+        const open = mobileNav.classList.toggle('is-open');
+        hamburger.setAttribute('aria-expanded', String(open));
+        mobileNav.setAttribute('aria-hidden', String(!open));
+      });
+      mobileNav.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          mobileNav.classList.remove('is-open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          mobileNav.setAttribute('aria-hidden', 'true');
+        });
+      });
     })();
   </script>
 

@@ -1,16 +1,8 @@
 [
   {
-    "id": "medical",
-    "title": "BrightSmile Dental",
-    "industry": "Doctor / Dental Practice",
-    "description": "A clean, calming website for a dental practice featuring online appointment booking, service highlights, and patient trust signals.",
-    "features": ["Online Booking", "Service Pages", "Patient Testimonials"],
-    "aesthetic": "Clean, professional, calming",
-    "link": "/portfolio/medical.html"
-  },
-  {
     "id": "service",
     "title": "ProFix Home Services",
+    "tier": "Tier 1",
     "industry": "Service-Based Business",
     "description": "A trust-focused website for a home services company with conversion-optimised layout, service areas, and instant quote requests.",
     "features": ["Instant Quote", "Service Areas", "Trust Badges"],
@@ -18,8 +10,19 @@
     "link": "/portfolio/service.html"
   },
   {
+    "id": "medical",
+    "title": "BrightSmile Dental",
+    "tier": "Tier 2",
+    "industry": "Doctor / Dental Practice",
+    "description": "A clean, calming website for a dental practice featuring online appointment booking, service highlights, and patient trust signals.",
+    "features": ["Online Booking", "Service Pages", "Patient Testimonials"],
+    "aesthetic": "Clean, professional, calming",
+    "link": "/portfolio/medical.html"
+  },
+  {
     "id": "sales",
     "title": "UrbanEdge Clothing",
+    "tier": "Tier 3",
     "industry": "Sales-Based Business",
     "description": "A bold, product-driven website for a clothing brand with featured collections, strong CTAs, and a streamlined purchase flow.",
     "features": ["Product Showcase", "Strong CTAs", "Collection Pages"],

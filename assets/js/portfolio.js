@@ -23,9 +23,13 @@
 
   function renderCard(project) {
     const meta = INDUSTRY_META[project.id] || INDUSTRY_META.service;
+    const tierBadge = project.tier
+      ? `<span class="portfolio-tier-badge">${project.tier}</span>`
+      : '';
     return `
       <div class="card portfolio-card ${meta.accentClass}" data-reveal>
         <div class="portfolio-thumb-new">
+          ${tierBadge}
           <div class="portfolio-thumb-icon">${meta.icon}</div>
         </div>
         <div class="portfolio-card-body">

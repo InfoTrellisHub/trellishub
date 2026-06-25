@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BrightSmile Dental | Website Demo by Trellishub</title>
-  <meta name="description" content="See how Trellishub builds professional websites for dental practices and medical businesses in South Africa — clean, modern, and conversion-focused." />
+  <title>BrightSmile Dental | Tier 2 Demo by Trellishub</title>
+  <meta name="description" content="See how Trellishub builds Tier 2 professional websites for dental practices — with booking, blog, FAQ, performance monitoring and more." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.trellishub.co.za/portfolio/medical" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,47 +18,124 @@
       --blue-dark: #0369a1;
       --blue-tint: #e0f2fe;
       --teal: #0d9488;
+      --teal-dark: #0f766e;
       --teal-tint: #f0fdfa;
       --ink: #0f172a;
       --muted: #475569;
       --border: #e2e8f0;
       --white: #ffffff;
       --bg: #f8fafc;
+      --gray-100: #f1f5f9;
     }
 
     body { font-family: 'Inter', sans-serif; color: var(--ink); background: var(--white); }
     h1,h2,h3,h4 { font-family: 'Sora', sans-serif; }
 
-    /* Demo banner */
+    /* ── Demo banner ─────────────────────────────── */
     .demo-banner {
-      background: #0f172a;
-      color: #94a3b8;
-      text-align: center;
-      padding: 0.6rem 1rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.04em;
+      background: #0f172a; color: #94a3b8;
+      text-align: center; padding: 0.6rem 1rem;
+      font-size: 0.75rem; letter-spacing: 0.04em;
     }
     .demo-banner a { color: #38bdf8; text-decoration: none; font-weight: 600; }
     .demo-banner a:hover { text-decoration: underline; }
+    .demo-tier { display: inline-block; background: #0284c7; color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-right: 6px; }
 
-    /* Nav */
+    /* ── Nav ─────────────────────────────────────── */
     nav {
       position: sticky; top: 0; z-index: 100;
       background: rgba(255,255,255,0.96);
       backdrop-filter: blur(8px);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+      padding: 0.9rem 2rem;
       display: flex; align-items: center; justify-content: space-between;
     }
     .nav-logo { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--blue); }
     .nav-logo span { color: var(--ink); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--muted);
+      font-size: 0.88rem; font-weight: 500;
+      position: relative; transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 2px; background: var(--blue);
+      transition: width 0.22s ease;
+    }
     .nav-links a:hover { color: var(--blue); }
-    .nav-cta { background: var(--blue); color: white; border: none; padding: 0.6rem 1.4rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; }
-    .nav-cta:hover { background: var(--blue-dark); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--blue); color: white;
+      border: none; padding: 0.6rem 1.4rem;
+      border-radius: 8px; font-weight: 600; font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    }
+    .nav-cta:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(2,132,199,0.3);
+    }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--ink); border-radius: 2px; transition: all 0.2s; }
+    .nav-mobile { display: none; flex-direction: column; gap: 0; padding: 0.5rem 2rem 1rem; background: white; border-bottom: 1px solid var(--border); }
+    .nav-mobile.is-open { display: flex; }
+    .nav-mobile a { padding: 0.65rem 0; color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; border-bottom: 1px solid var(--border); }
+    .nav-mobile a:last-child { border-bottom: none; }
 
-    /* Hero */
+    /* ── Shared layout ───────────────────────────── */
+    .section { padding: 5rem 2rem; }
+    .section.bg-tint { background: var(--teal-tint); }
+    .section.bg-light { background: var(--bg); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-head { text-align: center; margin-bottom: 3rem; }
+    .eyebrow { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
+    .section-head h2 { font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
+    .section-head p { color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+
+    /* ── Buttons ─────────────────────────────────── */
+    .btn-primary {
+      background: var(--blue); color: white;
+      padding: 0.8rem 1.8rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(2,132,199,0.3);
+    }
+    .btn-outline {
+      border: 2px solid var(--blue); color: var(--blue);
+      padding: 0.8rem 1.8rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.95rem;
+      text-decoration: none; display: inline-block;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--blue-tint); }
+    .btn-white {
+      background: white; color: var(--blue);
+      padding: 0.9rem 2rem; border-radius: 10px;
+      font-weight: 700; text-decoration: none;
+      display: inline-block; transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-white:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-teal {
+      background: var(--teal); color: white;
+      padding: 0.75rem 1.6rem; border-radius: 10px;
+      font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-teal:hover { background: var(--teal-dark); transform: translateY(-1px); }
+
+    /* ── Hero ────────────────────────────────────── */
     .hero {
       display: grid; grid-template-columns: 1fr 1fr;
       gap: 3rem; align-items: center;
@@ -74,45 +151,58 @@
     .hero h1 span { color: var(--blue); }
     .hero p { font-size: 1.05rem; color: var(--muted); line-height: 1.7; margin-bottom: 2rem; }
     .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { background: var(--blue); color: white; padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: background 0.2s; display: inline-block; }
-    .btn-primary:hover { background: var(--blue-dark); }
-    .btn-outline { border: 2px solid var(--blue); color: var(--blue); padding: 0.8rem 1.8rem; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all 0.2s; display: inline-block; }
-    .btn-outline:hover { background: var(--blue-tint); }
     .hero-trust { display: flex; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
     .hero-trust span { font-size: 0.82rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; }
     .hero-trust span::before { content: '✓'; color: var(--teal); font-weight: 700; }
-
     .hero-visual {
       background: linear-gradient(135deg, #e0f2fe, #bae6fd, #e0f9f0);
-      border-radius: 20px;
-      padding: 2rem;
+      border-radius: 20px; padding: 2rem;
       box-shadow: 0 20px 60px rgba(2,132,199,0.12);
     }
     .booking-widget {
-      background: white;
-      border-radius: 14px;
-      padding: 1.5rem;
+      background: white; border-radius: 14px; padding: 1.5rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
     }
     .booking-widget h4 { font-size: 1rem; margin-bottom: 1rem; color: var(--ink); }
-    .bw-field { margin-bottom: 0.9rem; }
-    .bw-field label { font-size: 0.78rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+    .bw-field { margin-bottom: 0.85rem; }
+    .bw-field label { font-size: 0.75rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
     .bw-field input, .bw-field select {
       width: 100%; padding: 0.6rem 0.9rem;
       border: 1.5px solid var(--border); border-radius: 8px;
       font-size: 0.88rem; font-family: 'Inter', sans-serif; color: var(--ink);
-      background: var(--bg);
+      background: var(--bg); outline: none;
+      transition: border-color 0.2s;
     }
-    .bw-submit { width: 100%; background: var(--blue); color: white; border: none; padding: 0.75rem; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-top: 0.5rem; }
+    .bw-field input:focus, .bw-field select:focus { border-color: var(--blue); }
+    .bw-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .bw-submit {
+      width: 100%; background: var(--blue); color: white;
+      border: none; padding: 0.75rem; border-radius: 8px;
+      font-weight: 600; font-size: 0.95rem; cursor: pointer; margin-top: 0.5rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.15s;
+    }
+    .bw-submit:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(2,132,199,0.3);
+    }
+    .bw-cal-note {
+      margin-top: 0.85rem; font-size: 0.73rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap;
+    }
+    .bw-cal-badge {
+      background: var(--gray-100); border: 1px solid var(--border);
+      border-radius: 5px; padding: 2px 8px; font-size: 0.7rem;
+      font-weight: 600; color: var(--muted);
+    }
+    .bw-confirm {
+      display: none; text-align: center; padding: 1.5rem 1rem;
+    }
+    .bw-confirm-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .bw-confirm h4 { color: var(--teal); margin-bottom: 0.4rem; }
+    .bw-confirm p { font-size: 0.85rem; color: var(--muted); }
 
-    /* Services */
-    .section { padding: 5rem 2rem; }
-    .section.bg-tint { background: var(--teal-tint); }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .section-head { text-align: center; margin-bottom: 3rem; }
-    .eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); }
-    .section-head h2 { font-size: 2rem; margin-top: 0.5rem; margin-bottom: 0.75rem; }
-    .section-head p { color: var(--muted); max-width: 540px; margin: 0 auto; line-height: 1.7; }
+    /* ── Services ────────────────────────────────── */
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .service-card {
       background: white; border-radius: 14px; padding: 1.8rem;
@@ -126,65 +216,319 @@
       background: var(--blue-tint); display: flex; align-items: center; justify-content: center;
       margin-bottom: 1rem; font-size: 1.4rem;
     }
-    .service-card h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
-    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+    .service-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
+    .service-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .service-link { font-size: 0.82rem; color: var(--blue); font-weight: 600; text-decoration: none; }
+    .service-link:hover { text-decoration: underline; }
+    .services-cta { text-align: center; margin-top: 2.5rem; }
 
-    /* Testimonials */
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .testimonial-card {
-      background: white; border-radius: 14px; padding: 1.8rem;
+    /* ── Performance dashboard ───────────────────── */
+    .dashboard-card {
+      background: white; border-radius: 16px;
       border: 1px solid var(--border);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      overflow: hidden;
     }
-    .stars { color: #f59e0b; font-size: 1rem; margin-bottom: 0.75rem; }
-    .testimonial-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+    .dash-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 1.6rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .dash-status { display: flex; align-items: center; gap: 0.6rem; }
+    .dash-dot { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 3px rgba(34,197,94,0.2); }
+    .dash-status-text { font-weight: 600; font-size: 0.9rem; }
+    .dash-time { font-size: 0.75rem; color: var(--muted); }
+    .dash-support {
+      font-size: 0.78rem; color: var(--blue); font-weight: 600;
+      background: var(--blue-tint); padding: 4px 10px; border-radius: 999px;
+    }
+    .dash-metrics {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      divide-x: 1px solid var(--border);
+    }
+    .dash-metric {
+      padding: 1.4rem 1.6rem; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .dash-metric:last-child { border-right: none; }
+    .dash-metric-value { font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 700; color: var(--ink); }
+    .dash-metric-value.is-teal { color: var(--teal); }
+    .dash-metric-value.is-green { color: #22c55e; }
+    .dash-metric-label { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+    .dash-footer {
+      padding: 0.9rem 1.6rem; background: var(--bg);
+      border-top: 1px solid var(--border);
+      display: flex; gap: 2rem; flex-wrap: wrap;
+    }
+    .dash-badge {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.76rem; color: var(--muted);
+    }
+    .dash-badge::before { content: '✓'; color: var(--teal); font-weight: 700; }
+
+    /* ── Testimonials slider ─────────────────────── */
+    .testimonial-slider {
+      position: relative; overflow: hidden;
+      border-radius: 16px;
+      user-select: none;
+    }
+    .ts-track {
+      display: flex;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    .ts-slide {
+      min-width: 100%; padding: 0 4px;
+    }
+    .testimonial-card {
+      background: white; border-radius: 14px; padding: 2rem 2.2rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .stars { color: #f59e0b; font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: 2px; }
+    .testimonial-card > p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; font-style: italic; margin-bottom: 1.5rem; }
     .reviewer { display: flex; align-items: center; gap: 0.75rem; }
     .reviewer-avatar {
-      width: 38px; height: 38px; border-radius: 50%;
+      width: 42px; height: 42px; border-radius: 50%;
       background: var(--blue-tint); display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; color: var(--blue);
+      font-weight: 700; font-size: 0.85rem; color: var(--blue); flex-shrink: 0;
     }
-    .reviewer-name { font-weight: 600; font-size: 0.88rem; }
-    .reviewer-role { font-size: 0.78rem; color: var(--muted); }
+    .reviewer-name { font-weight: 600; font-size: 0.9rem; }
+    .reviewer-role { font-size: 0.78rem; color: var(--muted); margin-top: 1px; }
+    .ts-controls {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .ts-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: white; border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 0.9rem; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .ts-btn:hover { background: var(--blue-tint); border-color: var(--blue); color: var(--blue); }
+    .ts-dots { display: flex; gap: 6px; }
+    .ts-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .ts-dot.is-active { background: var(--blue); transform: scale(1.25); }
 
-    /* CTA */
+    /* Trust badges */
+    .trust-badges {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      justify-content: center; margin-top: 2.5rem;
+    }
+    .trust-badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: white; border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 0.5rem 1rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--muted);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .trust-badge .tb-icon { font-size: 1rem; }
+
+    /* ── About ───────────────────────────────────── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+    .about-stat { text-align: center; }
+    .about-stat-val { font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 700; color: var(--blue); }
+    .about-stat-lbl { font-size: 0.78rem; color: var(--muted); margin-top: 0.2rem; }
+    .about-copy p { color: var(--muted); line-height: 1.8; font-size: 0.95rem; margin-bottom: 1.2rem; }
+    .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .team-card {
+      background: white; border-radius: 12px; padding: 1.2rem;
+      border: 1px solid var(--border); display: flex; gap: 1rem; align-items: center;
+    }
+    .team-avatar {
+      width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue-tint), #bae6fd);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1rem; color: var(--blue);
+    }
+    .team-name { font-weight: 600; font-size: 0.88rem; }
+    .team-title { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── Blog ────────────────────────────────────── */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .blog-card {
+      background: white; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex; flex-direction: column;
+    }
+    .blog-card:hover { box-shadow: 0 8px 24px rgba(2,132,199,0.1); transform: translateY(-2px); }
+    .blog-thumb {
+      height: 130px; display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .blog-thumb.t1 { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
+    .blog-thumb.t2 { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); }
+    .blog-thumb.t3 { background: linear-gradient(135deg, #fdf4ff, #e9d5ff); }
+    .blog-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-meta { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .blog-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.4; }
+    .blog-excerpt { font-size: 0.84rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; flex: 1; }
+    .blog-link { font-size: 0.82rem; color: var(--blue); font-weight: 600; text-decoration: none; }
+    .blog-link:hover { text-decoration: underline; }
+    .blog-cta { text-align: center; margin-top: 2.5rem; }
+
+    /* ── FAQ ─────────────────────────────────────── */
+    .faq-list { max-width: 760px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-question {
+      width: 100%; background: none; border: none; text-align: left;
+      padding: 1.1rem 0; display: flex; justify-content: space-between; align-items: center;
+      font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600;
+      color: var(--ink); cursor: pointer; gap: 1rem;
+    }
+    .faq-question:hover { color: var(--blue); }
+    .faq-icon { font-size: 1.1rem; color: var(--blue); flex-shrink: 0; transition: transform 0.25s; }
+    .faq-item.is-open .faq-icon { transform: rotate(45deg); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-item.is-open .faq-answer { max-height: 300px; padding-bottom: 1rem; }
+    .faq-answer p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── Booking section ─────────────────────────── */
+    .booking-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .booking-info h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+    .booking-info p { font-size: 0.92rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .cal-integrations { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .cal-badge {
+      display: flex; align-items: center; gap: 0.4rem;
+      background: var(--bg); border: 1.5px solid var(--border);
+      border-radius: 8px; padding: 0.45rem 0.85rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--muted);
+    }
+    .booking-form { background: white; border-radius: 16px; padding: 2rem; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .booking-form h4 { margin-bottom: 1.2rem; font-size: 1.1rem; }
+    .bf-field { margin-bottom: 1rem; }
+    .bf-field label { font-size: 0.75rem; font-weight: 600; color: var(--muted); display: block; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .bf-field input, .bf-field select, .bf-field textarea {
+      width: 100%; padding: 0.65rem 0.9rem;
+      border: 1.5px solid var(--border); border-radius: 8px;
+      font-size: 0.88rem; font-family: 'Inter', sans-serif; color: var(--ink);
+      background: var(--bg); outline: none; transition: border-color 0.2s;
+    }
+    .bf-field textarea { resize: none; height: 80px; }
+    .bf-field input:focus, .bf-field select:focus, .bf-field textarea:focus { border-color: var(--blue); }
+    .bf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .bf-privacy { font-size: 0.72rem; color: var(--muted); margin-top: 0.75rem; line-height: 1.6; }
+    .bf-privacy a { color: var(--blue); }
+    .bf-confirm { display: none; text-align: center; padding: 2rem 1rem; }
+    .bf-confirm-icon { font-size: 3rem; margin-bottom: 0.75rem; }
+    .bf-confirm h4 { color: var(--teal); margin-bottom: 0.5rem; }
+    .bf-confirm p { font-size: 0.85rem; color: var(--muted); }
+
+    /* ── CTA banner ──────────────────────────────── */
     .cta-section {
       background: linear-gradient(135deg, var(--blue), var(--teal));
       padding: 5rem 2rem; text-align: center; color: white;
     }
     .cta-section h2 { font-size: 2rem; margin-bottom: 1rem; }
     .cta-section p { opacity: 0.85; max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; }
-    .btn-white { background: white; color: var(--blue); padding: 0.9rem 2rem; border-radius: 10px; font-weight: 700; text-decoration: none; display: inline-block; transition: opacity 0.2s; }
-    .btn-white:hover { opacity: 0.9; }
 
-    /* Footer */
-    footer { background: var(--ink); color: #94a3b8; padding: 2rem; text-align: center; font-size: 0.85rem; }
-    footer a { color: #38bdf8; text-decoration: none; }
+    /* ── Footer ──────────────────────────────────── */
+    footer { background: var(--ink); color: #94a3b8; font-size: 0.84rem; }
+    .footer-main {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem; padding: 3rem 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .footer-brand { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.1rem; color: white; margin-bottom: 0.75rem; }
+    .footer-brand span { color: #38bdf8; }
+    .footer-tagline { color: #64748b; line-height: 1.6; max-width: 280px; }
+    .footer-col h4 { color: #cbd5e1; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.9rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer-col a { color: #94a3b8; text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+    .footer-col a:hover { color: #38bdf8; }
+    .footer-bottom {
+      border-top: 1px solid #1e293b;
+      padding: 1.2rem 2rem; max-width: 1100px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      align-items: center; justify-content: space-between;
+    }
+    .footer-copy { color: #64748b; font-size: 0.78rem; }
+    .footer-compliance {
+      display: flex; gap: 0.75rem; flex-wrap: wrap;
+    }
+    .compliance-badge {
+      background: #1e293b; border: 1px solid #334155;
+      border-radius: 5px; padding: 3px 9px;
+      font-size: 0.68rem; font-weight: 600; color: #94a3b8;
+      letter-spacing: 0.04em;
+    }
+    .footer-legal {
+      background: #0a0f1a;
+      padding: 0.9rem 2rem; text-align: center;
+      font-size: 0.72rem; color: #475569; line-height: 1.6;
+    }
+    .footer-legal a { color: #38bdf8; }
 
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid, .booking-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .team-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
-      .hero { grid-template-columns: 1fr; }
-      .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
+      .hero h1 { font-size: 2rem; }
+      .services-grid, .testimonials-grid, .blog-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+      .dash-metrics { grid-template-columns: repeat(2, 1fr); }
+      .dash-header { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); }
+      .footer-main { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .bf-row { grid-template-columns: 1fr; }
+      .bw-row { grid-template-columns: 1fr; }
+      .section { padding: 3.5rem 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      .about-stats { grid-template-columns: 1fr; }
+      .trust-badges { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
   <div class="demo-banner">
-    This is a <strong>demo website</strong> built by <a href="/">Trellis</a> to showcase what we'd create for a dental practice. &nbsp;|&nbsp; <a href="/#contact">Get one for your business →</a>
+    <span class="demo-tier">Tier 2</span>
+    This is a <strong>demo website</strong> built by <a href="/">Trellishub</a> to show what a Tier 2 dental practice site looks like. &nbsp;|&nbsp; <a href="/#contact">Get one for your business →</a>
   </div>
 
-  <nav>
+  <nav id="mainNav">
     <div class="nav-logo">Bright<span>Smile</span> Dental</div>
     <ul class="nav-links">
       <li><a href="#services">Services</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#testimonials">Reviews</a></li>
-      <li><a href="#booking">Contact</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="nav-cta">Book Appointment</button>
+    <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Book Appointment</button>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#blog">Blog</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
 
-  <section style="background: var(--white);">
+  <!-- ── HERO ───────────────────────────────────── -->
+  <section style="background:var(--white);">
     <div class="hero">
       <div class="hero-copy">
         <div class="hero-badge">
@@ -194,7 +538,7 @@
         <h1>Your <span>healthiest smile</span> starts here.</h1>
         <p>BrightSmile Dental offers comprehensive dental care in a calm, modern environment. From routine check-ups to cosmetic treatments — we make every visit comfortable.</p>
         <div class="hero-btns">
-          <a href="#booking" class="btn-primary">Book an Appointment</a>
+          <a href="#contact" class="btn-primary">Book an Appointment</a>
           <a href="#services" class="btn-outline">Our Services</a>
         </div>
         <div class="hero-trust">
@@ -205,30 +549,55 @@
       </div>
       <div class="hero-visual">
         <div class="booking-widget">
-          <h4>📅 Book Your Appointment</h4>
-          <div class="bw-field">
-            <label>Full Name</label>
-            <input type="text" placeholder="Jane Smith" />
+          <h4>📅 Quick Appointment Request</h4>
+          <div id="heroBookingForm">
+            <div class="bw-field">
+              <label>Full Name</label>
+              <input type="text" placeholder="Jane Smith" />
+            </div>
+            <div class="bw-row">
+              <div class="bw-field">
+                <label>Service</label>
+                <select>
+                  <option>General Check-Up</option>
+                  <option>Teeth Whitening</option>
+                  <option>Orthodontics Consult</option>
+                  <option>Emergency Dental</option>
+                  <option>Dental Implants</option>
+                </select>
+              </div>
+              <div class="bw-field">
+                <label>Preferred Time</label>
+                <select>
+                  <option>Morning (8–12)</option>
+                  <option>Afternoon (12–5)</option>
+                  <option>Evening (5–7)</option>
+                </select>
+              </div>
+            </div>
+            <div class="bw-field">
+              <label>Preferred Date</label>
+              <input type="date" />
+            </div>
+            <button class="bw-submit" id="heroBookBtn">Request Appointment</button>
+            <div class="bw-cal-note">
+              <span>Syncs with</span>
+              <span class="bw-cal-badge">📅 Google</span>
+              <span class="bw-cal-badge">📆 Outlook</span>
+              <span class="bw-cal-badge">🗓 Internal</span>
+            </div>
           </div>
-          <div class="bw-field">
-            <label>Service</label>
-            <select>
-              <option>General Check-Up</option>
-              <option>Teeth Whitening</option>
-              <option>Orthodontics Consult</option>
-              <option>Emergency Dental</option>
-            </select>
+          <div class="bw-confirm" id="heroConfirm">
+            <div class="bw-confirm-icon">✅</div>
+            <h4>Request received!</h4>
+            <p>A confirmation email is on its way. We'll be in touch within 1 business hour.</p>
           </div>
-          <div class="bw-field">
-            <label>Preferred Date</label>
-            <input type="date" />
-          </div>
-          <button class="bw-submit">Request Appointment</button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- ── SERVICES ───────────────────────────────── -->
   <section class="section bg-tint" id="services">
     <div class="container">
       <div class="section-head">
@@ -241,81 +610,555 @@
           <div class="service-icon">🦷</div>
           <h3>General Dentistry</h3>
           <p>Regular check-ups, cleanings, fillings, and preventive care to keep your smile healthy.</p>
+          <a href="#contact" class="service-link">Book now →</a>
         </div>
         <div class="service-card">
           <div class="service-icon">✨</div>
           <h3>Teeth Whitening</h3>
-          <p>Professional in-chair whitening treatments for a noticeably brighter smile in one visit.</p>
+          <p>Professional in-chair whitening for a noticeably brighter smile in one visit.</p>
+          <a href="#contact" class="service-link">Book now →</a>
         </div>
         <div class="service-card">
           <div class="service-icon">😁</div>
           <h3>Orthodontics</h3>
-          <p>Clear aligners and traditional braces tailored for teens and adults seeking a straighter smile.</p>
+          <p>Clear aligners and traditional braces tailored for teens and adults.</p>
+          <a href="#contact" class="service-link">Book consultation →</a>
         </div>
         <div class="service-card">
           <div class="service-icon">🔬</div>
           <h3>Dental Implants</h3>
           <p>Permanent tooth replacement that looks, feels, and functions just like natural teeth.</p>
+          <a href="#contact" class="service-link">Book consultation →</a>
         </div>
         <div class="service-card">
           <div class="service-icon">👶</div>
           <h3>Paediatric Dentistry</h3>
           <p>Gentle, fun dental care for children in an environment designed to ease anxiety.</p>
+          <a href="#contact" class="service-link">Book now →</a>
         </div>
         <div class="service-card">
           <div class="service-icon">🚨</div>
           <h3>Emergency Dental</h3>
-          <p>Same-day emergency appointments for toothaches, broken teeth, and urgent dental pain.</p>
+          <p>Same-day appointments for toothaches, broken teeth, and urgent dental pain.</p>
+          <a href="#contact" class="service-link">Call immediately →</a>
+        </div>
+      </div>
+      <div class="services-cta">
+        <a href="#contact" class="btn-primary">Book Your Appointment</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PERFORMANCE DASHBOARD ──────────────────── -->
+  <section class="section" id="security">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Included with Tier 2</span>
+        <h2>Security, speed &amp; support — built in</h2>
+        <p>Every Tier 2 site includes SSL, daily backups, performance monitoring, and dedicated developer hours each month.</p>
+      </div>
+      <div class="dashboard-card">
+        <div class="dash-header">
+          <div class="dash-status">
+            <div class="dash-dot"></div>
+            <span class="dash-status-text">Site is healthy</span>
+            <span class="dash-time">— Last checked: Just now</span>
+          </div>
+          <span class="dash-support">🧑‍💻 2 hrs developer support / month</span>
+        </div>
+        <div class="dash-metrics">
+          <div class="dash-metric">
+            <div class="dash-metric-value">99.9<span style="font-size:1rem;color:var(--muted);">%</span></div>
+            <div class="dash-metric-label">Uptime</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dash-metric-value is-teal">95<span style="font-size:1rem;color:var(--muted);">/100</span></div>
+            <div class="dash-metric-label">PageSpeed Score</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dash-metric-value is-green">✓</div>
+            <div class="dash-metric-label">Backup Today</div>
+          </div>
+          <div class="dash-metric">
+            <div class="dash-metric-value" style="font-size:1.2rem;">🔒 SSL</div>
+            <div class="dash-metric-label">Active &amp; Auto-renewing</div>
+          </div>
+        </div>
+        <div class="dash-footer">
+          <span class="dash-badge">Daily automated backups</span>
+          <span class="dash-badge">SSL certificate managed</span>
+          <span class="dash-badge">Uptime monitoring</span>
+          <span class="dash-badge">Speed optimised</span>
+          <span class="dash-badge">2 hrs support/month</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="testimonials">
+  <!-- ── TESTIMONIALS SLIDER ────────────────────── -->
+  <section class="section bg-light" id="testimonials">
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Patient Reviews</span>
         <h2>What our patients say</h2>
-        <p>Hundreds of happy smiles and counting.</p>
+        <p>Hundreds of happy smiles — and counting.</p>
       </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"The team at BrightSmile made my dentist anxiety disappear completely. Best dental experience I've ever had!"</p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">SM</div>
-            <div><div class="reviewer-name">Sarah M.</div><div class="reviewer-role">Patient since 2022</div></div>
-          </div>
+
+      <div class="testimonial-slider" id="testimonialSlider">
+        <div class="ts-track" id="tsTrack"></div>
+        <div class="ts-controls">
+          <button class="ts-btn" id="tsPrev" aria-label="Previous testimonial">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="ts-dots" id="tsDots"></div>
+          <button class="ts-btn" id="tsNext" aria-label="Next testimonial">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Booked online in under 2 minutes and was seen the very next morning. The facility is spotless and modern."</p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">TK</div>
-            <div><div class="reviewer-name">Thabo K.</div><div class="reviewer-role">Patient since 2023</div></div>
+      </div>
+
+      <div class="trust-badges">
+        <div class="trust-badge"><span class="tb-icon">🔒</span> SSL Secured</div>
+        <div class="trust-badge"><span class="tb-icon">🏥</span> HIPAA Compliant</div>
+        <div class="trust-badge"><span class="tb-icon">🇪🇺</span> GDPR Ready</div>
+        <div class="trust-badge"><span class="tb-icon">🦷</span> SADA Member</div>
+        <div class="trust-badge"><span class="tb-icon">⭐</span> 4.9 Rating</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ──────────────────────────────────── -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-copy">
+          <span class="eyebrow">About the Practice</span>
+          <h2 style="margin-top:0.5rem;margin-bottom:1rem;">15 years of gentle, expert dental care</h2>
+          <p>BrightSmile Dental was founded with one goal: to make quality dental care accessible, comfortable, and stress-free for every patient. Our modern facility and experienced team are committed to your long-term oral health.</p>
+          <p>From your first visit, you'll notice the difference — calming décor, friendly staff, and a no-rush approach that puts your comfort first.</p>
+          <div class="about-stats">
+            <div class="about-stat">
+              <div class="about-stat-val">15+</div>
+              <div class="about-stat-lbl">Years in Practice</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-val">4k+</div>
+              <div class="about-stat-lbl">Happy Patients</div>
+            </div>
+            <div class="about-stat">
+              <div class="about-stat-val">4.9★</div>
+              <div class="about-stat-lbl">Average Rating</div>
+            </div>
           </div>
+          <a href="#contact" class="btn-primary">Meet the Team</a>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"My kids actually look forward to their dental visits now. The friendly staff and welcoming environment make all the difference."</p>
-          <div class="reviewer">
-            <div class="reviewer-avatar">NP</div>
-            <div><div class="reviewer-name">Nomsa P.</div><div class="reviewer-role">Patient since 2021</div></div>
+        <div>
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="team-avatar">SvdB</div>
+              <div>
+                <div class="team-name">Dr. Sarah van der Berg</div>
+                <div class="team-title">Principal Dentist &amp; Orthodontist</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">LN</div>
+              <div>
+                <div class="team-name">Dr. Liam Nkosi</div>
+                <div class="team-title">General &amp; Paediatric Dentist</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">AM</div>
+              <div>
+                <div class="team-name">Dr. Aisha Moosa</div>
+                <div class="team-title">Cosmetic &amp; Implant Specialist</div>
+              </div>
+            </div>
+            <div class="team-card">
+              <div class="team-avatar">PJ</div>
+              <div>
+                <div class="team-name">Dr. Pieter Joubert</div>
+                <div class="team-title">Emergency &amp; Restorative Dentist</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="cta-section" id="booking">
+  <!-- ── BLOG ───────────────────────────────────── -->
+  <section class="section bg-tint" id="blog">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Patient Education</span>
+        <h2>From the BrightSmile Blog</h2>
+        <p>Tips, guides, and dental health advice written by our team.</p>
+      </div>
+      <div class="blog-grid">
+        <article class="blog-card">
+          <div class="blog-thumb t1">🦷</div>
+          <div class="blog-body">
+            <div class="blog-meta">12 June 2025 · Preventive Care</div>
+            <div class="blog-title">5 Signs You Should See a Dentist This Week</div>
+            <p class="blog-excerpt">Most dental problems are painless at first — but catching them early saves time, money, and discomfort. Here's what to watch for.</p>
+            <a href="#blog" class="blog-link">Read article →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-thumb t2">✨</div>
+          <div class="blog-body">
+            <div class="blog-meta">28 May 2025 · Cosmetic Dentistry</div>
+            <div class="blog-title">Professional vs. At-Home Whitening: What Actually Works</div>
+            <p class="blog-excerpt">We break down the science behind teeth whitening and explain why in-chair treatments consistently outperform DIY kits.</p>
+            <a href="#blog" class="blog-link">Read article →</a>
+          </div>
+        </article>
+        <article class="blog-card">
+          <div class="blog-thumb t3">👶</div>
+          <div class="blog-body">
+            <div class="blog-meta">10 May 2025 · Family Dental</div>
+            <div class="blog-title">How to Make Your Child Love Going to the Dentist</div>
+            <p class="blog-excerpt">Dental anxiety starts young. These four simple strategies can help your child build a positive relationship with dental care for life.</p>
+            <a href="#blog" class="blog-link">Read article →</a>
+          </div>
+        </article>
+      </div>
+      <div class="blog-cta">
+        <a href="#blog" class="btn-outline">View All Articles</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Common Questions</span>
+        <h2>Frequently asked questions</h2>
+        <p>Everything you need to know before your first visit.</p>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I book an appointment?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>You can book instantly using the online form on this page or via phone. Our online booking system syncs in real time with our calendar, so you'll see exactly which slots are available. Once confirmed, you'll receive an automatic email with your appointment details and reminders.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Do you see new patients?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes — we're always welcoming new patients. We accept both private patients and medical aid members. For your first appointment, please bring your ID and any relevant dental records if you have them.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How often should I visit the dentist?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We recommend a check-up and clean every six months for most patients. If you have gum disease, dental implants, or are undergoing orthodontic treatment, your dentist may suggest more frequent visits tailored to your needs.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Do you offer emergency dental appointments?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. We keep same-day emergency slots available for toothaches, cracked or knocked-out teeth, lost fillings, and other urgent dental issues. Call us first thing in the morning and we'll do our best to see you that day.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Is my personal and medical data kept private?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Absolutely. BrightSmile Dental is fully HIPAA-compliant and GDPR-ready. Your medical and personal data is encrypted, stored securely, and never shared with third parties without your explicit consent. View our full Privacy Policy at the bottom of this page.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What payment methods do you accept?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We accept all major medical aids, cash, debit and credit cards, and EFT. We can also assist with payment plan arrangements for larger treatment courses. Please ask our front desk team for details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT / BOOKING ──────────────────────── -->
+  <section class="section bg-light" id="contact">
+    <div class="container">
+      <div class="booking-grid">
+        <div class="booking-info">
+          <span class="eyebrow">Book an Appointment</span>
+          <h3>Ready for your healthiest smile?</h3>
+          <p>Use the form to request an appointment. We'll confirm within one business hour and send automated reminders before your visit.</p>
+
+          <p style="font-size:0.85rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem;">Calendar sync available with:</p>
+          <div class="cal-integrations">
+            <div class="cal-badge">📅 Google Calendar</div>
+            <div class="cal-badge">📆 Microsoft Outlook</div>
+            <div class="cal-badge">🗓 Internal System</div>
+          </div>
+
+          <div style="background:var(--blue-tint);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
+            <p style="font-size:0.84rem;color:var(--blue-dark);line-height:1.6;">
+              <strong>📨 Automated confirmation + reminders:</strong> Once confirmed, you'll receive a booking confirmation email. We'll also send a reminder 24 hours before your appointment.
+            </p>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:0.6rem;">
+            <span style="font-size:0.85rem;color:var(--muted);display:flex;gap:0.5rem;align-items:center;">
+              <span style="color:var(--teal);font-weight:700;">✓</span> Mon–Fri 8am–7pm &nbsp;·&nbsp; Sat 8am–1pm
+            </span>
+            <span style="font-size:0.85rem;color:var(--muted);display:flex;gap:0.5rem;align-items:center;">
+              <span style="color:var(--teal);font-weight:700;">✓</span> Emergency slots available daily
+            </span>
+            <span style="font-size:0.85rem;color:var(--muted);display:flex;gap:0.5rem;align-items:center;">
+              <span style="color:var(--teal);font-weight:700;">✓</span> New patients always welcome
+            </span>
+          </div>
+        </div>
+
+        <div class="booking-form">
+          <h4>📅 Book Your Appointment</h4>
+          <div id="mainBookingForm">
+            <div class="bf-row">
+              <div class="bf-field">
+                <label>First Name</label>
+                <input type="text" placeholder="Jane" />
+              </div>
+              <div class="bf-field">
+                <label>Last Name</label>
+                <input type="text" placeholder="Smith" />
+              </div>
+            </div>
+            <div class="bf-field">
+              <label>Email Address</label>
+              <input type="email" placeholder="jane@email.com" />
+            </div>
+            <div class="bf-field">
+              <label>Phone Number</label>
+              <input type="tel" placeholder="+27 71 234 5678" />
+            </div>
+            <div class="bf-row">
+              <div class="bf-field">
+                <label>Service</label>
+                <select>
+                  <option>General Check-Up</option>
+                  <option>Teeth Whitening</option>
+                  <option>Orthodontics Consult</option>
+                  <option>Dental Implant Consult</option>
+                  <option>Paediatric Visit</option>
+                  <option>Emergency</option>
+                </select>
+              </div>
+              <div class="bf-field">
+                <label>Preferred Time</label>
+                <select>
+                  <option>Morning (8–12)</option>
+                  <option>Afternoon (12–5)</option>
+                  <option>Evening (5–7)</option>
+                </select>
+              </div>
+            </div>
+            <div class="bf-field">
+              <label>Preferred Date</label>
+              <input type="date" />
+            </div>
+            <div class="bf-field">
+              <label>Additional Notes</label>
+              <textarea placeholder="Any dental concerns or questions…"></textarea>
+            </div>
+            <button class="btn-primary" style="width:100%;" id="mainBookBtn">Request Appointment</button>
+            <p class="bf-privacy">By submitting this form you agree to our <a href="#faq">Privacy Policy</a>. Your information is handled in compliance with HIPAA &amp; GDPR standards and will never be shared.</p>
+          </div>
+          <div class="bf-confirm" id="mainConfirm">
+            <div class="bf-confirm-icon">✅</div>
+            <h4>Appointment Request Received!</h4>
+            <p>A confirmation email has been sent. We'll contact you within 1 business hour to confirm your time slot. A reminder will be sent 24 hrs before your visit.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ─────────────────────────────── -->
+  <div class="cta-section">
     <h2>Ready for your healthiest smile?</h2>
     <p>New patients welcome. Book online in under 2 minutes — no phone call needed.</p>
-    <a href="#" class="btn-white">Book Your Appointment →</a>
+    <a href="#contact" class="btn-white">Book Your Appointment →</a>
   </div>
 
+  <!-- ── FOOTER ─────────────────────────────────── -->
   <footer>
-    <p>BrightSmile Dental &copy; 2025 &nbsp;|&nbsp; Demo website built by <a href="/">Trellis</a> — <a href="/#contact">Get this for your practice</a></p>
+    <div class="footer-main">
+      <div>
+        <div class="footer-brand">Bright<span>Smile</span> Dental</div>
+        <p class="footer-tagline">Professional dental care in a calm, modern environment. New patients always welcome.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">General Dentistry</a></li>
+          <li><a href="#services">Teeth Whitening</a></li>
+          <li><a href="#services">Orthodontics</a></li>
+          <li><a href="#services">Dental Implants</a></li>
+          <li><a href="#services">Emergency Dental</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Information</h4>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#blog">Blog</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#faq">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">BrightSmile Dental &copy; 2025 &nbsp;·&nbsp; Demo by <a href="/" style="color:#38bdf8;">Trellishub</a> — <a href="/#contact" style="color:#38bdf8;">Get this for your practice →</a></span>
+      <div class="footer-compliance">
+        <span class="compliance-badge">🔒 SSL</span>
+        <span class="compliance-badge">HIPAA Compliant</span>
+        <span class="compliance-badge">GDPR Ready</span>
+        <span class="compliance-badge">Daily Backups</span>
+      </div>
+    </div>
+    <div class="footer-legal">
+      This website complies with HIPAA (Health Insurance Portability and Accountability Act) and GDPR (General Data Protection Regulation) standards. All patient data is encrypted and handled with strict confidentiality. &nbsp;|&nbsp; <a href="#faq">Privacy Policy</a> &nbsp;·&nbsp; <a href="#faq">Terms of Use</a>
+    </div>
   </footer>
+
+  <script>
+  (() => {
+    'use strict';
+
+    /* ── Mobile nav ── */
+    const hamburger = document.getElementById('navHamburger');
+    const navMobile = document.getElementById('navMobile');
+    if (hamburger && navMobile) {
+      hamburger.addEventListener('click', () => {
+        navMobile.classList.toggle('is-open');
+      });
+      navMobile.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => navMobile.classList.remove('is-open'));
+      });
+    }
+
+    /* ── Hero booking form ── */
+    const heroBtn = document.getElementById('heroBookBtn');
+    if (heroBtn) {
+      heroBtn.addEventListener('click', () => {
+        document.getElementById('heroBookingForm').style.display = 'none';
+        document.getElementById('heroConfirm').style.display = 'block';
+      });
+    }
+
+    /* ── Main booking form ── */
+    const mainBtn = document.getElementById('mainBookBtn');
+    if (mainBtn) {
+      mainBtn.addEventListener('click', () => {
+        document.getElementById('mainBookingForm').style.display = 'none';
+        document.getElementById('mainConfirm').style.display = 'block';
+      });
+    }
+
+    /* ── Testimonials slider ── */
+    const TESTIMONIALS = [
+      { stars: 5, text: 'The team at BrightSmile made my dentist anxiety disappear completely. Best dental experience I\'ve ever had!', name: 'Sarah M.', role: 'Patient since 2022', initials: 'SM' },
+      { stars: 5, text: 'Booked online in under 2 minutes and was seen the very next morning. The facility is spotless and modern.', name: 'Thabo K.', role: 'Patient since 2023', initials: 'TK' },
+      { stars: 5, text: 'My kids actually look forward to their dental visits now. The friendly staff and welcoming environment make all the difference.', name: 'Nomsa P.', role: 'Patient since 2021', initials: 'NP' },
+      { stars: 5, text: 'Dr. van der Berg is exceptional. She explained every step clearly and the results of my teeth whitening are incredible.', name: 'Liezel H.', role: 'Patient since 2023', initials: 'LH' },
+      { stars: 5, text: 'I moved to a new city and was nervous about finding a new dentist. BrightSmile made it so easy — I was booked, seen, and sorted within a week.', name: 'Marcus D.', role: 'Patient since 2024', initials: 'MD' },
+    ];
+
+    let tsIndex = 0;
+    let tsTimer = null;
+    const track    = document.getElementById('tsTrack');
+    const dotsEl   = document.getElementById('tsDots');
+    const sliderEl = document.getElementById('testimonialSlider');
+
+    if (track && dotsEl && sliderEl) {
+      track.innerHTML = TESTIMONIALS.map(t => `
+        <div class="ts-slide">
+          <div class="testimonial-card">
+            <div class="stars">${'★'.repeat(t.stars)}</div>
+            <p>"${t.text}"</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">${t.initials}</div>
+              <div>
+                <div class="reviewer-name">${t.name}</div>
+                <div class="reviewer-role">${t.role}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      dotsEl.innerHTML = TESTIMONIALS.map((_, i) =>
+        `<button class="ts-dot${i === 0 ? ' is-active' : ''}" data-ts="${i}" aria-label="Testimonial ${i + 1}"></button>`
+      ).join('');
+
+      function tsGoTo(n) {
+        tsIndex = (n + TESTIMONIALS.length) % TESTIMONIALS.length;
+        track.style.transform = `translateX(-${tsIndex * 100}%)`;
+        dotsEl.querySelectorAll('.ts-dot').forEach((d, i) =>
+          d.classList.toggle('is-active', i === tsIndex)
+        );
+      }
+
+      function tsStart() {
+        tsTimer = setInterval(() => tsGoTo(tsIndex + 1), 5000);
+      }
+
+      function tsStop() { clearInterval(tsTimer); }
+
+      document.getElementById('tsPrev').addEventListener('click', () => { tsStop(); tsGoTo(tsIndex - 1); tsStart(); });
+      document.getElementById('tsNext').addEventListener('click', () => { tsStop(); tsGoTo(tsIndex + 1); tsStart(); });
+      dotsEl.querySelectorAll('.ts-dot').forEach(d => {
+        d.addEventListener('click', () => { tsStop(); tsGoTo(+d.dataset.ts); tsStart(); });
+      });
+
+      sliderEl.addEventListener('mouseenter', tsStop);
+      sliderEl.addEventListener('mouseleave', tsStart);
+      tsStart();
+    }
+
+    /* ── FAQ accordion ── */
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('.faq-question').addEventListener('click', () => {
+        const isOpen = item.classList.contains('is-open');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('is-open'));
+        if (!isOpen) item.classList.add('is-open');
+      });
+    });
+
+    /* ── Smooth scroll for nav links ── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+  })();
+  </script>
 
 </body>
 </html>

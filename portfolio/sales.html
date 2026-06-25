@@ -1421,10 +1421,23 @@
       border-radius: 8px;
       overflow: hidden;
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
+      background: var(--ue-gray-100);
+    }
+    .ue-wl-thumb img {
+      width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .ue-wl-no-img {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: var(--ue-gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em;
+    }
+    @media (max-width: 480px) {
+      .ue-wl-thumb { width: 52px; height: 64px; }
     }
     .ue-wl-body { flex: 1; min-width: 0; }
     .ue-wl-cat {
@@ -5300,7 +5313,11 @@
 
       listEl.innerHTML = items.map(p => `
         <div class="ue-wl-item">
-          <div class="ue-wl-thumb" style="background:${p.gradient};">${p.emoji}</div>
+          <div class="ue-wl-thumb">
+            ${p.image
+              ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
+              : `<div class="ue-wl-no-img">TH</div>`}
+          </div>
           <div class="ue-wl-body">
             <div class="ue-wl-cat">${p.category}</div>
             <div class="ue-wl-name">${p.name}</div>

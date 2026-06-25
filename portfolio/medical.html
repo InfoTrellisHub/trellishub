@@ -341,7 +341,7 @@
     .team-card {
       background: white; border-radius: 12px; padding: 1.2rem;
       border: 1px solid var(--border); display: flex; gap: 1rem; align-items: center;
-      transition: box-shadow 0.2s, transform 0.2s; cursor: default;
+      transition: box-shadow 0.2s, transform 0.2s; cursor: pointer;
     }
     .team-card:hover { box-shadow: 0 6px 20px rgba(2,132,199,0.1); transform: translateY(-2px); }
     .team-avatar {
@@ -349,11 +349,59 @@
       background: linear-gradient(135deg, var(--blue-tint), #bae6fd);
       display: flex; align-items: center; justify-content: center;
       font-weight: 700; font-size: 1rem; color: var(--blue);
-      overflow: hidden;
+      overflow: hidden; transition: box-shadow 0.2s;
     }
-    .team-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .team-card:hover .team-avatar { box-shadow: 0 0 0 2px white, 0 0 0 4px var(--blue); }
+    .team-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+    .team-card:hover .team-avatar img { transform: scale(1.1); }
     .team-name { font-weight: 600; font-size: 0.88rem; }
     .team-title { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── Doctor profile card modal ── */
+    .doc-overlay {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(15,23,42,0.4); backdrop-filter: blur(5px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.22s ease;
+    }
+    .doc-overlay.is-open { opacity: 1; pointer-events: auto; }
+    .doc-modal {
+      background: white; border-radius: 24px;
+      padding: 2.25rem 2rem 1.75rem;
+      text-align: center; width: 90%; max-width: 292px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.22);
+      transform: scale(0.86) translateY(14px);
+      transition: transform 0.32s cubic-bezier(0.34,1.56,0.64,1);
+      position: relative;
+    }
+    .doc-overlay.is-open .doc-modal { transform: scale(1) translateY(0); }
+    .doc-modal-close {
+      position: absolute; top: 0.85rem; right: 0.85rem;
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--bg); border: 1px solid var(--border);
+      font-size: 0.78rem; color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+    .doc-modal-close:hover { background: var(--blue-tint); color: var(--blue); }
+    .doc-modal-photo {
+      width: 148px; height: 148px; border-radius: 50%;
+      object-fit: cover; display: block; margin: 0 auto 1.25rem;
+      border: 3px solid var(--blue-tint);
+      box-shadow: 0 8px 28px rgba(2,132,199,0.18);
+    }
+    .doc-modal-initials {
+      width: 148px; height: 148px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-tint), #bae6fd);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 2.4rem; color: var(--blue);
+      margin: 0 auto 1.25rem;
+    }
+    .doc-modal-name { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+    .doc-modal-title { font-size: 0.8rem; color: var(--muted); line-height: 1.5; margin-bottom: 1rem; }
+    .doc-modal-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--blue-tint); color: var(--blue); font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.8rem; border-radius: 999px; }
 
     /* ── Blog ────────────────────────────────────── */
     .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -1284,6 +1332,59 @@
     });
 
   })();
+  </script>
+
+  <!-- Doctor profile card -->
+  <div class="doc-overlay" id="docOverlay" role="dialog" aria-modal="true" aria-label="Doctor profile">
+    <div class="doc-modal" id="docModal">
+      <button class="doc-modal-close" id="docModalClose" aria-label="Close">✕</button>
+      <img class="doc-modal-photo" id="docModalPhoto" src="" alt="" />
+      <div class="doc-modal-initials" id="docModalInitials" style="display:none;"></div>
+      <div class="doc-modal-name" id="docModalName"></div>
+      <div class="doc-modal-title" id="docModalTitle"></div>
+      <div class="doc-modal-badge">🦷 BrightSmile Dental</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var overlay  = document.getElementById('docOverlay');
+      var photo    = document.getElementById('docModalPhoto');
+      var initials = document.getElementById('docModalInitials');
+      var nameEl   = document.getElementById('docModalName');
+      var titleEl  = document.getElementById('docModalTitle');
+
+      function openDoc(imgSrc, name, title) {
+        nameEl.textContent  = name;
+        titleEl.textContent = title;
+        if (imgSrc) {
+          photo.src = imgSrc;
+          photo.alt = name;
+          photo.style.display    = 'block';
+          initials.style.display = 'none';
+        } else {
+          photo.style.display    = 'none';
+          initials.textContent   = name.split(' ').filter(function(w){ return w.match(/^[A-Z]/); }).slice(0,2).map(function(w){ return w[0]; }).join('');
+          initials.style.display = 'flex';
+        }
+        overlay.classList.add('is-open');
+      }
+
+      function close() { overlay.classList.remove('is-open'); }
+
+      document.querySelectorAll('.team-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          var img   = card.querySelector('.team-avatar img');
+          var name  = card.querySelector('.team-name').textContent;
+          var title = card.querySelector('.team-title').textContent;
+          openDoc(img ? img.src : null, name, title);
+        });
+      });
+
+      document.getElementById('docModalClose').addEventListener('click', close);
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    })();
   </script>
 
 </body>

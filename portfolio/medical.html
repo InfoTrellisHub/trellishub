@@ -118,7 +118,7 @@
       text-decoration: none; display: inline-block;
       transition: all 0.2s;
     }
-    .btn-outline:hover { background: var(--blue-tint); }
+    .btn-outline:hover { background: var(--blue-tint); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(2,132,199,0.15); }
     .btn-white {
       background: white; color: var(--blue);
       padding: 0.9rem 2rem; border-radius: 10px;
@@ -270,17 +270,17 @@
 
     /* ── Testimonials slider ─────────────────────── */
     .testimonial-slider {
-      position: relative; overflow: hidden;
+      position: relative;
       border-radius: 16px;
       user-select: none;
     }
-    .ts-track {
-      display: flex;
-      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
-    }
+    .ts-track { position: relative; }
     .ts-slide {
-      min-width: 100%; padding: 0 4px;
+      position: absolute; top: 0; left: 0; right: 0;
+      opacity: 0; transition: opacity 0.5s ease;
+      pointer-events: none; padding: 0 4px;
     }
+    .ts-slide.is-active { opacity: 1; position: relative; pointer-events: auto; }
     .testimonial-card {
       background: white; border-radius: 14px; padding: 2rem 2.2rem;
       border: 1px solid var(--border);
@@ -341,7 +341,9 @@
     .team-card {
       background: white; border-radius: 12px; padding: 1.2rem;
       border: 1px solid var(--border); display: flex; gap: 1rem; align-items: center;
+      transition: box-shadow 0.2s, transform 0.2s; cursor: default;
     }
+    .team-card:hover { box-shadow: 0 6px 20px rgba(2,132,199,0.1); transform: translateY(-2px); }
     .team-avatar {
       width: 52px; height: 52px; border-radius: 50%; flex-shrink: 0;
       background: linear-gradient(135deg, var(--blue-tint), #bae6fd);
@@ -429,6 +431,23 @@
     .bf-confirm h4 { color: var(--teal); margin-bottom: 0.5rem; }
     .bf-confirm p { font-size: 0.85rem; color: var(--muted); }
 
+    /* ── Booking step progress ── */
+    .bf-progress { display: flex; align-items: center; margin-bottom: 1.75rem; }
+    .bf-step-item { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; flex-shrink: 0; }
+    .bf-step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--border); color: var(--muted); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; font-family: 'Sora', sans-serif; transition: background 0.3s, color 0.3s; }
+    .bf-step-item.is-active .bf-step-num { background: var(--blue); color: white; }
+    .bf-step-item.is-done .bf-step-num { background: var(--teal); color: white; }
+    .bf-step-lbl { font-size: 0.68rem; font-weight: 600; color: var(--muted); white-space: nowrap; transition: color 0.3s; }
+    .bf-step-item.is-active .bf-step-lbl { color: var(--blue); }
+    .bf-step-item.is-done .bf-step-lbl { color: var(--teal); }
+    .bf-step-line { flex: 1; height: 2px; background: var(--border); margin: 0 0.5rem 1rem; transition: background 0.4s; }
+    .bf-step-line.is-done { background: var(--teal); }
+    .bf-form-step { animation: bfFadeIn 0.22s ease; }
+    @keyframes bfFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    .bf-nav-btns { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; gap: 0.75rem; }
+    .bf-trust-strip { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin: 1rem 0 0.5rem; padding: 0.65rem 0.9rem; background: var(--bg); border-radius: 8px; border: 1px solid var(--border); }
+    .bf-trust-strip span { font-size: 0.72rem; font-weight: 600; color: var(--muted); }
+
     /* ── CTA banner ──────────────────────────────── */
     .cta-section {
       background: linear-gradient(135deg, var(--blue), var(--teal));
@@ -505,6 +524,8 @@
       .trust-badges { flex-direction: column; align-items: center; }
       .service-card-body { padding: 1.1rem 1.2rem 1.4rem; }
       .booking-widget { padding: 1.5rem 1.25rem; }
+      .bf-step-lbl { display: none; }
+      .bf-step-line { margin-bottom: 0; }
     }
   </style>
 </head>
@@ -741,13 +762,6 @@
         </div>
       </div>
 
-      <div class="trust-badges">
-        <div class="trust-badge"><span class="tb-icon">🔒</span> SSL Secured</div>
-        <div class="trust-badge"><span class="tb-icon">🏥</span> HIPAA Compliant</div>
-        <div class="trust-badge"><span class="tb-icon">🇪🇺</span> GDPR Ready</div>
-        <div class="trust-badge"><span class="tb-icon">🦷</span> SADA Member</div>
-        <div class="trust-badge"><span class="tb-icon">⭐</span> 4.9 Rating</div>
-      </div>
     </div>
   </section>
 
@@ -965,26 +979,29 @@
 
         <div class="booking-form">
           <h4>📅 Book Your Appointment</h4>
+
+          <!-- Step progress indicator -->
+          <div class="bf-progress" id="bfProgress">
+            <div class="bf-step-item is-active" data-bfstep="1">
+              <div class="bf-step-num">1</div>
+              <div class="bf-step-lbl">Choose Service</div>
+            </div>
+            <div class="bf-step-line"></div>
+            <div class="bf-step-item" data-bfstep="2">
+              <div class="bf-step-num">2</div>
+              <div class="bf-step-lbl">Pick Date</div>
+            </div>
+            <div class="bf-step-line"></div>
+            <div class="bf-step-item" data-bfstep="3">
+              <div class="bf-step-num">3</div>
+              <div class="bf-step-lbl">Confirm</div>
+            </div>
+          </div>
+
           <div id="mainBookingForm">
-            <div class="bf-row">
-              <div class="bf-field">
-                <label>First Name</label>
-                <input type="text" placeholder="Jane" />
-              </div>
-              <div class="bf-field">
-                <label>Last Name</label>
-                <input type="text" placeholder="Smith" />
-              </div>
-            </div>
-            <div class="bf-field">
-              <label>Email Address</label>
-              <input type="email" placeholder="jane@email.com" />
-            </div>
-            <div class="bf-field">
-              <label>Phone Number</label>
-              <input type="tel" placeholder="+27 71 234 5678" />
-            </div>
-            <div class="bf-row">
+
+            <!-- Step 1: Choose Service -->
+            <div class="bf-form-step" data-step="1">
               <div class="bf-field">
                 <label>Service</label>
                 <select>
@@ -1004,18 +1021,63 @@
                   <option>Evening (5–7)</option>
                 </select>
               </div>
+              <div class="bf-nav-btns">
+                <span></span>
+                <button type="button" class="btn-primary" data-bf-next>Next →</button>
+              </div>
             </div>
-            <div class="bf-field">
-              <label>Preferred Date</label>
-              <input type="date" />
+
+            <!-- Step 2: Pick Date & Details -->
+            <div class="bf-form-step" data-step="2" hidden>
+              <div class="bf-row">
+                <div class="bf-field">
+                  <label>First Name</label>
+                  <input type="text" placeholder="Jane" />
+                </div>
+                <div class="bf-field">
+                  <label>Last Name</label>
+                  <input type="text" placeholder="Smith" />
+                </div>
+              </div>
+              <div class="bf-field">
+                <label>Email Address</label>
+                <input type="email" placeholder="jane@email.com" />
+              </div>
+              <div class="bf-field">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="+27 71 234 5678" />
+              </div>
+              <div class="bf-field">
+                <label>Preferred Date</label>
+                <input type="date" />
+              </div>
+              <div class="bf-nav-btns">
+                <button type="button" class="btn-outline" data-bf-back>← Back</button>
+                <button type="button" class="btn-primary" data-bf-next>Next →</button>
+              </div>
             </div>
-            <div class="bf-field">
-              <label>Additional Notes</label>
-              <textarea placeholder="Any dental concerns or questions…"></textarea>
+
+            <!-- Step 3: Confirm -->
+            <div class="bf-form-step" data-step="3" hidden>
+              <div class="bf-field">
+                <label>Additional Notes (optional)</label>
+                <textarea placeholder="Any dental concerns or questions…"></textarea>
+              </div>
+              <div class="bf-trust-strip">
+                <span>🔒 SSL Secured</span>
+                <span>🏥 HIPAA Compliant</span>
+                <span>🇪🇺 GDPR Ready</span>
+                <span>🦷 SADA Member</span>
+              </div>
+              <div class="bf-nav-btns">
+                <button type="button" class="btn-outline" data-bf-back>← Back</button>
+                <button type="button" class="btn-primary" id="mainBookBtn">Confirm Booking</button>
+              </div>
+              <p class="bf-privacy" style="margin-top:0.75rem;">By submitting this form you agree to our <a href="#faq">Privacy Policy</a>. Your information is handled in compliance with HIPAA &amp; GDPR standards and will never be shared.</p>
             </div>
-            <button class="btn-primary" style="width:100%;" id="mainBookBtn">Request Appointment</button>
-            <p class="bf-privacy">By submitting this form you agree to our <a href="#faq">Privacy Policy</a>. Your information is handled in compliance with HIPAA &amp; GDPR standards and will never be shared.</p>
+
           </div>
+
           <div class="bf-confirm" id="mainConfirm">
             <div class="bf-confirm-icon">✅</div>
             <h4>Appointment Request Received!</h4>
@@ -1106,8 +1168,40 @@
       mainBtn.addEventListener('click', () => {
         document.getElementById('mainBookingForm').style.display = 'none';
         document.getElementById('mainConfirm').style.display = 'block';
+        const prog = document.getElementById('bfProgress');
+        if (prog) prog.style.display = 'none';
       });
     }
+
+    /* ── Booking step navigation ── */
+    (function () {
+      const form = document.getElementById('mainBookingForm');
+      if (!form) return;
+      const steps = Array.from(form.querySelectorAll('.bf-form-step'));
+      const progressItems = Array.from(document.querySelectorAll('[data-bfstep]'));
+      const lines = Array.from(document.querySelectorAll('.bf-step-line'));
+      let cur = 1;
+
+      function goTo(n) {
+        steps.forEach(s => { s.hidden = parseInt(s.dataset.step) !== n; });
+        progressItems.forEach(p => {
+          const sn = parseInt(p.dataset.bfstep);
+          p.classList.toggle('is-active', sn === n);
+          p.classList.toggle('is-done', sn < n);
+        });
+        lines.forEach((l, i) => l.classList.toggle('is-done', i + 1 < n));
+        cur = n;
+      }
+
+      form.querySelectorAll('[data-bf-next]').forEach(btn => {
+        btn.addEventListener('click', () => { if (cur < steps.length) goTo(cur + 1); });
+      });
+      form.querySelectorAll('[data-bf-back]').forEach(btn => {
+        btn.addEventListener('click', () => { if (cur > 1) goTo(cur - 1); });
+      });
+
+      goTo(1);
+    })();
 
     /* ── Testimonials slider ── */
     const TESTIMONIALS = [
@@ -1125,8 +1219,8 @@
     const sliderEl = document.getElementById('testimonialSlider');
 
     if (track && dotsEl && sliderEl) {
-      track.innerHTML = TESTIMONIALS.map(t => `
-        <div class="ts-slide">
+      track.innerHTML = TESTIMONIALS.map((t, i) => `
+        <div class="ts-slide${i === 0 ? ' is-active' : ''}">
           <div class="testimonial-card">
             <div class="stars">${'★'.repeat(t.stars)}</div>
             <p>"${t.text}"</p>
@@ -1146,8 +1240,10 @@
       ).join('');
 
       function tsGoTo(n) {
+        const slides = track.querySelectorAll('.ts-slide');
+        slides[tsIndex].classList.remove('is-active');
         tsIndex = (n + TESTIMONIALS.length) % TESTIMONIALS.length;
-        track.style.transform = `translateX(-${tsIndex * 100}%)`;
+        slides[tsIndex].classList.add('is-active');
         dotsEl.querySelectorAll('.ts-dot').forEach((d, i) =>
           d.classList.toggle('is-active', i === tsIndex)
         );

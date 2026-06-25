@@ -375,13 +375,23 @@
     .cta-section h2 { font-size: 2rem; margin-bottom: 1rem; }
     .cta-section p { color: #94a3b8; max-width: 480px; margin: 0 auto 2rem; line-height: 1.7; }
 
+    /* ── Blog ────────────────────────────────────── */
+    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .blog-card { background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s; text-decoration: none; color: inherit; }
+    .blog-card:hover { box-shadow: 0 12px 32px rgba(27,122,77,0.13); }
+    .blog-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .blog-label { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); background: var(--green-tint); padding: 2px 9px; border-radius: 999px; margin-bottom: 0.75rem; }
+    .blog-card h3 { font-size: 1rem; color: var(--slate); line-height: 1.35; margin-bottom: 0.6rem; }
+    .blog-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 1.1rem; }
+    .blog-meta { font-size: 0.75rem; color: var(--muted); display: flex; gap: 1rem; }
+    .blog-read-more { margin-top: 1rem; font-size: 0.82rem; font-weight: 700; color: var(--green); }
+
     footer { background: #0a0f1a; color: #64748b; padding: 2rem; text-align: center; font-size: 0.85rem; }
     footer a { color: #4ade80; text-decoration: none; }
 
     @media (max-width: 900px) {
-      /* Services go 2-col on tablet */
       .services-grid { grid-template-columns: repeat(2, 1fr); }
-      /* Stats always 2-col at ≤900px */
+      .blog-grid { grid-template-columns: repeat(2, 1fr); }
       .trust-grid { grid-template-columns: repeat(2, 1fr); }
       /* Remove negative-margin overlap — bar is too tall when stacked */
       .quote-bar-outer { margin-top: 0; padding: 0 1.5rem; }
@@ -398,8 +408,8 @@
       .hero { padding: 3.5rem 1.5rem 5rem; }
       .hero h1 { font-size: 2rem; }
       .hero p { font-size: 0.95rem; }
-      /* Services go 1-col on phones */
       .services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .blog-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
       .section { padding: 4rem 1.5rem; }
       .ts-card { padding: 1.6rem 1.4rem; }
       .quote-bar-outer { padding: 0 1rem; }
@@ -437,6 +447,7 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#blog">Blog</a></li>
         <li><a href="#quote">Get Quote</a></li>
       </ul>
       <a href="#quote" class="nav-cta">Get Free Quote</a>
@@ -448,6 +459,7 @@
       <a href="#services">Services</a>
       <a href="#about">About</a>
       <a href="#reviews">Reviews</a>
+      <a href="#blog">Blog</a>
       <a href="#quote">Get Quote</a>
       <a href="#quote" class="nm-cta">Get Free Quote →</a>
     </div>
@@ -677,6 +689,59 @@
           <div class="ts-dots" id="tsDots"></div>
           <button class="ts-btn" id="tsNext" aria-label="Next review">&#8594;</button>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Blog ────────────────────────────────────── -->
+  <section class="section bg-light" id="blog">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Home Tips</span>
+        <h2>Advice from our tradespeople</h2>
+        <p>Practical guides to help you spot problems early, make smart repair decisions, and get better results from every project.</p>
+      </div>
+      <div class="blog-grid">
+
+        <a href="/portfolio/service-blog-1.html" class="blog-card">
+          <div class="blog-card-body">
+            <span class="blog-label">🔧 Plumbing Tips</span>
+            <h3>5 Warning Signs of a Hidden Plumbing Leak</h3>
+            <p>Hidden leaks can cause thousands in structural damage before a single drop appears on a visible surface. Here's how to spot them early.</p>
+            <div class="blog-meta">
+              <span>📅 3 Mar 2025</span>
+              <span>⏱ 5 min read</span>
+            </div>
+            <div class="blog-read-more">Read article →</div>
+          </div>
+        </a>
+
+        <a href="/portfolio/service-blog-2.html" class="blog-card">
+          <div class="blog-card-body">
+            <span class="blog-label">🚿 Geyser &amp; Hot Water</span>
+            <h3>Geyser Repair or Replace? What Experts Say</h3>
+            <p>The wrong call can cost you significantly. Here's a practical framework — with a cost comparison — to help you decide confidently.</p>
+            <div class="blog-meta">
+              <span>📅 14 Apr 2025</span>
+              <span>⏱ 6 min read</span>
+            </div>
+            <div class="blog-read-more">Read article →</div>
+          </div>
+        </a>
+
+        <a href="/portfolio/service-blog-3.html" class="blog-card">
+          <div class="blog-card-body">
+            <span class="blog-label">🎨 Painting Tips</span>
+            <h3>Choosing the Right Paint Finish for Every Room</h3>
+            <p>Matt, satin, semi-gloss, or gloss — the finish you choose affects how a room looks, feels, and cleans. A room-by-room guide.</p>
+            <div class="blog-meta">
+              <span>📅 28 May 2025</span>
+              <span>⏱ 5 min read</span>
+            </div>
+            <div class="blog-read-more">Read article →</div>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>

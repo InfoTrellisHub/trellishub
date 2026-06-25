@@ -1148,13 +1148,17 @@
         gap: 12px;
       }
       .ue-auth-side-perk-icon {
-        width: 32px; height: 32px;
+        width: 36px; height: 36px;
         border-radius: 8px;
         background: rgba(201,168,76,0.15);
         border: 1px solid rgba(201,168,76,0.3);
         display: flex; align-items: center; justify-content: center;
         font-size: 0.95rem;
         flex-shrink: 0;
+        overflow: hidden;
+      }
+      .ue-auth-side-perk-icon img {
+        width: 100%; height: 100%; object-fit: cover; display: block;
       }
       .ue-auth-side-perk-body { }
       .ue-auth-side-perk-title {
@@ -2970,8 +2974,9 @@
             </a>
             <div class="ue-blog-video-panel">
               <video class="ue-product-video" autoplay loop muted playsinline
-                     aria-hidden="true">
-                <source src="/assets/videos/South_Africa_Model.mp4" type="video/mp4">
+                     aria-hidden="true"
+                     poster="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&auto=format&fit=crop&q=80">
+                <source src="https://videos.pexels.com/video-files/3856025/3856025-hd_1280_720_25fps.mp4" type="video/mp4">
               </video>
             </div>
           </div>
@@ -2983,8 +2988,9 @@
             <div class="ue-blog-img"
                  style="background:#1a1206;overflow:hidden;">
               <video class="ue-product-video" autoplay loop muted playsinline
-                     aria-hidden="true">
-                <source src="/assets/videos/Style_Blazor_Vid.mp4" type="video/mp4">
+                     aria-hidden="true"
+                     poster="https://images.unsplash.com/photo-1548454782-15b189d129ab?w=800&auto=format&fit=crop&q=80">
+                <source src="https://videos.pexels.com/video-files/4374428/4374428-hd_1280_720_25fps.mp4" type="video/mp4">
               </video>
               <span class="ue-blog-img-label">Style guide</span>
             </div>
@@ -3017,8 +3023,9 @@
             <div class="ue-blog-img"
                  style="background:#0d1a2e;overflow:hidden;">
               <video class="ue-product-video" autoplay loop muted playsinline
-                     aria-hidden="true">
-                <source src="/assets/videos/Design-Clothing.mp4" type="video/mp4">
+                     aria-hidden="true"
+                     poster="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&auto=format&fit=crop&q=80">
+                <source src="https://videos.pexels.com/video-files/4195424/4195424-hd_1280_720_25fps.mp4" type="video/mp4">
               </video>
               <span class="ue-blog-img-label">Behind the scenes</span>
             </div>
@@ -3666,21 +3673,27 @@
           <p class="ue-auth-side-sub">Join thousands of fashion-forward South Africans who shop smarter with an UrbanEdge account.</p>
           <div class="ue-auth-side-perks">
             <div class="ue-auth-side-perk">
-              <div class="ue-auth-side-perk-icon">🚀</div>
+              <div class="ue-auth-side-perk-icon">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=72&auto=format&fit=crop&q=80" alt="Exclusive early drop access" />
+              </div>
               <div class="ue-auth-side-perk-body">
                 <div class="ue-auth-side-perk-title">Early drop access</div>
                 <div class="ue-auth-side-perk-sub">Shop new collections 24 hrs before the public.</div>
               </div>
             </div>
             <div class="ue-auth-side-perk">
-              <div class="ue-auth-side-perk-icon">🔁</div>
+              <div class="ue-auth-side-perk-icon">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=72&auto=format&fit=crop&q=80" alt="Free returns — package collection" />
+              </div>
               <div class="ue-auth-side-perk-body">
                 <div class="ue-auth-side-perk-title">Free returns</div>
                 <div class="ue-auth-side-perk-sub">No questions, no hassle — collect from your door.</div>
               </div>
             </div>
             <div class="ue-auth-side-perk">
-              <div class="ue-auth-side-perk-icon">⭐</div>
+              <div class="ue-auth-side-perk-icon">
+                <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=72&auto=format&fit=crop&q=80" alt="Loyalty rewards programme" />
+              </div>
               <div class="ue-auth-side-perk-body">
                 <div class="ue-auth-side-perk-title">Loyalty rewards</div>
                 <div class="ue-auth-side-perk-sub">Earn points every rand spent. Redeem for discounts.</div>

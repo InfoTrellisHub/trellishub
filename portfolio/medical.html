@@ -205,17 +205,18 @@
     /* ── Services ────────────────────────────────── */
     .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
     .service-card {
-      background: white; border-radius: 14px; padding: 1.8rem;
+      background: white; border-radius: 14px;
       border: 1px solid var(--border);
+      overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .service-card:hover { box-shadow: 0 8px 24px rgba(2,132,199,0.1); transform: translateY(-2px); }
-    .service-icon {
-      width: 48px; height: 48px; border-radius: 12px;
-      background: var(--blue-tint); display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem; font-size: 1.4rem;
+    .service-card-img {
+      width: 100%; height: 150px;
+      object-fit: cover; display: block;
     }
+    .service-card-body { padding: 1.3rem 1.6rem 1.6rem; }
     .service-card h3 { font-size: 1rem; margin-bottom: 0.4rem; }
     .service-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
     .service-link { font-size: 0.82rem; color: var(--blue); font-weight: 600; text-decoration: none; }
@@ -363,12 +364,13 @@
     }
     .blog-card:hover { box-shadow: 0 8px 24px rgba(2,132,199,0.1); transform: translateY(-2px); }
     .blog-thumb {
-      height: 130px; display: flex; align-items: center; justify-content: center;
-      font-size: 2.5rem;
+      height: 160px; overflow: hidden;
     }
-    .blog-thumb.t1 { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
-    .blog-thumb.t2 { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); }
-    .blog-thumb.t3 { background: linear-gradient(135deg, #fdf4ff, #e9d5ff); }
+    .blog-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .blog-card:hover .blog-thumb img { transform: scale(1.04); }
     .blog-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
     .blog-meta { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.5rem; }
     .blog-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.4; }
@@ -609,40 +611,52 @@
       </div>
       <div class="services-grid">
         <div class="service-card">
-          <div class="service-icon">🦷</div>
-          <h3>General Dentistry</h3>
-          <p>Regular check-ups, cleanings, fillings, and preventive care to keep your smile healthy.</p>
-          <a href="#contact" class="service-link">Book now →</a>
+          <img class="service-card-img" src="https://images.unsplash.com/photo-1588776814546-1ffbb172d4b3?w=600&auto=format&fit=crop&q=80" alt="Dentist performing a general check-up" loading="lazy" />
+          <div class="service-card-body">
+            <h3>General Dentistry</h3>
+            <p>Regular check-ups, cleanings, fillings, and preventive care to keep your smile healthy.</p>
+            <a href="#contact" class="service-link">Book now →</a>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">✨</div>
-          <h3>Teeth Whitening</h3>
-          <p>Professional in-chair whitening for a noticeably brighter smile in one visit.</p>
-          <a href="#contact" class="service-link">Book now →</a>
+          <img class="service-card-img" src="https://images.unsplash.com/photo-1606811841689-23dfddce3e66?w=600&auto=format&fit=crop&q=80" alt="Patient with bright white smile after teeth whitening" loading="lazy" />
+          <div class="service-card-body">
+            <h3>Teeth Whitening</h3>
+            <p>Professional in-chair whitening for a noticeably brighter smile in one visit.</p>
+            <a href="#contact" class="service-link">Book now →</a>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">😁</div>
-          <h3>Orthodontics</h3>
-          <p>Clear aligners and traditional braces tailored for teens and adults.</p>
-          <a href="#contact" class="service-link">Book consultation →</a>
+          <img class="service-card-img" src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&auto=format&fit=crop&q=80" alt="Close-up of orthodontic clear aligners" loading="lazy" />
+          <div class="service-card-body">
+            <h3>Orthodontics</h3>
+            <p>Clear aligners and traditional braces tailored for teens and adults.</p>
+            <a href="#contact" class="service-link">Book consultation →</a>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">🔬</div>
-          <h3>Dental Implants</h3>
-          <p>Permanent tooth replacement that looks, feels, and functions just like natural teeth.</p>
-          <a href="#contact" class="service-link">Book consultation →</a>
+          <img class="service-card-img" src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&auto=format&fit=crop&q=80" alt="Dental implant procedure in progress" loading="lazy" />
+          <div class="service-card-body">
+            <h3>Dental Implants</h3>
+            <p>Permanent tooth replacement that looks, feels, and functions just like natural teeth.</p>
+            <a href="#contact" class="service-link">Book consultation →</a>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">👶</div>
-          <h3>Paediatric Dentistry</h3>
-          <p>Gentle, fun dental care for children in an environment designed to ease anxiety.</p>
-          <a href="#contact" class="service-link">Book now →</a>
+          <img class="service-card-img" src="https://images.unsplash.com/photo-1607990283143-e81e7a2c9349?w=600&auto=format&fit=crop&q=80" alt="Child smiling happily at the dentist" loading="lazy" />
+          <div class="service-card-body">
+            <h3>Paediatric Dentistry</h3>
+            <p>Gentle, fun dental care for children in an environment designed to ease anxiety.</p>
+            <a href="#contact" class="service-link">Book now →</a>
+          </div>
         </div>
         <div class="service-card">
-          <div class="service-icon">🚨</div>
-          <h3>Emergency Dental</h3>
-          <p>Same-day appointments for toothaches, broken teeth, and urgent dental pain.</p>
-          <a href="#contact" class="service-link">Call immediately →</a>
+          <img class="service-card-img" src="https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=600&auto=format&fit=crop&q=80" alt="Emergency dental appointment for urgent tooth pain" loading="lazy" />
+          <div class="service-card-body">
+            <h3>Emergency Dental</h3>
+            <p>Same-day appointments for toothaches, broken teeth, and urgent dental pain.</p>
+            <a href="#contact" class="service-link">Call immediately →</a>
+          </div>
         </div>
       </div>
       <div class="services-cta">
@@ -800,7 +814,9 @@
       </div>
       <div class="blog-grid">
         <article class="blog-card">
-          <div class="blog-thumb t1">🦷</div>
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&auto=format&fit=crop&q=80" alt="Patient at a dental check-up appointment" loading="lazy" />
+          </div>
           <div class="blog-body">
             <div class="blog-meta">12 June 2025 · Preventive Care</div>
             <div class="blog-title">5 Signs You Should See a Dentist This Week</div>
@@ -809,7 +825,9 @@
           </div>
         </article>
         <article class="blog-card">
-          <div class="blog-thumb t2">✨</div>
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1514168757508-07ffe9ae125b?w=600&auto=format&fit=crop&q=80" alt="Close-up of bright white smile after professional whitening" loading="lazy" />
+          </div>
           <div class="blog-body">
             <div class="blog-meta">28 May 2025 · Cosmetic Dentistry</div>
             <div class="blog-title">Professional vs. At-Home Whitening: What Actually Works</div>
@@ -818,7 +836,9 @@
           </div>
         </article>
         <article class="blog-card">
-          <div class="blog-thumb t3">👶</div>
+          <div class="blog-thumb">
+            <img src="https://images.unsplash.com/photo-1593100126453-19b562a800c1?w=600&auto=format&fit=crop&q=80" alt="Happy child smiling at the dentist" loading="lazy" />
+          </div>
           <div class="blog-body">
             <div class="blog-meta">10 May 2025 · Family Dental</div>
             <div class="blog-title">How to Make Your Child Love Going to the Dentist</div>

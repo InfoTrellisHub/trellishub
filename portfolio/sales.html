@@ -2569,6 +2569,16 @@
       object-fit: cover;
       display: block;
     }
+
+    /* ── PERFORMANCE ── */
+    /* Skip layout/paint for off-screen sections entirely */
+    #collections { content-visibility: auto; contain-intrinsic-size: 0 520px; }
+    #products    { content-visibility: auto; contain-intrinsic-size: 0 900px; }
+    #journal     { content-visibility: auto; contain-intrinsic-size: 0 700px; }
+    #about       { content-visibility: auto; contain-intrinsic-size: 0 650px; }
+    #contact     { content-visibility: auto; contain-intrinsic-size: 0 550px; }
+    /* Limit reflow scope to individual cards */
+    .ue-product-card { contain: layout style; }
   </style>
 </head>
 <body>
@@ -4287,7 +4297,7 @@
         return;
       }
 
-      grid.innerHTML = list.map(p => {
+      const html = list.map(p => {
         const badge = p.badge
           ? `<span class="ue-product-badge ${p.badge === 'sale' ? 'is-sale' : 'is-new'}">${p.badge === 'sale' ? 'Sale' : 'New'}</span>`
           : '';
@@ -4355,8 +4365,11 @@
           </article>`;
       }).join('');
 
-      bindProductCardEvents();
-      grid.querySelectorAll('[data-ue-reveal]').forEach(el => observeReveal(el));
+      requestAnimationFrame(() => {
+        grid.innerHTML = html;
+        bindProductCardEvents();
+        grid.querySelectorAll('[data-ue-reveal]').forEach(el => observeReveal(el));
+      });
     }
 
     /* ── PRODUCT CARD EVENTS ── */
@@ -4788,6 +4801,18 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('is-scrolled', window.scrollY > 40);
     }, { passive: true });
+
+    /* ── PAUSE VIDEOS WHEN OFF-SCREEN ── */
+    if ('IntersectionObserver' in window) {
+      const vidObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const v = entry.target;
+          if (entry.isIntersecting) { v.play().catch(() => {}); }
+          else { v.pause(); }
+        });
+      }, { rootMargin: '200px' });
+      document.querySelectorAll('video').forEach(v => vidObs.observe(v));
+    }
 
     /* ── MOBILE MENU ── */
     const menuBtn    = document.getElementById('menuBtn');

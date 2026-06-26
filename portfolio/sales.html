@@ -160,14 +160,14 @@
 
     /* Decorative gradient orbs */
     @keyframes orbFloat1 {
-      0%   { transform: translate(0,0)   scale(1);    }
-      50%  { transform: translate(-2%,3%) scale(1.06); }
-      100% { transform: translate(0,0)   scale(1);    }
+      0%   { transform: translateZ(0) translate(0,0)    scale(1);    }
+      50%  { transform: translateZ(0) translate(-2%,3%) scale(1.06); }
+      100% { transform: translateZ(0) translate(0,0)    scale(1);    }
     }
     @keyframes orbFloat2 {
-      0%   { transform: translate(0,0)    scale(1);    }
-      50%  { transform: translate(3%,-2%) scale(1.04); }
-      100% { transform: translate(0,0)    scale(1);    }
+      0%   { transform: translateZ(0) translate(0,0)    scale(1);    }
+      50%  { transform: translateZ(0) translate(3%,-2%) scale(1.04); }
+      100% { transform: translateZ(0) translate(0,0)    scale(1);    }
     }
     .ue-hero-dark::before {
       content: '';
@@ -2586,13 +2586,6 @@
       display: block;
     }
 
-    /* ── PERFORMANCE ── */
-    /* Skip layout/paint for off-screen sections entirely */
-    #collections { content-visibility: auto; contain-intrinsic-size: 0 520px; }
-    #products    { content-visibility: auto; contain-intrinsic-size: 0 900px; }
-    #journal     { content-visibility: auto; contain-intrinsic-size: 0 700px; }
-    #about       { content-visibility: auto; contain-intrinsic-size: 0 650px; }
-    #contact     { content-visibility: auto; contain-intrinsic-size: 0 550px; }
     /* Limit reflow scope to individual cards */
     .ue-product-card { contain: layout style; }
 
@@ -2809,6 +2802,7 @@
     /* ── HERO ENTRANCE — cinematic one-time load animation ── */
     .ue-hero-text[data-ue-reveal] {
       transform: translateY(28px);
+      will-change: transform, opacity;
       transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                   transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -6287,7 +6281,7 @@
       window.addEventListener('scroll', function () {
         var scrolled = window.scrollY || docEl.scrollTop;
         var total    = docEl.scrollHeight - window.innerHeight;
-        bar.style.width = (total > 0 ? Math.min(scrolled / total * 100, 100) : 0) + '%';
+        bar.style.transform = 'scaleX(' + (total > 0 ? Math.min(scrolled / total, 1) : 0) + ')';
       }, { passive: true });
     })();
   </script>
@@ -6356,6 +6350,7 @@
       var ticking = false;
       setTimeout(function () {
         ready = true;
+        text.style.willChange = 'transform, opacity';
         text.style.transition = 'opacity 0.35s ease';
       }, 1050);
       window.addEventListener('scroll', function () {
@@ -6382,22 +6377,28 @@
       var grid = document.getElementById('productGrid');
       if (!grid) return;
       function getCard(el) { return el.closest('.ue-product-card'); }
+      grid.addEventListener('mouseover', function (e) {
+        var card = getCard(e.target);
+        if (!card || card._tiltActive) return;
+        card._tiltActive = true;
+        card.style.willChange = 'transform';
+      });
       grid.addEventListener('mousemove', function (e) {
         var card = getCard(e.target);
         if (!card) return;
         var r  = card.getBoundingClientRect();
         var cx = (e.clientX - r.left  - r.width  / 2) / (r.width  / 2);
         var cy = (e.clientY - r.top   - r.height / 2) / (r.height / 2);
-        card.style.transition = 'box-shadow 0.2s ease';
+        card.style.transition = 'none';
         card.style.transform  = 'perspective(900px) rotateY(' + (cx * 4) + 'deg) rotateX(' + (-cy * 3.5) + 'deg) translateZ(6px)';
-        card.style.boxShadow  = '0 20px 50px rgba(0,0,0,0.14)';
       });
       grid.addEventListener('mouseout', function (e) {
         var card = getCard(e.target);
         if (!card || card.contains(e.relatedTarget)) return;
-        card.style.transition = 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.55s ease';
+        card._tiltActive = false;
+        card.style.transition = 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)';
         card.style.transform  = '';
-        card.style.boxShadow  = '';
+        setTimeout(function () { if (!card._tiltActive) { card.style.willChange = ''; card.style.transition = ''; } }, 560);
       });
     })();
 

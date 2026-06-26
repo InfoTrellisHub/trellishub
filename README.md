@@ -154,12 +154,39 @@ create table public.chat_messages (
 );
 create index chat_messages_conversation_id_idx on public.chat_messages (conversation_id);
 
+create table public.invoices (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  customer_id uuid not null references public.customers(id) on delete cascade,
+  invoice_no text not null,
+  description text,
+  amount numeric,
+  currency text default 'USD',
+  date date not null default current_date,
+  status text not null default 'paid'
+);
+create index invoices_customer_id_idx on public.invoices (customer_id, date desc);
+
+create table public.payments (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  customer_id uuid not null references public.customers(id) on delete cascade,
+  date date not null default current_date,
+  amount numeric,
+  currency text default 'USD',
+  method text,
+  reference text
+);
+create index payments_customer_id_idx on public.payments (customer_id, date desc);
+
 alter table public.customers enable row level security;
 alter table public.care_plans enable row level security;
 alter table public.leads enable row level security;
 alter table public.bookings enable row level security;
 alter table public.chat_conversations enable row level security;
 alter table public.chat_messages enable row level security;
+alter table public.invoices enable row level security;
+alter table public.payments enable row level security;
 -- No policies are added for the anon key on purpose — every read/write goes through
 -- the serverless functions using the service_role key, which bypasses RLS. This means
 -- the public anon key (even if it ever leaked) grants no access at all.

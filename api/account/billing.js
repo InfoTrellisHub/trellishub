@@ -34,32 +34,32 @@ module.exports = async function handler(req, res) {
       { data: payments, error: payErr  },
     ] = await Promise.all([
       supabase
-        .from('billing_care_plans')
-        .select('plan_type, status, currency, monthly_price, renewal_date')
-        .eq('user_id', cid)
+        .from('care_plans')
+        .select('status, currency, monthly_price, renewal_date')
+        .eq('customer_id', cid)
         .eq('status', 'active')
         .maybeSingle(),
 
       supabase
         .from('invoices')
-        .select('invoice_no, description, amount, date')
-        .eq('user_id', cid)
+        .select('invoice_no, description, amount, currency, date')
+        .eq('customer_id', cid)
         .order('date', { ascending: false }),
 
       supabase
         .from('payments')
-        .select('date, amount, method')
-        .eq('user_id', cid)
+        .select('date, amount, currency, method')
+        .eq('customer_id', cid)
         .order('date', { ascending: false }),
     ]);
 
-    if (planErr) return res.status(500).json({ error: `billing_care_plans: ${planErr.message}` });
+    if (planErr) return res.status(500).json({ error: `care_plans: ${planErr.message}` });
     if (invErr)  return res.status(500).json({ error: `invoices: ${invErr.message}` });
     if (payErr)  return res.status(500).json({ error: `payments: ${payErr.message}` });
 
     const carePlan = plan
       ? {
-          name:          plan.plan_type || 'Care Plan',
+          name:          'Care Plan',
           monthly_price: plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
           renewal_date:  fmtDate(plan.renewal_date),
           status:        plan.status,
@@ -70,13 +70,13 @@ module.exports = async function handler(req, res) {
       invoice_no:  inv.invoice_no,
       description: inv.description || null,
       date:        fmtDate(inv.date),
-      amount:      inv.amount != null ? String(inv.amount) : null,
+      amount:      inv.amount != null ? `${inv.currency || ''} ${inv.amount}`.trim() : null,
     }));
 
     const paymentList = (payments || []).map((p) => ({
       date:   fmtDate(p.date),
       method: p.method || null,
-      amount: p.amount != null ? String(p.amount) : null,
+      amount: p.amount != null ? `${p.currency || ''} ${p.amount}`.trim() : null,
     }));
 
     return res.status(200).json({

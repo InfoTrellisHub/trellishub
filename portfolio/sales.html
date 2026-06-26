@@ -159,6 +159,16 @@
     }
 
     /* Decorative gradient orbs */
+    @keyframes orbFloat1 {
+      0%   { transform: translate(0,0)   scale(1);    }
+      50%  { transform: translate(-2%,3%) scale(1.06); }
+      100% { transform: translate(0,0)   scale(1);    }
+    }
+    @keyframes orbFloat2 {
+      0%   { transform: translate(0,0)    scale(1);    }
+      50%  { transform: translate(3%,-2%) scale(1.04); }
+      100% { transform: translate(0,0)    scale(1);    }
+    }
     .ue-hero-dark::before {
       content: '';
       position: absolute;
@@ -171,6 +181,7 @@
         rgba(201,168,76,0.03) 45%,
         transparent 70%);
       pointer-events: none;
+      animation: orbFloat1 9s ease-in-out infinite;
     }
     .ue-hero-dark::after {
       content: '';
@@ -183,14 +194,17 @@
         rgba(201,168,76,0.06) 0%,
         transparent 65%);
       pointer-events: none;
+      animation: orbFloat2 12s ease-in-out infinite;
     }
 
-    /* Subtle dot-grid texture */
+    /* Dot-grid + film grain texture */
     .ue-hero-texture {
       position: absolute;
       inset: 0;
-      background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 32px 32px;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      background-size: 32px 32px, 220px 220px;
       pointer-events: none;
     }
 
@@ -6305,6 +6319,105 @@
         cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
         requestAnimationFrame(tick);
       })();
+    })();
+
+    /* ── Smooth scroll (eased, replaces CSS scroll-behavior) ── */
+    (function () {
+      function easeInOutQuart(t) {
+        return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+      }
+      document.addEventListener('click', function (e) {
+        var link = e.target.closest('a[href^="#"]');
+        if (!link) return;
+        var id = link.getAttribute('href').slice(1);
+        if (!id) return;
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        var start = window.scrollY;
+        var end   = target.getBoundingClientRect().top + start - 60;
+        var dur   = 900;
+        var t0    = performance.now();
+        (function step(now) {
+          var elapsed = Math.min(now - t0, dur);
+          window.scrollTo(0, start + (end - start) * easeInOutQuart(elapsed / dur));
+          if (elapsed < dur) requestAnimationFrame(step);
+        })(t0);
+      });
+    })();
+
+    /* ── Hero parallax ── */
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var hero = document.querySelector('.ue-hero-dark');
+      var text = document.querySelector('.ue-hero-text');
+      if (!hero || !text) return;
+      var ready   = false;
+      var ticking = false;
+      setTimeout(function () {
+        ready = true;
+        text.style.transition = 'opacity 0.35s ease';
+      }, 1050);
+      window.addEventListener('scroll', function () {
+        if (!ready || ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          var sy = window.scrollY;
+          var hh = hero.offsetHeight;
+          if (sy <= hh) {
+            text.style.transform = 'translateY(' + (sy * 0.26) + 'px)';
+            text.style.opacity   = Math.max(0, 1 - sy / (hh * 0.6));
+          } else {
+            text.style.transform = '';
+            text.style.opacity   = '';
+          }
+          ticking = false;
+        });
+      }, { passive: true });
+    })();
+
+    /* ── 3-D product card tilt (desktop only) ── */
+    (function () {
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+      var grid = document.getElementById('productGrid');
+      if (!grid) return;
+      function getCard(el) { return el.closest('.ue-product-card'); }
+      grid.addEventListener('mousemove', function (e) {
+        var card = getCard(e.target);
+        if (!card) return;
+        var r  = card.getBoundingClientRect();
+        var cx = (e.clientX - r.left  - r.width  / 2) / (r.width  / 2);
+        var cy = (e.clientY - r.top   - r.height / 2) / (r.height / 2);
+        card.style.transition = 'box-shadow 0.2s ease';
+        card.style.transform  = 'perspective(900px) rotateY(' + (cx * 4) + 'deg) rotateX(' + (-cy * 3.5) + 'deg) translateZ(6px)';
+        card.style.boxShadow  = '0 20px 50px rgba(0,0,0,0.14)';
+      });
+      grid.addEventListener('mouseout', function (e) {
+        var card = getCard(e.target);
+        if (!card || card.contains(e.relatedTarget)) return;
+        card.style.transition = 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.55s ease';
+        card.style.transform  = '';
+        card.style.boxShadow  = '';
+      });
+    })();
+
+    /* ── Magnetic buttons (desktop only) ── */
+    (function () {
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+      function wire(btn) {
+        btn.addEventListener('mousemove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var x = ((e.clientX - r.left) - r.width  / 2) * 0.22;
+          var y = ((e.clientY - r.top ) - r.height / 2) * 0.22;
+          btn.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () {
+          btn.style.transition = 'transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94)';
+          btn.style.transform  = '';
+          setTimeout(function () { btn.style.transition = ''; }, 620);
+        });
+      }
+      document.querySelectorAll('.ue-btn-primary, .ue-btn-gold').forEach(wire);
     })();
   </script>
 

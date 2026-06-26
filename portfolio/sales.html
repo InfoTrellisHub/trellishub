@@ -2791,11 +2791,29 @@
       .ue-personal-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .ue-personal-thumb { height: 100px; }
     }
+
+    /* ── HERO ENTRANCE — cinematic one-time load animation ── */
+    .ue-hero-text[data-ue-reveal] {
+      transform: translateY(28px);
+      transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .ue-hero-showcase[data-ue-reveal] {
+      transform: translateY(20px);
+      transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.18s,
+                  transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.18s;
+    }
   </style>
 </head>
 <body>
 
   <a href="#main" class="ue-skip-nav">Skip to main content</a>
+
+  <!-- Scroll progress bar -->
+  <div class="ue-scroll-progress" id="ueScrollProgress" aria-hidden="true"></div>
+
+  <!-- Custom cursor (desktop only — hidden on touch via CSS) -->
+  <div id="ueCursor" aria-hidden="true"><div class="ue-cursor-dot"></div></div>
 
   <!-- ============================================================
        DEMO BANNER — always top
@@ -4531,7 +4549,7 @@
             revealObserver.unobserve(e.target);
           }
         });
-      }, { threshold: 0.10 });
+      }, { threshold: 0.08, rootMargin: '0px 0px 80px 0px' });
       document.querySelectorAll('[data-ue-reveal]').forEach(el => revealObserver.observe(el));
     } else {
       document.querySelectorAll('[data-ue-reveal]').forEach(el => el.classList.add('is-visible'));
@@ -4571,7 +4589,7 @@
         return;
       }
 
-      const html = list.map(p => {
+      const html = list.map((p, i) => {
         const badge = p.badge
           ? `<span class="ue-product-badge ${p.badge === 'sale' ? 'is-sale' : 'is-new'}">${p.badge === 'sale' ? 'Sale' : 'New'}</span>`
           : '';
@@ -4593,8 +4611,10 @@
           ? `<img src="${p.image}" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy" />`
           : p.emoji;
 
+        const stagger = i % 4;
+        const delayAttr = stagger > 0 ? ` data-delay="${stagger}"` : '';
         return `
-          <article class="ue-product-card" data-product-id="${p.id}" data-ue-reveal>
+          <article class="ue-product-card" data-product-id="${p.id}" data-ue-reveal${delayAttr}>
             <div class="ue-product-image-wrap">
               ${badge}
               <button class="ue-wishlist-btn${isWL ? ' is-active' : ''}"
@@ -6241,6 +6261,50 @@
           }
         });
       });
+    })();
+  </script>
+
+  <!-- Scroll progress bar -->
+  <script>
+    (function () {
+      var bar = document.getElementById('ueScrollProgress');
+      if (!bar) return;
+      var docEl = document.documentElement;
+      window.addEventListener('scroll', function () {
+        var scrolled = window.scrollY || docEl.scrollTop;
+        var total    = docEl.scrollHeight - window.innerHeight;
+        bar.style.width = (total > 0 ? Math.min(scrolled / total * 100, 100) : 0) + '%';
+      }, { passive: true });
+    })();
+  </script>
+
+  <!-- Custom cursor — desktop (pointer: fine) only -->
+  <script>
+    (function () {
+      if (!window.matchMedia('(pointer: fine)').matches) return;
+      var cursor = document.getElementById('ueCursor');
+      if (!cursor) return;
+      var x = 0, y = 0, cx = 0, cy = 0;
+      var interactive = 'a,button,[role="button"],label,[tabindex]:not([tabindex="-1"]),.ue-product-card,.ue-collection-card,.ue-hero-card';
+      document.addEventListener('mousemove', function (e) {
+        x = e.clientX; y = e.clientY;
+        cursor.classList.add('is-visible');
+      }, { passive: true });
+      document.addEventListener('mouseleave', function () {
+        cursor.classList.remove('is-visible');
+      });
+      document.addEventListener('mouseover', function (e) {
+        if (e.target.closest && e.target.closest(interactive)) cursor.classList.add('is-hovering');
+      }, { passive: true });
+      document.addEventListener('mouseout', function (e) {
+        if (e.target.closest && e.target.closest(interactive)) cursor.classList.remove('is-hovering');
+      }, { passive: true });
+      (function tick() {
+        cx += (x - cx) * 0.18;
+        cy += (y - cy) * 0.18;
+        cursor.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+        requestAnimationFrame(tick);
+      })();
     })();
   </script>
 

@@ -5964,6 +5964,323 @@
   </script>
 
   <!-- ============================================================
+       TRELLISHUB PRICING SECTION
+       ============================================================ -->
+  <style>
+    /* ── Trellishub Pricing Section (th- prefix, no conflict with ue-) ── */
+    .th-pricing-section {
+      background: #f4f4f4;
+      padding: 88px 20px;
+      font-family: 'Inter', sans-serif;
+    }
+    .th-container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .th-pricing-head {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .th-pricing-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #1B7A4D;
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .th-pricing-eyebrow::before,
+    .th-pricing-eyebrow::after {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: #1B7A4D;
+      opacity: 0.5;
+    }
+    .th-pricing-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.9rem, 4vw, 2.9rem);
+      font-weight: 700;
+      color: #080808;
+      margin: 0 0 14px;
+      line-height: 1.15;
+    }
+    .th-pricing-sub {
+      color: #707070;
+      font-size: 1rem;
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+    .th-pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+    .th-card {
+      background: #fff;
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.22s ease;
+    }
+    .th-card:hover { box-shadow: 0 10px 36px rgba(0,0,0,0.10); }
+    .th-card--featured {
+      border-color: #1B7A4D;
+      border-width: 2px;
+      box-shadow: 0 8px 32px rgba(27,122,77,0.15);
+    }
+    .th-popular-band {
+      background: #1B7A4D;
+      color: #fff;
+      text-align: center;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 7px 0;
+      margin: -32px -32px 26px;
+      border-radius: 14px 14px 0 0;
+    }
+    .th-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .th-tier-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #080808;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .th-tier-badge {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid #d0d0d0;
+      color: #707070;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .th-tier-desc {
+      font-size: 0.875rem;
+      color: #707070;
+      line-height: 1.6;
+      margin: 0 0 22px;
+    }
+    .th-price-block { margin-bottom: 6px; }
+    .th-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .th-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #080808;
+      line-height: 1;
+    }
+    .th-price--sm { font-size: 1.45rem; }
+    .th-price-note {
+      font-size: 0.8rem;
+      color: #a0a0a0;
+    }
+    .th-locale-note {
+      font-size: 0.7rem;
+      color: #b0b0b0;
+      font-style: italic;
+      margin: 4px 0 22px;
+    }
+    .th-features {
+      list-style: none;
+      margin: 0 0 28px;
+      padding: 0;
+      flex: 1;
+    }
+    .th-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: #3a3a3a;
+      margin-bottom: 11px;
+      line-height: 1.45;
+    }
+    .th-features li svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      color: #1B7A4D;
+      margin-top: 2px;
+    }
+    .th-btn {
+      display: block;
+      text-align: center;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+      border: none;
+      cursor: pointer;
+    }
+    .th-btn:hover { transform: translateY(-1px); }
+    .th-btn--primary { background: #1B7A4D; color: #fff; }
+    .th-btn--primary:hover { background: #145C3A; }
+    .th-btn--dark { background: #080808; color: #fff; }
+    .th-btn--dark:hover { background: #1e1e1e; }
+    .th-footnote {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      margin-top: 44px;
+      line-height: 1.6;
+    }
+    .th-footnote strong { color: #525252; }
+    @media (max-width: 860px) {
+      .th-pricing-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+    }
+    @media (max-width: 540px) {
+      .th-pricing-section { padding: 60px 16px; }
+      .th-card { padding: 24px; }
+      .th-popular-band { margin: -24px -24px 22px; border-radius: 14px 14px 0 0; }
+    }
+  </style>
+
+  <section class="th-pricing-section" id="th-pricing" aria-label="Trellishub pricing">
+    <div class="th-container">
+
+      <div class="th-pricing-head">
+        <div class="th-pricing-eyebrow">Built by Trellishub</div>
+        <h2 class="th-pricing-title">Want a website like this?</h2>
+        <p class="th-pricing-sub">Every package includes a custom website build and an optional ongoing care plan. Pick the tier that fits your business.</p>
+      </div>
+
+      <div class="th-pricing-grid">
+
+        <!-- Tier 1: Starter -->
+        <div class="th-card">
+          <div class="th-card-head">
+            <h3 class="th-tier-name">Starter</h3>
+            <span class="th-tier-badge">Tier 1</span>
+          </div>
+          <p class="th-tier-desc">For small businesses needing a clean, professional online presence.</p>
+          <div class="th-price-block">
+            <div class="th-price-row">
+              <span class="th-price">R3,999</span>
+              <span class="th-price-note">once-off build</span>
+            </div>
+            <div class="th-price-row">
+              <span class="th-price th-price--sm">R499</span>
+              <span class="th-price-note">/month care plan</span>
+            </div>
+          </div>
+          <p class="th-locale-note">Prices shown in ZAR.</p>
+          <ul class="th-features">
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 5 pages</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>External links (existing content only)</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSL certificate + responsive design</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 backup every 2 weeks</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Plugin updates included</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 website updates/month</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Developer support included</li>
+          </ul>
+          <a href="/#contact" class="th-btn th-btn--dark" target="_blank" rel="noopener">Choose Starter</a>
+        </div>
+
+        <!-- Tier 2: Growth (Most Popular) -->
+        <div class="th-card th-card--featured">
+          <div class="th-popular-band">Most Popular</div>
+          <div class="th-card-head">
+            <h3 class="th-tier-name">Growth</h3>
+            <span class="th-tier-badge">Tier 2</span>
+          </div>
+          <p class="th-tier-desc">For growing businesses that need more pages, analytics, and regular updates.</p>
+          <div class="th-price-block">
+            <div class="th-price-row">
+              <span class="th-price">R6,499</span>
+              <span class="th-price-note">once-off build</span>
+            </div>
+            <div class="th-price-row">
+              <span class="th-price th-price--sm">R999</span>
+              <span class="th-price-note">/month care plan</span>
+            </div>
+          </div>
+          <p class="th-locale-note">Prices shown in ZAR.</p>
+          <ul class="th-features">
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 10 pages</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 5 self-generated external links</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Advanced security + responsive design</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 backups per week</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly analytical report</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 website update per week</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Developer support included</li>
+          </ul>
+          <a href="/#contact" class="th-btn th-btn--primary" target="_blank" rel="noopener">Choose Growth</a>
+        </div>
+
+        <!-- Tier 3: Premium -->
+        <div class="th-card">
+          <div class="th-card-head">
+            <h3 class="th-tier-name">Premium</h3>
+            <span class="th-tier-badge">Tier 3</span>
+          </div>
+          <p class="th-tier-desc">For established businesses wanting full support, unlimited scale, and priority access.</p>
+          <div class="th-price-block">
+            <div class="th-price-row">
+              <span class="th-price">R12,999</span>
+              <span class="th-price-note">once-off build</span>
+            </div>
+            <div class="th-price-row">
+              <span class="th-price th-price--sm">R1,999</span>
+              <span class="th-price-note">/month care plan</span>
+            </div>
+          </div>
+          <p class="th-locale-note">Prices shown in ZAR.</p>
+          <ul class="th-features">
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited pages</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Self-generated external links included</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Optional app integration</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Advanced security + responsive design</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>2 backups per week</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Monthly analytical report</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10 website updates per month</li>
+            <li><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority developer support</li>
+          </ul>
+          <a href="/#contact" class="th-btn th-btn--dark" target="_blank" rel="noopener">Choose Premium</a>
+        </div>
+
+      </div>
+
+      <p class="th-footnote">We also offer <strong>flexible payment plans</strong> to help businesses get started — ask us about options when you book a consultation.</p>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
        FOOTER
        ============================================================ -->
   <footer class="ue-footer" id="footer" aria-label="Site footer">

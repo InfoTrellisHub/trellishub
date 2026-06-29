@@ -327,17 +327,33 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
-  align-items: start;
+  align-items: stretch;
 }
 
 .pricing-card {
   padding: var(--space-5);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-card.is-featured {
   border-color: var(--color-green-600);
   border-width: 2px;
+  box-shadow: 0 8px 32px rgba(27, 122, 77, 0.15);
+}
+
+.pricing-popular-band {
+  background: var(--color-green-600);
+  color: var(--color-white);
+  text-align: center;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.45rem 0;
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-4);
+  border-radius: calc(var(--radius-md) - 2px) calc(var(--radius-md) - 2px) 0 0;
 }
 
 .pricing-card-head {
@@ -381,6 +397,7 @@
 .feature-list {
   list-style: none;
   margin: var(--space-4) 0;
+  flex: 1;
 }
 
 .feature-list li {

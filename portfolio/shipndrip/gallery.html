@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Kick Cartel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="gallery-page">
+
+  <!-- PAGE LOADER -->
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-logo">KICK <span>CARTEL</span></div>
+    <div class="loader-bar"><div class="loader-progress"></div></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar gallery-nav">
+    <a href="index.html" class="logo">KICK <span>CARTEL</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#cart">Cart</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="gallery.html" class="nav-cta active">Gallery</a></li>
+    </ul>
+    <button class="cart-nav-btn" aria-label="Your cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge"></span>
+    </button>
+    <button class="profile-nav-btn" aria-label="Your profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+        <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+      </svg>
+    </button>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MULTI-LAYER PARALLAX HERO -->
+  <div class="gallery-hero" id="galleryHero">
+
+    <!-- Layer 1: Deep neon lights background (slowest 0.05x) -->
+    <div class="parallax-layer parallax-deep" id="parallaxDeep">
+      <div class="deep-blob db1"></div>
+      <div class="deep-blob db2"></div>
+      <div class="deep-blob db3"></div>
+      <div class="deep-grid-overlay"></div>
+      <div class="neon-streak ns1"></div>
+      <div class="neon-streak ns2"></div>
+      <div class="neon-streak ns3"></div>
+    </div>
+
+    <!-- Layer 2: Mid graffiti textures (0.15x) -->
+    <div class="parallax-layer parallax-mid" id="parallaxMid">
+      <span class="graffiti-word g1">DRIP</span>
+      <span class="graffiti-word g2">HEAT</span>
+      <span class="graffiti-word g3">FRESH</span>
+      <span class="graffiti-word g4">KICKS</span>
+      <span class="graffiti-word g5">STYLE</span>
+      <div class="mid-line ml1"></div>
+      <div class="mid-line ml2"></div>
+    </div>
+
+    <!-- Layer 3: Smoke / fog overlay (0.25x) -->
+    <div class="parallax-layer parallax-smoke" id="parallaxSmoke">
+      <div class="smoke-puff sp1"></div>
+      <div class="smoke-puff sp2"></div>
+      <div class="smoke-puff sp3"></div>
+      <div class="smoke-puff sp4"></div>
+    </div>
+
+    <!-- Layer 4: Sneaker foreground silhouettes (0.42x) -->
+    <div class="parallax-layer parallax-sneakers" id="parallaxSneakers">
+      <img class="hero-sneaker hs1" src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=60" alt="" aria-hidden="true" />
+      <img class="hero-sneaker hs2" src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=400&q=60" alt="" aria-hidden="true" />
+      <img class="hero-sneaker hs3" src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&q=60" alt="" aria-hidden="true" />
+    </div>
+
+    <!-- Layer 5: Foreground accent dots / shapes (fastest 0.55x) -->
+    <div class="parallax-layer parallax-fore" id="parallaxFore">
+      <div class="fore-shape fs1"></div>
+      <div class="fore-shape fs2"></div>
+      <div class="fore-dot fd1"></div>
+      <div class="fore-dot fd2"></div>
+      <div class="fore-dot fd3"></div>
+    </div>
+
+    <div class="gallery-hero-content">
+      <span class="section-tag">Premium Ultra Collection</span>
+      <h1>The <span class="accent">Drip</span> Gallery</h1>
+      <p>We ship the heat — you drip the streets.</p>
+    </div>
+  </div>
+
+  <!-- 3D CAROUSEL SECTION -->
+  <section class="carousel-section" id="carouselSection">
+    <div class="carousel-container">
+      <div class="carousel-label">
+        <span id="carouselCounter">01 / 06</span>
+        <span id="carouselName">Air Max 2024</span>
+      </div>
+
+      <!-- 3D Stage -->
+      <div class="carousel-stage" id="carouselStage">
+        <div class="carousel-3d" id="carousel3d">
+
+          <div class="carousel-item" data-index="0" data-name="Air Max 2024" data-price="R2 499" data-desc="Urban Runner Series — Built for the streets.">
+            <div class="item-inner">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700&q=80" alt="Air Max 2024" />
+              <div class="item-reflection"></div>
+            </div>
+          </div>
+
+          <div class="carousel-item" data-index="1" data-name="Jordan Legacy" data-price="R3 199" data-desc="Street Court Edition — Court to concrete.">
+            <div class="item-inner">
+              <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=700&q=80" alt="Jordan Legacy" />
+              <div class="item-reflection"></div>
+            </div>
+          </div>
+
+          <div class="carousel-item" data-index="2" data-name="Wave Runner X" data-price="R4 599" data-desc="Limited Drop — Only 50 pairs. Move fast.">
+            <div class="item-inner">
+              <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=700&q=80" alt="Wave Runner X" />
+              <div class="item-reflection"></div>
+            </div>
+          </div>
+
+          <div class="carousel-item" data-index="3" data-name="Classic OG White" data-price="R1 899" data-desc="Old school flavour. Timeless clean.">
+            <div class="item-inner">
+              <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=700&q=80" alt="Classic OG White" />
+              <div class="item-reflection"></div>
+            </div>
+          </div>
+
+          <div class="carousel-item" data-index="4" data-name="Street High Top" data-price="R2 799" data-desc="High ankle. High fashion. Maximum drip.">
+            <div class="item-inner">
+              <img src="https://images.unsplash.com/photo-1604163546180-039a1781c0d2?w=700&q=80" alt="Street High Top" />
+              <div class="item-reflection"></div>
+            </div>
+          </div>
+
+          <div class="carousel-item" data-index="5" data-name="Neon Night Runner" data-price="R3 499" data-desc="Glow in the dark colourway. Night edition.">
+            <div class="item-inner">
+              <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=700&q=80" alt="Neon Night Runner" />
+              <div class="item-reflection"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Info Panel -->
+      <div class="carousel-info" id="carouselInfo">
+        <div class="info-name" id="infoName">Air Max 2024</div>
+        <div class="info-price" id="infoPrice">R2 499</div>
+        <div class="info-desc" id="infoDesc">Urban Runner Series — Built for the streets.</div>
+        <button class="btn btn-primary btn-sm add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <!-- Arrow Controls -->
+      <button class="carousel-arrow arrow-prev" id="arrowPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <button class="carousel-arrow arrow-next" id="arrowNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <!-- Dot Indicators -->
+      <div class="carousel-dots" id="carouselDots">
+        <button class="dot active" data-dot="0"></button>
+        <button class="dot" data-dot="1"></button>
+        <button class="dot" data-dot="2"></button>
+        <button class="dot" data-dot="3"></button>
+        <button class="dot" data-dot="4"></button>
+        <button class="dot" data-dot="5"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- GRID SECTION -->
+  <section class="grid-section" id="gridSection">
+    <div class="section-header grid-section-header">
+      <div>
+        <span class="section-tag">Full Collection</span>
+        <h2>All Pairs</h2>
+      </div>
+      <button class="btn-shuffle" id="shuffleBtn" aria-label="Shuffle gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+          <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+        </svg>
+        Shuffle
+      </button>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="runners">Runners</button>
+      <button class="filter-btn" data-filter="hightops">High Tops</button>
+      <button class="filter-btn" data-filter="classics">Classics</button>
+      <button class="filter-btn" data-filter="limited">Limited</button>
+    </div>
+
+    <div class="sneaker-grid" id="sneakerGrid">
+
+      <div class="grid-card hologram scroll-reveal" data-category="runners"
+           data-img="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=900&q=90"
+           data-name="Air Max 2024" data-price="R2 499" data-desc="Urban Runner Series — Built for the streets, tested on concrete.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80" alt="Air Max 2024" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Air Max 2024</h3>
+          <span class="grid-price">R2 499</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="hightops"
+           data-img="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=900&q=90"
+           data-name="Jordan Legacy" data-price="R3 199" data-desc="Street Court Edition — Court to concrete. Unmatched heritage.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?w=500&q=80" alt="Jordan Legacy" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Jordan Legacy</h3>
+          <span class="grid-price">R3 199</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="limited"
+           data-img="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=900&q=90"
+           data-name="Wave Runner X" data-price="R4 599" data-desc="Limited Drop — Only 50 pairs worldwide. Move fast or miss out.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-badge">LIMITED</div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500&q=80" alt="Wave Runner X" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Wave Runner X</h3>
+          <span class="grid-price">R4 599</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="classics"
+           data-img="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=900&q=90"
+           data-name="Classic OG White" data-price="R1 899" data-desc="Old school flavour. Timeless clean. The original that started it all.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500&q=80" alt="Classic OG White" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Classic OG White</h3>
+          <span class="grid-price">R1 899</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="hightops"
+           data-img="https://images.unsplash.com/photo-1604163546180-039a1781c0d2?w=900&q=90"
+           data-name="Street High Top" data-price="R2 799" data-desc="High ankle. High fashion. Maximum drip. Built for those who walk different.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1604163546180-039a1781c0d2?w=500&q=80" alt="Street High Top" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Street High Top</h3>
+          <span class="grid-price">R2 799</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="runners"
+           data-img="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=900&q=90"
+           data-name="Neon Night Runner" data-price="R3 499" data-desc="Glow in the dark colourway. Night edition. Built to be seen.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-badge neon">NEON</div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80" alt="Neon Night Runner" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Neon Night Runner</h3>
+          <span class="grid-price">R3 499</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="classics"
+           data-img="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=900&q=90"
+           data-name="Retro Trainer" data-price="R1 699" data-desc="Vintage silhouette reborn. Classics never die — they just get restocked.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=500&q=80" alt="Retro Trainer" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>Retro Trainer</h3>
+          <span class="grid-price">R1 699</span>
+        </div>
+      </div>
+
+      <div class="grid-card hologram scroll-reveal" data-category="limited"
+           data-img="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=900&q=90"
+           data-name="SA Edition" data-price="R5 199" data-desc="SA Exclusive colourway. Proudly South African. Available nowhere else.">
+        <div class="holo-border"></div>
+        <div class="holo-shimmer"></div>
+        <div class="grid-badge exclusive">SA EXCLUSIVE</div>
+        <div class="grid-img">
+          <img src="https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=500&q=80" alt="SA Edition" loading="lazy" />
+          <div class="grid-overlay">
+            <button class="btn btn-sm btn-primary spotlight-trigger">View</button>
+            <button class="btn btn-sm btn-outline add-to-cart-btn">Add to Cart</button>
+          </div>
+        </div>
+        <div class="grid-info">
+          <h3>SA Edition</h3>
+          <span class="grid-price">R5 199</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="gallery-cta">
+    <div class="gallery-cta-inner">
+      <h2>Want to Know When We Drop?</h2>
+      <p>Get notified on WhatsApp before the next exclusive hits.</p>
+      <a href="https://wa.me/27000000000?text=Add%20me%20to%20the%20drop%20list!" target="_blank" class="btn btn-whatsapp">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Join the Drop List
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo">KICK <span>CARTEL</span></div>
+        <p>We ship the heat — you drip the streets.</p>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://wa.me/27000000000" target="_blank" class="social-icon wa" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/kickcartel_sa" target="_blank" class="social-icon ig" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="mailto:demo@example.com" class="social-icon gm" aria-label="Email us">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Kick Cartel. All rights reserved.</p>
+      <p class="demo-disclaimer">This is a demo site by <span>Trellishub</span></p>
+    </div>
+  </footer>
+
+  <!-- SPOTLIGHT OVERLAY -->
+  <div class="spotlight-overlay" id="spotlightOverlay" role="dialog" aria-modal="true" aria-label="Sneaker spotlight">
+    <div class="spotlight-backdrop"></div>
+    <div class="spotlight-rings">
+      <div class="sp-ring r1"></div>
+      <div class="sp-ring r2"></div>
+      <div class="sp-ring r3"></div>
+    </div>
+    <button class="spotlight-close" id="spotlightClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="22" height="22">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <div class="spotlight-content">
+      <div class="spotlight-img-wrap">
+        <div class="spotlight-img-glow"></div>
+        <img id="spotlightImg" src="" alt="" />
+        <div class="spotlight-img-floor"></div>
+        <div class="spotlight-rotate-hint" id="spotlightRotateHint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M3 12a9 9 0 1 0 9-9M3 12l3-3m-3 3l3 3"/>
+          </svg>
+          Drag to rotate 360°
+        </div>
+      </div>
+      <div class="spotlight-info">
+        <span class="section-tag spotlight-tag">Premium Drop</span>
+        <h2 id="spotlightName"></h2>
+        <div class="spotlight-price" id="spotlightPrice"></div>
+        <p id="spotlightDesc"></p>
+        <div class="spotlight-actions">
+          <button class="btn btn-primary add-to-cart-btn">Add to Cart</button>
+          <a href="https://wa.me/27000000000" target="_blank" class="btn btn-whatsapp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROFILE PANEL -->
+  <div class="profile-overlay" id="profileOverlay">
+    <div class="profile-backdrop" id="profileBackdrop"></div>
+    <aside class="profile-drawer">
+      <button class="profile-close-btn" id="profileClose" aria-label="Close profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="17" height="17">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+      <div class="profile-header">
+        <div class="profile-avatar" id="profileAvatar">?</div>
+        <div class="profile-meta">
+          <div class="profile-display-name" id="profileDisplayName">Guest User</div>
+          <div class="profile-member-since" id="profileMemberSince">Member · 1 day</div>
+        </div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-edit-group">
+          <label for="profileNameInput">Display Name</label>
+          <input type="text" id="profileNameInput" placeholder="Enter your name…" maxlength="28" autocomplete="off" />
+          <button class="btn btn-primary btn-sm" id="profileSaveBtn">Save</button>
+        </div>
+        <div class="profile-stats">
+          <div class="profile-stat"><span class="stat-value" id="profileOrderCount">0</span><span class="stat-label">Orders</span></div>
+          <div class="profile-stat"><span class="stat-value" id="profileDays">1</span><span class="stat-label">Days Active</span></div>
+          <div class="profile-stat"><span class="stat-value" id="profileTotalSpent">R0</span><span class="stat-label">Total Spent</span></div>
+        </div>
+        <div class="profile-tabs">
+          <button class="profile-tab active" data-tab="orders">Orders</button>
+          <button class="profile-tab" data-tab="address">Address</button>
+          <button class="profile-tab" data-tab="payments">Payments</button>
+        </div>
+        <div class="profile-tab-panel active" id="tabOrders">
+          <div class="profile-orders" id="profileOrders">
+            <div class="profile-no-orders">No orders yet. <a href="index.html#cart">Go to cart →</a></div>
+          </div>
+        </div>
+        <div class="profile-tab-panel" id="tabAddress">
+          <div class="profile-address-form">
+            <p class="address-hint">Saved address auto-fills at checkout.</p>
+            <div class="addr-row">
+              <label for="addrName">Full Name</label>
+              <input type="text" id="addrName" placeholder="Your full name" autocomplete="name" />
+            </div>
+            <div class="addr-row">
+              <label for="addrStreet">Street Address</label>
+              <input type="text" id="addrStreet" placeholder="Street address" autocomplete="street-address" />
+            </div>
+            <div class="addr-row addr-row-split">
+              <div>
+                <label for="addrCity">City</label>
+                <input type="text" id="addrCity" placeholder="City" autocomplete="address-level2" />
+              </div>
+              <div>
+                <label for="addrPostal">Postal Code</label>
+                <input type="text" id="addrPostal" placeholder="0000" maxlength="6" autocomplete="postal-code" />
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" id="saveAddressBtn">Save Address</button>
+            <span class="addr-saved-msg" id="addrSavedMsg"></span>
+          </div>
+        </div>
+        <div class="profile-tab-panel" id="tabPayments">
+          <div class="profile-payments" id="profilePayments">
+            <div class="profile-no-orders">No payment history yet.</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- Trellishub protection: ToS gate, cookie consent, right-click guard, watermark -->
+  <script>window.TH_PROTECTION={tos:true,cookies:true,rightClick:true,watermark:true,privacyUrl:'../../privacy-policy.html'};</script>
+  <script src="../../assets/js/protection.js"></script>
+</body>
+</html>

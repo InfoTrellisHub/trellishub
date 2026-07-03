@@ -10,14 +10,27 @@
     "link": "/portfolio/service.html"
   },
   {
-    "id": "medical",
-    "title": "BrightSmile Dental",
+    "id": "multi",
+    "title": "Doctor Practice & Retail Storefront",
     "tier": "Tier 2",
-    "industry": "Doctor / Dental Practice",
-    "description": "A clean, calming website for a dental practice featuring online appointment booking, service highlights, and patient trust signals.",
-    "features": ["Online Booking", "Service Pages", "Patient Testimonials"],
-    "aesthetic": "Clean, professional, calming",
-    "link": "/portfolio/medical.html"
+    "industry": "Two Industries, One Tier",
+    "description": "Two full working examples of a Tier 2 build — pick the one closest to your industry to explore.",
+    "features": ["2 Live Demos", "Online Booking", "Cart & Checkout"],
+    "aesthetic": "Varies by demo",
+    "demos": [
+      {
+        "title": "BrightSmile Dental",
+        "industry": "Doctor / Dental Practice",
+        "description": "A clean, calming website for a dental practice featuring online appointment booking, service highlights, and patient trust signals.",
+        "link": "/portfolio/medical.html"
+      },
+      {
+        "title": "Kick Cartel",
+        "industry": "Sneaker & Streetwear Retail",
+        "description": "A premium sneaker culture storefront with featured drops, a full product gallery, and a working cart and checkout flow.",
+        "link": "/portfolio/shipndrip/index.html"
+      }
+    ]
   },
   {
     "id": "sales",

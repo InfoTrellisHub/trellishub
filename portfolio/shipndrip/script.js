@@ -151,7 +151,7 @@ if (hamburger && navLinks) {
   Cart._updateBadges();
   $$('.cart-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      if (isGallery) { window.location.href = 'index.html#cart'; return; }
+      if (isGallery) { window.location.href = '/portfolio/shipndrip/index.html#cart'; return; }
       const cart = document.getElementById('cart');
       if (cart) cart.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
@@ -703,7 +703,7 @@ if (hamburger && navLinks) {
     // ── Orders tab ──
     if (ordersEl) {
       if (!orders.length) {
-        ordersEl.innerHTML = `<div class="profile-no-orders">No orders yet. <a href="gallery.html">Shop the gallery →</a></div>`;
+        ordersEl.innerHTML = `<div class="profile-no-orders">No orders yet. <a href="/portfolio/shipndrip/gallery.html">Shop the gallery →</a></div>`;
       } else {
         ordersEl.innerHTML = [...orders].reverse().map(order => {
           const stepIdx = getStep(order);

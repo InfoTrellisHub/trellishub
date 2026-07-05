@@ -418,6 +418,11 @@
   height: 20px;
 }
 
+.payment-trust-logo-amex {
+  height: 26px;
+  border-radius: 4px;
+}
+
 .payment-trust-divider {
   width: 1px;
   height: 20px;

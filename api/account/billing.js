@@ -35,14 +35,14 @@ module.exports = async function handler(req, res) {
     ] = await Promise.all([
       supabase
         .from('care_plans')
-        .select('status, currency, monthly_price, renewal_date')
+        .select('status, currency, monthly_price, renewal_date, payfast_token')
         .eq('customer_id', cid)
         .eq('status', 'active')
         .maybeSingle(),
 
       supabase
         .from('invoices')
-        .select('invoice_no, description, amount, currency, date')
+        .select('id, invoice_no, description, amount, currency, date, status')
         .eq('customer_id', cid)
         .order('date', { ascending: false }),
 
@@ -59,18 +59,21 @@ module.exports = async function handler(req, res) {
 
     const carePlan = plan
       ? {
-          name:          'Care Plan',
-          monthly_price: plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
-          renewal_date:  fmtDate(plan.renewal_date),
-          status:        plan.status,
+          name:             'Care Plan',
+          monthly_price:    plan.monthly_price ? `${plan.currency || ''} ${plan.monthly_price}`.trim() : null,
+          renewal_date:     fmtDate(plan.renewal_date),
+          status:           plan.status,
+          recurring_active: Boolean(plan.payfast_token),
         }
       : null;
 
     const invoiceList = (invoices || []).map((inv) => ({
+      id:          inv.id,
       invoice_no:  inv.invoice_no,
       description: inv.description || null,
       date:        fmtDate(inv.date),
       amount:      inv.amount != null ? `${inv.currency || ''} ${inv.amount}`.trim() : null,
+      status:      inv.status || 'unpaid',
     }));
 
     const paymentList = (payments || []).map((p) => ({

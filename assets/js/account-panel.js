@@ -199,13 +199,14 @@ window.TrellisAccountPanel = (function () {
     // ── Invoices sub-section ─────────────────────────────────────────────────
     const invoicesHtml = invoices.length
       ? invoices.map((inv) => `
-          <div class="ap-billing-invoice">
+          <div class="ap-billing-invoice" data-invoice-id="${inv.id}">
             <div class="ap-billing-invoice-meta">
               <span class="ap-billing-invoice-num">Invoice #${inv.invoice_no || '—'}</span>
               <span class="ap-billing-invoice-date">${inv.date || '—'}</span>
               <span class="ap-billing-invoice-amount">${inv.amount || '—'}</span>
             </div>
             ${inv.description ? `<p class="ap-billing-invoice-desc">${inv.description}</p>` : ''}
+            ${inv.status === 'unpaid' && inv.id ? `<button type="button" class="btn-secondary btn-sm ap-pay-invoice-btn" data-pay-invoice="${inv.id}">Pay Now</button>` : ''}
           </div>
         `).join('')
       : '<p class="ap-proj-empty">No invoices yet.</p>';
@@ -226,6 +227,7 @@ window.TrellisAccountPanel = (function () {
               ${care_plan.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${care_plan.monthly_price}</span></div>` : ''}
               ${care_plan.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${care_plan.renewal_date}</span></div>`  : ''}
               <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
+              ${!care_plan.recurring_active ? '<button type="button" class="btn-secondary btn-sm" id="apSetupRecurringBtn">Set up recurring billing</button>' : '<p class="ap-proj-empty" style="margin:0">Recurring billing is active.</p>'}
             </div>
           </div>
         </div>
@@ -287,6 +289,49 @@ window.TrellisAccountPanel = (function () {
         header.setAttribute('aria-expanded', String(!isOpen));
       });
     });
+
+    container.querySelectorAll('[data-pay-invoice]').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        startPayfastCheckout({ type: 'invoice', invoice_id: btn.dataset.payInvoice }, btn);
+      });
+    });
+
+    const recurringBtn = qs('#apSetupRecurringBtn', container);
+    if (recurringBtn) {
+      recurringBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        startPayfastCheckout({ type: 'subscription' }, recurringBtn);
+      });
+    }
+  }
+
+  // Requests a signed PayFast checkout from the server, then builds and submits a
+  // hidden form to PayFast — a real browser POST is required, so a server-side
+  // redirect can't be used to send the customer to PayFast's checkout page.
+  async function startPayfastCheckout(payload, btn) {
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Redirecting…';
+    try {
+      const data = await api('/api/payments/checkout', { method: 'POST', body: payload });
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = data.action;
+      Object.entries(data.fields).forEach(([name, value]) => {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        form.appendChild(input);
+      });
+      document.body.appendChild(form);
+      form.submit();
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      alert(err.message || 'Could not start checkout. Please try again.');
+    }
   }
 
   // ── Notifications section ─────────────────────────────────────────────────

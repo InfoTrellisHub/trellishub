@@ -379,6 +379,52 @@
   margin-top: var(--space-6);
 }
 
+.payment-trust {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.payment-trust-label {
+  font-size: var(--text-xs);
+  color: var(--color-muted);
+  letter-spacing: 0.02em;
+}
+
+.payment-trust-logos {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.payment-trust-logo {
+  height: 22px;
+  width: auto;
+  opacity: 0.85;
+  filter: grayscale(0.15);
+  transition: opacity 0.2s ease, filter 0.2s ease;
+}
+
+.payment-trust-logo:hover {
+  opacity: 1;
+  filter: none;
+}
+
+.payment-trust-logo-payfast {
+  height: 20px;
+}
+
+.payment-trust-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--color-border);
+  opacity: 0.6;
+}
+
 .pricing-locale-note {
   font-size: var(--text-xs);
   color: var(--color-muted);

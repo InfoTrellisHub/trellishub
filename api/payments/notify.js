@@ -3,6 +3,7 @@
 // until the signature AND PayFast's own postback validation both pass.
 const { getSupabase } = require('../../lib/supabase');
 const { sendTeamNotification } = require('../../lib/mailer');
+const { isRateLimited } = require('../../lib/rateLimit');
 const payfast = require('../../lib/payfast');
 
 // Raw body is required for exact-byte signature recomputation and for reposting to
@@ -31,6 +32,13 @@ function addOneMonth(date) {
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).send('Method not allowed');
+    return;
+  }
+
+  // This URL only ever receives ITNs for our own PayFast transactions, so volume is
+  // naturally bounded by real payment activity — this just guards against garbage/spam.
+  if (isRateLimited(req, { key: 'payments-notify', max: 30, windowMs: 10 * 60 * 1000 })) {
+    res.status(429).send('Too many requests');
     return;
   }
 

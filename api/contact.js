@@ -38,16 +38,24 @@ module.exports = async function handler(req, res) {
 
     if (error) throw error;
 
-    await sendTeamNotification(
-      `New contact form submission — ${data.name}`,
-      `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || '—'}\nCompany: ${data.company || '—'}\n\nMessage:\n${data.message}`
-    );
+    try {
+      await sendTeamNotification(
+        `New contact form submission — ${data.name}`,
+        `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || '—'}\nCompany: ${data.company || '—'}\n\nMessage:\n${data.message}`
+      );
+    } catch (e) {
+      console.warn('Team notification email failed:', e.message);
+    }
 
-    sendMail({
-      to: data.email,
-      subject: "Thanks for reaching out to Trellis",
-      text: `Hi ${data.name},\n\nThanks for your message — we've received it and will be in touch within 24 hours.\n\n— The Trellis team`
-    }).catch((e) => console.warn('Visitor ack email failed:', e.message));
+    try {
+      await sendMail({
+        to: data.email,
+        subject: "Thanks for reaching out to Trellis",
+        text: `Hi ${data.name},\n\nThanks for your message — we've received it and will be in touch within 24 hours.\n\n— The Trellis team`
+      });
+    } catch (e) {
+      console.warn('Visitor ack email failed:', e.message);
+    }
 
     res.status(200).json({ success: true, id: row.id });
   } catch (e) {
@@ -59,6 +67,6 @@ module.exports = async function handler(req, res) {
       hint:    e.hint,
       stack:   e.stack,
     });
-    res.status(500).json({ success: false, error: e.message || 'Something went wrong. Please try again or email us directly.' });
+    res.status(500).json({ success: false, error: 'Something went wrong. Please try again or email us directly.' });
   }
 };

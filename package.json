@@ -7,7 +7,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "dev": "vercel dev"
+    "start": "vercel dev"
   },
   "dependencies": {
     "@sendgrid/mail": "^8.1.6",

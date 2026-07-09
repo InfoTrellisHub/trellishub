@@ -19,7 +19,7 @@
   /* ── Inject CSS ──────────────────────────────────────────────────── */
   var CSS = [
     /* ToS overlay */
-    '#th-tos-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;font-family:system-ui,-apple-system,sans-serif;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);}',
+    '#th-tos-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:20px;font-family:system-ui,-apple-system,sans-serif;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);cursor:auto;}',
     '#th-tos-modal{background:#fff;border-radius:16px;max-width:580px;width:100%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 24px 80px rgba(0,0,0,.5);overflow:hidden;}',
     '.th-tos-hd{padding:26px 30px 18px;border-bottom:1px solid #e8e8e8;flex-shrink:0;}',
     '.th-tos-brand{font-size:1rem;font-weight:800;letter-spacing:-.01em;color:#10241C;margin-bottom:6px;}',
@@ -38,7 +38,7 @@
     '.th-tos-btn:disabled{opacity:.38;cursor:not-allowed;}',
     '.th-tos-btn:not(:disabled):hover{background:#145C3A;}',
     /* Cookie banner */
-    '#th-cookie{position:fixed;bottom:0;left:0;right:0;background:#10241C;color:#fff;z-index:9999;padding:14px 24px;font-family:system-ui,-apple-system,sans-serif;font-size:.875rem;line-height:1.55;box-shadow:0 -4px 24px rgba(0,0,0,.25);display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:transform .3s ease;}',
+    '#th-cookie{position:fixed;bottom:0;left:0;right:0;background:#10241C;color:#fff;z-index:2147483646;padding:14px 24px;font-family:system-ui,-apple-system,sans-serif;font-size:.875rem;line-height:1.55;box-shadow:0 -4px 24px rgba(0,0,0,.25);display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:transform .3s ease;cursor:auto;}',
     '#th-cookie p{margin:0;flex:1;min-width:220px;color:rgba(255,255,255,.82);}',
     '#th-cookie a{color:#7ACBA3;text-decoration:underline;}',
     '.th-ck-btns{display:flex;gap:10px;flex-shrink:0;}',

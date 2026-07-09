@@ -153,7 +153,8 @@ window.TrellisAuth = (function () {
       }
       setStatus(statusEl, 'Signing in…', '');
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const client = await ensureSupabase();
+        const { data, error } = await client.auth.signInWithPassword({ email, password });
         if (error) throw new Error(error.message || error.error_description || JSON.stringify(error) || 'Sign-in failed — please try again.');
         const result = await exchangeToken(data.session.access_token, data.user);
         setStatus(statusEl, 'Logged in!', 'success');
@@ -180,7 +181,8 @@ window.TrellisAuth = (function () {
       }
       setStatus(statusEl, 'Creating account…', '');
       try {
-        const { data, error } = await supabase.auth.signUp({
+        const client = await ensureSupabase();
+        const { data, error } = await client.auth.signUp({
           email, password,
           options: { data: { full_name: name }, emailRedirectTo: window.location.origin + '/' },
         });
@@ -217,7 +219,8 @@ window.TrellisAuth = (function () {
       }
       setStatus(statusEl, 'Sending…', '');
       try {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        const client = await ensureSupabase();
+        const { error } = await client.auth.resetPasswordForEmail(email, {
           redirectTo: window.location.origin + '/'
         });
         if (error) throw new Error(error.message);
@@ -241,7 +244,8 @@ window.TrellisAuth = (function () {
       }
       setStatus(statusEl, 'Updating password…', '');
       try {
-        const { data, error } = await supabase.auth.updateUser({ password });
+        const client = await ensureSupabase();
+        const { data, error } = await client.auth.updateUser({ password });
         if (error) throw new Error(error.message);
         const result = await exchangeToken(data.session.access_token, data.user);
         setStatus(statusEl, 'Password updated! You are now logged in.', 'success');
@@ -255,8 +259,9 @@ window.TrellisAuth = (function () {
 
   async function initSupabase() {
     try {
+      if (!window.supabase) throw new Error('Supabase client library did not load.');
       const config = await api('/api/auth/config');
-      if (!config.supabaseUrl || !config.supabaseAnonKey) return;
+      if (!config.supabaseUrl || !config.supabaseAnonKey) throw new Error('Supabase is not configured.');
       supabase = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
       supabase.auth.onAuthStateChange((event) => {
         if (event === 'PASSWORD_RECOVERY') {
@@ -266,8 +271,17 @@ window.TrellisAuth = (function () {
         }
       });
     } catch (e) {
+      supabase = null;
       console.warn('[TrellisAuth] Supabase init failed:', e.message);
     }
+  }
+
+  // Re-attempts init if the first pass failed (e.g. a transient network hiccup
+  // loading the CDN/library) so a stuck client doesn't permanently break the forms.
+  async function ensureSupabase() {
+    if (!supabase) await initSupabase();
+    if (!supabase) throw new Error('Unable to connect to the sign-in service. Please refresh the page and try again.');
+    return supabase;
   }
 
   async function checkForEmailConfirmation() {
@@ -357,14 +371,14 @@ window.TrellisAuth = (function () {
   }
 
   async function updatePassword(newPassword) {
-    if (!supabase) throw new Error('Auth not initialised.');
-    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    const client = await ensureSupabase();
+    const { error } = await client.auth.updateUser({ password: newPassword });
     if (error) throw new Error(error.message);
   }
 
   async function updateEmail(newEmail) {
-    if (!supabase) throw new Error('Auth not initialised.');
-    const { error } = await supabase.auth.updateUser({ email: newEmail });
+    const client = await ensureSupabase();
+    const { error } = await client.auth.updateUser({ email: newEmail });
     if (error) throw new Error(error.message);
   }
 

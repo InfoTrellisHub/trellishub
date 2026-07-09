@@ -247,7 +247,9 @@ window.TrellisAuth = (function () {
         const client = await ensureSupabase();
         const { data, error } = await client.auth.updateUser({ password });
         if (error) throw new Error(error.message);
-        const result = await exchangeToken(data.session.access_token, data.user);
+        const { data: { session } } = await client.auth.getSession();
+        if (!session) throw new Error('Password updated — please log in with your new password.');
+        const result = await exchangeToken(session.access_token, data.user);
         setStatus(statusEl, 'Password updated! You are now logged in.', 'success');
         handleAuthSuccess(result.customer);
         setTimeout(closeModal, 1200);

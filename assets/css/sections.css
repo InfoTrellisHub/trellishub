@@ -437,6 +437,26 @@
   font-style: italic;
 }
 
+.launch-special-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  background: var(--color-green-100);
+  border: 1px solid var(--color-green-600);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-5);
+  text-align: center;
+}
+
+.launch-special-banner p {
+  margin: 0;
+  color: var(--color-green-700);
+  font-size: var(--text-base);
+}
+
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

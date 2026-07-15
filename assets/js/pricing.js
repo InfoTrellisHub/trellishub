@@ -56,8 +56,20 @@
     LV: 'EUR', LT: 'EUR', CY: 'EUR', MT: 'EUR',
   };
 
+  // Launch-phase special: 70% off once-off build prices only. Care plan pricing is untouched.
+  // Flip `active` to false to revert the whole site to normal pricing.
+  const SALE = {
+    active: true,
+    buildDiscountPercent: 70,
+  };
+
   function fmt(symbol, amount) {
     return `${symbol}${amount.toLocaleString()}`;
+  }
+
+  // Discounts to a psychological price point ending in 9 (e.g. 1199.7 -> 1199).
+  function psychoRound(amount) {
+    return Math.round(amount / 10) * 10 - 1;
   }
 
   function render(currencyCode) {
@@ -65,12 +77,42 @@
     const set = (key, val) => {
       qsa(`[data-price="${key}"]`).forEach((el) => { el.textContent = val; });
     };
-    set('starter-build', fmt(p.symbol, p.starter.build));
-    set('starter-care',  fmt(p.symbol, p.starter.care));
-    set('growth-build',  fmt(p.symbol, p.growth.build));
-    set('growth-care',   fmt(p.symbol, p.growth.care));
-    set('premium-build', fmt(p.symbol, p.premium.build));
-    set('premium-care',  fmt(p.symbol, p.premium.care));
+    const setOriginal = (key, val) => {
+      qsa(`[data-price-original="${key}"]`).forEach((el) => {
+        el.textContent = val;
+        el.hidden = !SALE.active;
+      });
+    };
+    const setSave = (key, val) => {
+      qsa(`[data-price-save="${key}"]`).forEach((el) => {
+        el.textContent = val;
+        el.hidden = !SALE.active;
+      });
+    };
+    const setBuild = (key, tier) => {
+      if (SALE.active) {
+        const discounted = psychoRound(tier.build * (1 - SALE.buildDiscountPercent / 100));
+        set(key, fmt(p.symbol, discounted));
+        setOriginal(key, fmt(p.symbol, tier.build));
+        setSave(key, `Save ${SALE.buildDiscountPercent}% — ${fmt(p.symbol, tier.build - discounted)} off`);
+      } else {
+        set(key, fmt(p.symbol, tier.build));
+        setOriginal(key, '');
+        setSave(key, '');
+      }
+    };
+
+    setBuild('starter-build', p.starter);
+    set('starter-care', fmt(p.symbol, p.starter.care));
+    setBuild('growth-build', p.growth);
+    set('growth-care', fmt(p.symbol, p.growth.care));
+    setBuild('premium-build', p.premium);
+    set('premium-care', fmt(p.symbol, p.premium.care));
+
+    // Only force-hide when the sale is off; never force-show (a dismissed promo bar must stay dismissed).
+    if (!SALE.active) {
+      qsa('[data-sale-only]').forEach((el) => { el.hidden = true; });
+    }
   }
 
   function currencyFromLocale() {
@@ -109,5 +151,5 @@
 
   detectAndRender();
 
-  window.TrellisPricing = { PRICES, render, detectAndRender };
+  window.TrellisPricing = { PRICES, SALE, render, detectAndRender };
 })();

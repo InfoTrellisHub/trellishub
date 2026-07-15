@@ -68,6 +68,19 @@
     revealTargets.forEach((el) => el.classList.add('is-visible'));
   }
 
+  // Launch special promo bar dismiss (persists across visits)
+  const promoBar = qs('#promoBar');
+  const promoBarClose = qs('#promoBarClose');
+  if (promoBar && promoBarClose) {
+    if (localStorage.getItem('trellis_promo_dismissed') === '1') {
+      promoBar.hidden = true;
+    }
+    promoBarClose.addEventListener('click', () => {
+      promoBar.hidden = true;
+      localStorage.setItem('trellis_promo_dismissed', '1');
+    });
+  }
+
   // Footer year
   const yearEl = qs('#footerYear');
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

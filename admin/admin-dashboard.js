@@ -171,6 +171,41 @@
     }
   }
 
+  function wireNewCustomerForm() {
+    const toggleBtn = qs('#newCustomerBtn');
+    const panel = qs('#newCustomerForm');
+    const cancelBtn = qs('#cancelNewCustomerBtn');
+    const form = qs('#createCustomerForm');
+    if (!toggleBtn || !form) return;
+
+    toggleBtn.addEventListener('click', () => {
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    });
+    cancelBtn.addEventListener('click', () => {
+      form.reset();
+      panel.style.display = 'none';
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const statusEl = qs('#createCustomerStatus');
+      const name = qs('#newCustomerName').value.trim();
+      const email = qs('#newCustomerEmail').value.trim();
+      const password = qs('#newCustomerPassword').value;
+      setStatus(statusEl, 'Creating account…', '');
+      try {
+        const result = await api('/api/admin/create-customer', { method: 'POST', body: { name, email, password: password || undefined } });
+        const pwNote = result.password ? ` Password: ${result.password}` : '';
+        setStatus(statusEl, `Account created for ${escapeHtml(email)}.${pwNote} Share these with them to log in.`, 'success');
+        form.reset();
+        loaded.customers = false;
+        loadCustomers();
+      } catch (err) {
+        setStatus(statusEl, err.message || 'Could not create the account.', 'error');
+      }
+    });
+  }
+
   async function loadCustomers() {
     const body = qs('#customersTableBody');
     body.innerHTML = '<tr><td colspan="6">Loading…</td></tr>';
@@ -229,6 +264,7 @@
     if (!session) return;
     wireLogout();
     wireTabs();
+    wireNewCustomerForm();
     loadPanel('leads');
   }
 

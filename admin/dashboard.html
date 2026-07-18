@@ -76,7 +76,34 @@
     </section>
 
     <section class="admin-panel" data-admin-panel="customers">
-      <h2 style="font-size: var(--text-xl);">Customers</h2>
+      <div class="flex-between" style="align-items:center; margin-bottom: var(--space-3);">
+        <h2 style="font-size: var(--text-xl); margin:0;">Customers</h2>
+        <button class="btn btn-secondary btn-sm" id="newCustomerBtn">+ New Customer</button>
+      </div>
+
+      <div class="card" id="newCustomerForm" style="display:none; margin-bottom: var(--space-4);">
+        <h3 style="margin-top:0;">Create Customer Account</h3>
+        <form id="createCustomerForm">
+          <div class="form-row">
+            <label for="newCustomerName">Name</label>
+            <input type="text" id="newCustomerName" required />
+          </div>
+          <div class="form-row">
+            <label for="newCustomerEmail">Email</label>
+            <input type="email" id="newCustomerEmail" required />
+          </div>
+          <div class="form-row">
+            <label for="newCustomerPassword">Password (leave blank to auto-generate)</label>
+            <input type="text" id="newCustomerPassword" minlength="8" placeholder="Auto-generate" />
+          </div>
+          <div class="flex gap-3">
+            <button type="submit" class="btn btn-primary btn-sm">Create Account</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="cancelNewCustomerBtn">Cancel</button>
+          </div>
+          <div class="form-status" id="createCustomerStatus" role="status"></div>
+        </form>
+      </div>
+
       <div style="overflow-x:auto;">
         <table class="admin-table">
           <thead><tr><th>Joined</th><th>Name</th><th>Email</th><th>Care Plan</th><th>Renewal</th><th>Manage</th></tr></thead>

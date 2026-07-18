@@ -196,6 +196,7 @@
 
 .promo-bar-inner p {
   margin: 0;
+  color: var(--color-white);
   font-size: var(--text-sm);
   font-weight: 500;
 }

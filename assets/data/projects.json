@@ -34,12 +34,25 @@
   },
   {
     "id": "sales",
-    "title": "UrbanEdge Clothing",
+    "title": "Clothing & Fine Jewelry Storefront",
     "tier": "Tier 3",
-    "industry": "Sales-Based Business",
-    "description": "A bold, product-driven website for a clothing brand with featured collections, strong CTAs, and a streamlined purchase flow.",
-    "features": ["Product Showcase", "Strong CTAs", "Collection Pages"],
-    "aesthetic": "Bold, visual, conversion-focused",
-    "link": "/portfolio/sales.html"
+    "industry": "Two Brands, One Tier",
+    "description": "Two full working examples of a Tier 3 build — pick the one closest to your industry to explore.",
+    "features": ["2 Live Demos", "Product Showcase", "Strong CTAs"],
+    "aesthetic": "Varies by demo",
+    "demos": [
+      {
+        "title": "UrbanEdge Clothing",
+        "industry": "Sales-Based Business",
+        "description": "A bold, product-driven website for a clothing brand with featured collections, strong CTAs, and a streamlined purchase flow.",
+        "link": "/portfolio/sales.html"
+      },
+      {
+        "title": "Aurélion",
+        "industry": "Fine Jewelry & Watches",
+        "description": "A minimalist luxury site for a Swiss watchmaking and jewelry maison, with an interactive collection showcase, a private Ring Atelier, and a 'Book a Viewing' consultation flow.",
+        "link": "https://trellis-jewellery.vercel.app/"
+      }
+    ]
   }
 ]

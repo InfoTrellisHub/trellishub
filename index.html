@@ -40,7 +40,7 @@
   <!-- ===== Launch Special promo bar ===== -->
   <div class="promo-bar" data-sale-only id="promoBar">
     <div class="container promo-bar-inner">
-      <p><span aria-hidden="true">🚀</span> <strong>Launch Special:</strong> 70% off all website builds for our first 3 founding clients — only 1 spot left. <a href="#pricing">See pricing</a></p>
+      <p><span aria-hidden="true">⏰</span> <strong>Last Chance Early Bird:</strong> 30% off all website build prices — ends July 31, 2026. <a href="#pricing">See pricing</a></p>
       <button type="button" class="promo-bar-close" id="promoBarClose" aria-label="Dismiss announcement">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -232,12 +232,35 @@
         <div class="section-head" data-reveal>
           <span class="eyebrow">Simple, Transparent Pricing</span>
           <h2>Three ways to get started</h2>
-          <p>Every package includes a custom website build and an optional ongoing care plan. Pick the tier that fits your business.</p>
+          <p>Every package includes a custom website build and an optional ongoing care plan. Pick the tier that fits your business — your build tier and care plan tier don't have to match, so mix and match as needed.</p>
         </div>
 
         <div class="launch-special-banner" data-sale-only data-reveal>
-          <span class="badge badge-promo">Launch Special</span>
-          <p><strong>70% off</strong> every website build, for our first 3 founding clients — only 1 spot left. Your monthly care plan price stays exactly the same.</p>
+          <div class="launch-special-text">
+            <span class="badge badge-promo">Last Chance</span>
+            <p><strong>30% off</strong> every website build price — Early Bird Discount ends July 31, 2026. Your monthly care plan price stays exactly the same.</p>
+          </div>
+          <div class="countdown-timer" id="earlyBirdCountdown" role="timer" aria-live="off" aria-label="Time remaining for the Early Bird Discount">
+            <div class="countdown-unit">
+              <span class="countdown-value" data-countdown="days">00</span>
+              <span class="countdown-label">Days</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-value" data-countdown="hours">00</span>
+              <span class="countdown-label">Hours</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-value" data-countdown="minutes">00</span>
+              <span class="countdown-label">Mins</span>
+            </div>
+            <span class="countdown-sep" aria-hidden="true">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-value" data-countdown="seconds">00</span>
+              <span class="countdown-label">Secs</span>
+            </div>
+          </div>
         </div>
 
         <div class="pricing-grid">
@@ -338,6 +361,8 @@
           </div>
 
         </div>
+
+        <p class="pricing-footnote" data-reveal>Not sure which combination fits? <strong>Any care plan pairs with any build</strong> — a Starter build with a Premium care plan (or vice versa) is completely fine. Tell us your needs and we'll help you pick.</p>
 
         <p class="pricing-footnote" data-reveal>We also offer <strong>flexible payment plans</strong> to help businesses get started — ask us about options when you book a consultation.</p>
 

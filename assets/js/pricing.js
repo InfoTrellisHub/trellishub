@@ -56,11 +56,13 @@
     LV: 'EUR', LT: 'EUR', CY: 'EUR', MT: 'EUR',
   };
 
-  // Launch-phase special: 70% off once-off build prices only. Care plan pricing is untouched.
-  // Flip `active` to false to revert the whole site to normal pricing.
+  // Last Chance Early Bird Discount: 30% off once-off build prices only, through Jul 31 2026.
+  // Care plan pricing is untouched. Auto-expires after SALE_END so it can't linger unnoticed;
+  // flip `active` to false manually to end it sooner.
+  const SALE_END = new Date('2026-07-31T23:59:59+02:00');
   const SALE = {
-    active: true,
-    buildDiscountPercent: 70,
+    active: new Date() <= SALE_END,
+    buildDiscountPercent: 30,
   };
 
   function fmt(symbol, amount) {
@@ -149,7 +151,41 @@
     });
   });
 
-  detectAndRender();
+  // Live countdown to SALE_END for the Early Bird banner.
+  function startCountdown() {
+    const el = qs('#earlyBirdCountdown');
+    if (!el || !SALE.active) return;
 
-  window.TrellisPricing = { PRICES, SALE, render, detectAndRender };
+    const DAY = 24 * 60 * 60 * 1000;
+    const values = {
+      days: qs('[data-countdown="days"]', el),
+      hours: qs('[data-countdown="hours"]', el),
+      minutes: qs('[data-countdown="minutes"]', el),
+      seconds: qs('[data-countdown="seconds"]', el),
+    };
+
+    const pad = (n) => String(n).padStart(2, '0');
+
+    function tick() {
+      const remaining = SALE_END.getTime() - Date.now();
+      if (remaining <= 0) {
+        clearInterval(timerId);
+        el.hidden = true;
+        return;
+      }
+      values.days.textContent = pad(Math.floor(remaining / DAY));
+      values.hours.textContent = pad(Math.floor((remaining % DAY) / (60 * 60 * 1000)));
+      values.minutes.textContent = pad(Math.floor((remaining % (60 * 60 * 1000)) / (60 * 1000)));
+      values.seconds.textContent = pad(Math.floor((remaining % (60 * 1000)) / 1000));
+      el.classList.toggle('is-ending-soon', remaining <= DAY);
+    }
+
+    tick();
+    const timerId = setInterval(tick, 1000);
+  }
+
+  detectAndRender();
+  startCountdown();
+
+  window.TrellisPricing = { PRICES, SALE, SALE_END, render, detectAndRender };
 })();

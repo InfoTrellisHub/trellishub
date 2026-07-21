@@ -1,17 +1,11 @@
-// Draggable left-side account panel with accordion sections.
+// Right-side account panel with tabbed sections.
 // window.TrellisAccountPanel: { show, hide, openPanel, closePanel }
 window.TrellisAccountPanel = (function () {
-  const { qs, api, setStatus } = window.TrellisUtils;
+  const { qs, qsa, api, setStatus } = window.TrellisUtils;
 
-  let panel, tab, backdrop;
-  let isDragging = false;
-  let dragStartX = 0;
-  let dragStartY = 0;
-  let panelStartTop = 0;
-  let lastDeltaX = 0;
+  let panel, backdrop;
   let currentCustomer = null;
-
-  const DISMISS_THRESHOLD = -80;
+  let activeTab = 'profile';
 
   function getInitials(name) {
     if (!name) return '?';
@@ -26,20 +20,17 @@ window.TrellisAccountPanel = (function () {
   function openPanel() {
     if (!panel) return;
     panel.classList.remove('is-hidden');
-    if (tab) tab.style.display = 'none';
     if (backdrop) backdrop.classList.add('is-visible');
     document.body.classList.add('panel-open');
   }
 
   function closePanel() {
     if (!panel) return;
-    panel.style.transform = '';
-    panel.style.top = '';
-    panel.classList.remove('is-dragged');
     panel.classList.add('is-hidden');
-    if (tab) tab.style.display = 'block';
     if (backdrop) backdrop.classList.remove('is-visible');
     document.body.classList.remove('panel-open');
+    const confirmBox = qs('#apLogoutConfirm');
+    if (confirmBox) confirmBox.setAttribute('hidden', '');
   }
 
   function show(customer) {
@@ -49,44 +40,36 @@ window.TrellisAccountPanel = (function () {
     qs('#accountPanelName').textContent  = customer.name  || '';
     qs('#accountPanelEmail').textContent = customer.email || '';
     populateProfile();
-    if (tab) tab.style.display = 'block';
+    switchTab('profile', { force: true });
     openPanel();
   }
 
   function hide() {
     if (!panel) return;
     panel.classList.add('is-hidden');
-    if (tab) tab.style.display = 'none';
     if (backdrop) backdrop.classList.remove('is-visible');
     document.body.classList.remove('panel-open');
   }
 
-  // ── Accordion ─────────────────────────────────────────────────────────────
+  // ── Tabs ─────────────────────────────────────────────────────────────────
 
-  let openSectionId = null;
+  function switchTab(key, opts) {
+    const force = opts && opts.force;
+    if (key === activeTab && !force) return;
+    activeTab = key;
 
-  function toggleSection(sectionEl, sectionId) {
-    const isAlreadyOpen = sectionEl.classList.contains('is-open');
-
-    // Close all
-    panel.querySelectorAll('.ap-section').forEach((s) => {
-      s.classList.remove('is-open');
-      const h = s.querySelector('.ap-section-header');
-      if (h) h.setAttribute('aria-expanded', 'false');
+    qsa('.ap-tab', panel).forEach((btn) => {
+      const isActive = btn.dataset.apTab === key;
+      btn.classList.toggle('is-active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
     });
-    openSectionId = null;
+    qsa('.ap-tab-panel', panel).forEach((p) => {
+      p.classList.toggle('is-active', p.dataset.apPanel === key);
+    });
 
-    if (!isAlreadyOpen) {
-      sectionEl.classList.add('is-open');
-      const h = sectionEl.querySelector('.ap-section-header');
-      if (h) h.setAttribute('aria-expanded', 'true');
-      openSectionId = sectionId;
-
-      // Lazy-load data sections
-      if (sectionId === 'billing')       loadBilling();
-      if (sectionId === 'notifications') loadNotifications();
-      if (sectionId === 'projects')      loadProjects();
-    }
+    if (key === 'billing')       loadBilling();
+    if (key === 'notifications') loadNotifications();
+    if (key === 'projects')      loadProjects();
   }
 
   // ── Profile section ───────────────────────────────────────────────────────
@@ -122,6 +105,15 @@ window.TrellisAccountPanel = (function () {
     }
   }
 
+  function resetPasswordForm() {
+    const currentInput = qs('#settingsCurrentPassword');
+    const newInput     = qs('#settingsNewPassword');
+    if (currentInput) currentInput.value = '';
+    if (newInput)     newInput.value = '';
+    const statusEl = qs('#passwordStatus');
+    if (statusEl) { statusEl.textContent = ''; statusEl.className = 'form-status'; }
+  }
+
   function wirePasswordToggle() {
     const toggleBtn  = qs('#changePasswordBtn');
     const form       = qs('#changePasswordForm');
@@ -137,29 +129,31 @@ window.TrellisAccountPanel = (function () {
         } else {
           form.setAttribute('hidden', '');
           toggleBtn.textContent = 'Change';
-          const input = qs('#settingsNewPassword');
-          if (input) input.value = '';
-          if (statusEl) { statusEl.textContent = ''; statusEl.className = 'form-status'; }
+          resetPasswordForm();
         }
       });
     }
 
     if (submitBtn) {
       submitBtn.addEventListener('click', async () => {
-        const input    = qs('#settingsNewPassword');
-        const password = input ? input.value : '';
-        if (password.length < 8) {
-          setStatus(statusEl, 'Password must be at least 8 characters.', 'error');
+        const currentInput = qs('#settingsCurrentPassword');
+        const newInput     = qs('#settingsNewPassword');
+        const current = currentInput ? currentInput.value : '';
+        const next    = newInput ? newInput.value : '';
+        if (!current) {
+          setStatus(statusEl, 'Enter your current password.', 'error');
+          return;
+        }
+        if (next.length < 8) {
+          setStatus(statusEl, 'New password must be at least 8 characters.', 'error');
           return;
         }
         setStatus(statusEl, 'Updating…', '');
         try {
-          await window.TrellisAuth.updatePassword(password);
-          if (input) input.value = '';
-          const form = qs('#changePasswordForm');
-          if (form) form.setAttribute('hidden', '');
-          const btn = qs('#changePasswordBtn');
-          if (btn) btn.textContent = 'Change';
+          await window.TrellisAuth.updatePassword(current, next);
+          resetPasswordForm();
+          form.setAttribute('hidden', '');
+          if (toggleBtn) toggleBtn.textContent = 'Change';
           setStatus(statusEl, 'Password updated!', 'success');
         } catch (err) {
           setStatus(statusEl, err.message || 'Failed to update password.', 'error');
@@ -185,18 +179,26 @@ window.TrellisAccountPanel = (function () {
 
     const { care_plan, invoices = [], payments = [] } = data;
 
-    // ── Nothing at all → friendly placeholder ────────────────────────────────
     if (!care_plan && !invoices.length && !payments.length) {
       container.innerHTML = `
         <p class="ap-proj-empty">No billing history yet.</p>
-        <a class="ap-proj-link" href="/#pricing" onclick="window.TrellisAccountPanel.closePanel(); return true;">
+        <a class="ap-card-link" href="/#pricing" onclick="window.TrellisAccountPanel.closePanel(); return true;">
           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
           View Care Plans
         </a>`;
       return;
     }
 
-    // ── Invoices sub-section ─────────────────────────────────────────────────
+    const carePlanHtml = care_plan ? `
+      <div class="ap-card">
+        <div class="panel-info-row"><span>Plan</span><span>${care_plan.name}</span></div>
+        ${care_plan.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${care_plan.monthly_price}</span></div>` : ''}
+        ${care_plan.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${care_plan.renewal_date}</span></div>`  : ''}
+        <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
+        ${!care_plan.recurring_active ? '<button type="button" class="ap-btn-secondary btn-sm" id="apSetupRecurringBtn">Set up recurring billing</button>' : '<p class="ap-proj-empty" style="margin:0">Recurring billing is active.</p>'}
+      </div>
+    ` : '';
+
     const invoicesHtml = invoices.length
       ? invoices.map((inv) => `
           <div class="ap-billing-invoice" data-invoice-id="${inv.id}">
@@ -206,34 +208,11 @@ window.TrellisAccountPanel = (function () {
               <span class="ap-billing-invoice-amount">${inv.amount || '—'}</span>
             </div>
             ${inv.description ? `<p class="ap-billing-invoice-desc">${inv.description}</p>` : ''}
-            ${inv.status === 'unpaid' && inv.id ? `<button type="button" class="btn-secondary btn-sm ap-pay-invoice-btn" data-pay-invoice="${inv.id}">Pay Now</button>` : ''}
+            ${inv.status === 'unpaid' && inv.id ? `<button type="button" class="ap-btn-secondary btn-sm ap-pay-invoice-btn" data-pay-invoice="${inv.id}">Pay Now</button>` : ''}
           </div>
         `).join('')
       : '<p class="ap-proj-empty">No invoices yet.</p>';
 
-    // ── Care plan sub-section (only rendered when user has an active plan) ───
-    const carePlanSubHtml = care_plan ? `
-        <div class="ap-proj-sub" id="apBillingSubCarePlan">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Care Plan Status</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              <div class="panel-info-row"><span>Plan</span><span>${care_plan.name}</span></div>
-              ${care_plan.monthly_price ? `<div class="panel-info-row"><span>Monthly</span><span>${care_plan.monthly_price}</span></div>` : ''}
-              ${care_plan.renewal_date  ? `<div class="panel-info-row"><span>Renewal</span><span>${care_plan.renewal_date}</span></div>`  : ''}
-              <div class="panel-info-row"><span>Status</span><span><span class="panel-status-badge is-active">Active</span></span></div>
-              ${!care_plan.recurring_active ? '<button type="button" class="btn-secondary btn-sm" id="apSetupRecurringBtn">Set up recurring billing</button>' : '<p class="ap-proj-empty" style="margin:0">Recurring billing is active.</p>'}
-            </div>
-          </div>
-        </div>
-      ` : '';
-
-    // ── Payment history sub-section ──────────────────────────────────────────
     const paymentsHtml = payments.length
       ? payments.map((p) => `
           <div class="panel-info-row">
@@ -244,63 +223,22 @@ window.TrellisAccountPanel = (function () {
       : '<p class="ap-proj-empty">No payments recorded.</p>';
 
     container.innerHTML = `
-      <div class="ap-proj-subs">
-
-        ${carePlanSubHtml}
-
-        <div class="ap-proj-sub" id="apBillingSubInvoices">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Invoices</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              ${invoicesHtml}
-            </div>
-          </div>
-        </div>
-
-        <div class="ap-proj-sub" id="apBillingSubPayments">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Payment History</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              ${paymentsHtml}
-            </div>
-          </div>
-        </div>
-
-      </div>
+      ${care_plan ? `<p class="ap-block-title">Care Plan</p>${carePlanHtml}` : ''}
+      <p class="ap-block-title">Invoices</p>
+      ${invoicesHtml}
+      <p class="ap-block-title">Payment History</p>
+      ${paymentsHtml}
     `;
 
-    container.querySelectorAll('.ap-proj-sub-header').forEach((header) => {
-      header.addEventListener('click', () => {
-        const sub = header.closest('.ap-proj-sub');
-        const isOpen = sub.classList.contains('is-open');
-        sub.classList.toggle('is-open', !isOpen);
-        header.setAttribute('aria-expanded', String(!isOpen));
-      });
-    });
-
     container.querySelectorAll('[data-pay-invoice]').forEach((btn) => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
+      btn.addEventListener('click', () => {
         startPayfastCheckout({ type: 'invoice', invoice_id: btn.dataset.payInvoice }, btn);
       });
     });
 
     const recurringBtn = qs('#apSetupRecurringBtn', container);
     if (recurringBtn) {
-      recurringBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
+      recurringBtn.addEventListener('click', () => {
         startPayfastCheckout({ type: 'subscription' }, recurringBtn);
       });
     }
@@ -339,21 +277,7 @@ window.TrellisAccountPanel = (function () {
   function loadNotifications() {
     const container = qs('#apNotificationsContent');
     if (!container) return;
-    // Placeholder notifications — replace with real API data when available
-    const items = [
-      { icon: '🔔', text: 'Welcome to Trellis! Your account is all set.', time: 'Just now' },
-    ];
-    if (!items.length) {
-      container.innerHTML = '<p class="panel-loading" style="margin:0">No notifications yet.</p>';
-      return;
-    }
-    container.innerHTML = items.map((n) => `
-      <div class="ap-notif-item">
-        <span>${n.icon}</span>
-        <span class="ap-notif-text">${n.text}</span>
-        <span class="ap-notif-time">${n.time}</span>
-      </div>
-    `).join('');
+    container.innerHTML = '<p class="panel-loading" style="margin:0">No notifications yet.</p>';
   }
 
   // ── Projects section ──────────────────────────────────────────────────────
@@ -367,91 +291,63 @@ window.TrellisAccountPanel = (function () {
       const data = await api('/api/account/handover');
       credentialsUrl = data.credentials_url || null;
     } catch {
-      // non-fatal — credentials section will show placeholder
+      // non-fatal — credentials card will show the placeholder link
     }
 
-    const credentialsContent = credentialsUrl
-      ? `<a class="ap-proj-link" href="${credentialsUrl}" target="_blank" rel="noopener" download>
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Download Credentials Document
-              </a>`
-      : `<a class="ap-proj-link" href="/handover/credentials.html" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                Open Handover Document
-              </a>`;
+    const credentialsLink = credentialsUrl
+      ? `<a class="ap-card-link" href="${credentialsUrl}" target="_blank" rel="noopener" download>
+           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+           Download Credentials Document
+         </a>`
+      : `<a class="ap-card-link" href="/handover/credentials.html" target="_blank" rel="noopener">
+           <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+           Open Handover Document
+         </a>`;
 
     container.innerHTML = `
-      <div class="ap-proj-subs">
-
-        <div class="ap-proj-sub" id="apProjSubFiles">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Website Files</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              <p class="ap-proj-empty">Your delivered website source code, assets, and project files will be available here once your project is complete.</p>
-              <a class="ap-proj-link" href="/handover/website-files.html" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                View Handover Document
-              </a>
-            </div>
-          </div>
+      <div class="ap-card">
+        <div class="ap-card-header">
+          <span class="ap-card-icon">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </span>
+          <span class="ap-card-title">Website Files</span>
         </div>
+        <p>Your delivered website source code, assets, and project files will be available here once your project is complete.</p>
+        <a class="ap-card-link" href="/handover/website-files.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Handover Document
+        </a>
+      </div>
 
-        <div class="ap-proj-sub" id="apProjSubTutorials">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Tutorials</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              <p class="ap-proj-empty">Step-by-step video tutorials covering hosting, email setup, managing credentials, and maintaining your site.</p>
-              <a class="ap-proj-link" href="/handover/tutorial.html" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-                View Tutorial Guide
-              </a>
-            </div>
-          </div>
+      <div class="ap-card">
+        <div class="ap-card-header">
+          <span class="ap-card-icon">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          </span>
+          <span class="ap-card-title">Tutorials</span>
         </div>
+        <p>Step-by-step video tutorials covering hosting, email setup, managing credentials, and maintaining your site.</p>
+        <a class="ap-card-link" href="/handover/tutorial.html" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          View Tutorial Guide
+        </a>
+      </div>
 
-        <div class="ap-proj-sub" id="apProjSubCreds">
-          <button class="ap-proj-sub-header" aria-expanded="false">
-            <span class="ap-proj-sub-icon">
-              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </span>
-            <span class="ap-proj-sub-label">Credentials</span>
-            <svg class="ap-chevron" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="ap-proj-sub-body">
-            <div class="ap-proj-sub-content">
-              <p class="ap-proj-empty">Domain details, hosting credentials, email accounts, API keys, and passwords are delivered securely in your handover document.</p>
-              <div class="ap-proj-cred-note">
-                <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                <p>Your credentials are shared privately. Never store passwords in unsecured locations.</p>
-              </div>
-              ${credentialsContent}
-            </div>
-          </div>
+      <div class="ap-card">
+        <div class="ap-card-header">
+          <span class="ap-card-icon">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </span>
+          <span class="ap-card-title">Credentials</span>
         </div>
-
+        <p>Domain details, hosting credentials, email accounts, API keys, and passwords are delivered securely in your handover document.</p>
+        <div class="ap-card-note">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <p>Your credentials are shared privately. Never store passwords in unsecured locations.</p>
+        </div>
+        ${credentialsLink}
       </div>
     `;
-
-    container.querySelectorAll('.ap-proj-sub-header').forEach((header) => {
-      header.addEventListener('click', () => {
-        const sub = header.closest('.ap-proj-sub');
-        const isOpen = sub.classList.contains('is-open');
-        sub.classList.toggle('is-open', !isOpen);
-        header.setAttribute('aria-expanded', String(!isOpen));
-      });
-    });
   }
 
   // ── Logout ────────────────────────────────────────────────────────────────
@@ -489,57 +385,10 @@ window.TrellisAccountPanel = (function () {
     }
   }
 
-  // ── Drag ─────────────────────────────────────────────────────────────────
-
-  function onDrag(e) {
-    if (!isDragging) return;
-    const deltaX = e.clientX - dragStartX;
-    const deltaY = e.clientY - dragStartY;
-    lastDeltaX = deltaX;
-
-    const newTop = panelStartTop + deltaY;
-    const maxTop = window.innerHeight - panel.offsetHeight;
-    panel.style.top = Math.max(0, Math.min(newTop, maxTop)) + 'px';
-
-    if (deltaX < 0) {
-      panel.style.transform = `translateX(${deltaX}px)`;
-    } else {
-      panel.style.transform = 'none';
-    }
-  }
-
-  function onDragEnd() {
-    isDragging = false;
-    document.removeEventListener('mousemove', onDrag);
-    document.removeEventListener('mouseup', onDragEnd);
-
-    if (lastDeltaX <= DISMISS_THRESHOLD) {
-      closePanel();
-    } else {
-      panel.style.transform = 'none';
-    }
-  }
-
-  function initDrag(dragHandle) {
-    dragHandle.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      lastDeltaX = 0;
-      dragStartX = e.clientX;
-      dragStartY = e.clientY;
-      panelStartTop = panel.getBoundingClientRect().top;
-      panel.classList.add('is-dragged');
-      panel.style.top = panelStartTop + 'px';
-      document.addEventListener('mousemove', onDrag);
-      document.addEventListener('mouseup', onDragEnd);
-      e.preventDefault();
-    });
-  }
-
   // ── Build ─────────────────────────────────────────────────────────────────
 
   function build() {
     panel = qs('#accountPanel');
-    tab   = qs('#accountPanelTab');
     if (!panel) return;
 
     backdrop = document.createElement('div');
@@ -548,31 +397,13 @@ window.TrellisAccountPanel = (function () {
     document.body.appendChild(backdrop);
     backdrop.addEventListener('click', closePanel);
 
-    const dragHandle = panel.querySelector('#accountPanelDrag');
-    const closeBtn   = panel.querySelector('#accountPanelClose');
+    const closeBtn = qs('#accountPanelClose');
+    if (closeBtn) closeBtn.addEventListener('click', closePanel);
 
-    if (dragHandle) initDrag(dragHandle);
-    if (closeBtn)   closeBtn.addEventListener('click', closePanel);
-    if (tab)        tab.addEventListener('click', openPanel);
-
-    // Accordion section headers
-    const sections = [
-      { id: 'apSectionProfile',       key: 'profile' },
-      { id: 'apSectionProjects',      key: 'projects' },
-      { id: 'apSectionNotifications', key: 'notifications' },
-      { id: 'apSectionBilling',       key: 'billing' },
-    ];
-
-    sections.forEach(({ id, key }) => {
-      const sectionEl = qs('#' + id);
-      if (!sectionEl) return;
-      const header = sectionEl.querySelector('.ap-section-header');
-      if (header) {
-        header.addEventListener('click', () => toggleSection(sectionEl, key));
-      }
+    qsa('.ap-tab', panel).forEach((btn) => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.apTab));
     });
 
-    // Profile save
     const saveBtn = qs('#saveProfileBtn');
     if (saveBtn) saveBtn.addEventListener('click', saveProfile);
 

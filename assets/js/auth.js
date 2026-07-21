@@ -54,13 +54,25 @@ window.TrellisAuth = (function () {
     return cachedSession && cachedSession.authenticated ? cachedSession.customer : null;
   }
 
+  function initials(name) {
+    const parts = (name || '').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return '?';
+    return parts.length === 1
+      ? parts[0][0].toUpperCase()
+      : (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+
   function updateNavUI() {
     const slot = qs('#navAuthSlot');
     if (!slot) return;
     if (isAuthenticated()) {
       const customer = getCustomer();
       const firstName = (customer.name || customer.email).split(' ')[0];
-      slot.innerHTML = `<button class="btn-ghost" id="navAccountBtn">${firstName}</button>`;
+      slot.innerHTML = `
+        <button class="nav-account-btn" id="navAccountBtn" aria-label="Open account menu">
+          <span class="nav-account-avatar">${initials(customer.name)}</span>
+          <span class="nav-account-name">${firstName}</span>
+        </button>`;
       const btn = qs('#navAccountBtn');
       if (btn) btn.addEventListener('click', () => {
         if (window.TrellisAccountPanel) window.TrellisAccountPanel.openPanel();
@@ -372,8 +384,12 @@ window.TrellisAuth = (function () {
     init();
   }
 
-  async function updatePassword(newPassword) {
+  async function updatePassword(currentPassword, newPassword) {
     const client = await ensureSupabase();
+    const customer = getCustomer();
+    if (!customer) throw new Error('You need to be logged in to change your password.');
+    const { error: verifyError } = await client.auth.signInWithPassword({ email: customer.email, password: currentPassword });
+    if (verifyError) throw new Error('Current password is incorrect.');
     const { error } = await client.auth.updateUser({ password: newPassword });
     if (error) throw new Error(error.message);
   }

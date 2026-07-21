@@ -13,6 +13,8 @@
   --color-white: #FFFFFF;
   --color-error: #C0392B;
   --color-warning: #B8860B;
+  --color-green-tint: var(--color-green-100);
+  --color-green-hover: var(--color-green-700);
 
   /* Type */
   --font-heading: 'Sora', system-ui, sans-serif;
